@@ -33,7 +33,7 @@ class AudioPage extends StatelessWidget {
                 backgroundColor: context.secondaryColor,
                 bottom: PreferredSize(
                   preferredSize: Size.fromHeight(
-                    context.mediaSize.height / 5,
+                    context.mediaHeight / 5,
                   ),
                   child: Row(
                     children: [
@@ -44,7 +44,7 @@ class AudioPage extends StatelessWidget {
                           bottom: 16,
                         ),
                         child: SizedBox.square(
-                          dimension: context.mediaSize.height / 6,
+                          dimension: context.mediaHeight / 6,
                           child: CachedNetworkImage(
                             fit: BoxFit.cover,
                             imageUrl: audio.getImageUrl(

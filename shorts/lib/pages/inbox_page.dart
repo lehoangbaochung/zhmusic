@@ -14,7 +14,7 @@ class InboxPage extends StatelessWidget {
       body: Center(
         child: Text(
           'Trống',
-          style: Theme.of(context).textTheme.titleMedium,
+          style: context.textTheme.titleMedium,
         ),
       ),
     );

@@ -1,7 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
-import '/entities/music.dart';
+import 'artist.dart';
+import 'music.dart';
 
 abstract class YoutubeMusic extends Music {
   YoutubeMusic(
@@ -15,6 +16,9 @@ abstract class YoutubeMusic extends Music {
 
   @protected
   static final yt = YoutubeExplode();
+
+  /// Return the artists of this [YoutubeMusic] object.
+  Future<Iterable<Artist>> getArtists();
 
   String getShareUrl() => 'https://youtu.be/$id';
 

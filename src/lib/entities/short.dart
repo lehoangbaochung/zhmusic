@@ -52,6 +52,7 @@ class Short extends YoutubeMusic {
     return _audios = audios;
   }
  
+  @override
   Future<Iterable<Artist>> getArtists() async {
     final artists = <Artist>[];
     final artistsCollection = await musicCollection.getArtists();

@@ -9,8 +9,11 @@ const centeredLoadingIndicator = Center(
 );
 
 extension BuildContextX on BuildContext {
-  /// The size of the media in logical pixels.
-  Size get mediaSize => MediaQuery.of(this).size;
+  /// The width of the media in logical pixels.
+  double get mediaWidth => MediaQuery.of(this).size.width;
+
+  /// The height of the media in logical pixels.
+  double get mediaHeight => MediaQuery.of(this).size.height;
 
   /// Text with a color that contrasts with the card and canvas colors.
   TextTheme get textTheme => Theme.of(this).textTheme;
@@ -29,8 +32,8 @@ extension ColorX on Color {
   MaterialColor toMaterialColor() {
     final strengths = [.05];
     final swatch = <int, Color>{};
-    final int r = red, g = green, b = blue;
-    for (int i = 1; i < 10; i++) {
+    final r = red, g = green, b = blue;
+    for (var i = 1; i < 10; i++) {
       strengths.add(0.1 * i);
     }
     for (final strength in strengths) {

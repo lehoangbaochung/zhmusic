@@ -34,6 +34,7 @@ class Audio extends YoutubeMusic {
     };
   }
 
+  @override
   Future<Iterable<Artist>> getArtists() async {
     if (_artists is Iterable<Artist>) return _artists;
     final artists = <Artist>[];

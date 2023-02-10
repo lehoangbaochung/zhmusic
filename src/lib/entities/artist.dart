@@ -1,4 +1,4 @@
-import '/entities/qqmusic.dart';
+import 'tencent.dart';
 
 class Artist extends QQMusic {
   static final Map<String, Artist> _shelf = {};

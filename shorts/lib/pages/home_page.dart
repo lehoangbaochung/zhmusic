@@ -12,6 +12,8 @@ class HomePage extends StatelessWidget {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           elevation: 0,
+          titleSpacing: 60,
+          centerTitle: true,
           backgroundColor: const Color(0x44000000),
           title: TabBar(
             labelColor: context.primaryColor,
@@ -48,30 +50,26 @@ class HomePage extends StatelessWidget {
             Center(
               child: Text(
                 'Trống',
-                style: Theme.of(context).textTheme.titleMedium,
+                style: context.textTheme.titleMedium,
               ),
             ),
             FutureBuilder(
               future: musicCollection.getShorts(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return StatefulBuilder(
-                    builder: (context, setState) {
-                      final shorts = snapshot.requireData.toList()..shuffle();
-                      return RefreshIndicator(
-                        onRefresh: () async => setState(() {}),
-                        child: PageView.builder(
-                          scrollDirection: Axis.vertical,
-                          itemCount: shorts.length,
-                          itemBuilder: (context, index) {
-                            return ShortFullscreenTile(
-                              shorts.elementAt(index),
-                              extendBody: false,
-                            );
-                          },
-                        ),
-                      );
-                    },
+                  final shorts = snapshot.requireData.shuffled;
+                  return RefreshIndicator(
+                    onRefresh: () async {},
+                    child: PageView.builder(
+                      scrollDirection: Axis.vertical,
+                      itemCount: shorts.length,
+                      itemBuilder: (context, index) {
+                        return ShortFullscreenTile(
+                          shorts.elementAt(index),
+                          extendBody: false,
+                        );
+                      },
+                    ),
                   );
                 }
                 return centeredLoadingIndicator;

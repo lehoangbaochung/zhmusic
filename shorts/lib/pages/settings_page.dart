@@ -11,6 +11,18 @@ class SettingsPage extends StatelessWidget {
         centerTitle: true,
         title: const Text('Cài đặt'),
       ),
+      body: ListView(
+        children: const [
+          ListTile(
+            title: Text('Ngôn ngữ'),
+            trailing: Icon(Icons.arrow_forward_ios),
+          ),
+          ListTile(
+            title: Text('Chủ đề'),
+            trailing: Icon(Icons.arrow_forward_ios),
+          ),
+        ],
+      ),
     );
   }
 }

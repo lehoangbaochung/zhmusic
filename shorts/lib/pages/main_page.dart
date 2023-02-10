@@ -15,20 +15,20 @@ part 'home_page.dart';
 part 'inbox_page.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({super.key});
 
   @override
   State<MainPage> createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  var selectedTabIndex = 0;
+  var _selectedTabIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: IndexedStack(
-        index: selectedTabIndex,
+        index: _selectedTabIndex,
         children: const [
           HomePage(),
           ExplorePage(),
@@ -39,7 +39,7 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: BottomNavigationBar(
         showSelectedLabels: true,
         showUnselectedLabels: false,
-        currentIndex: selectedTabIndex,
+        currentIndex: _selectedTabIndex,
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(
@@ -60,11 +60,7 @@ class _MainPageState extends State<MainPage> {
             label: 'Cá nhân',
           ),
         ],
-        onTap: (index) {
-          setState(() {
-            selectedTabIndex = index;
-          });
-        },
+        onTap: (index) => setState(() => _selectedTabIndex = index),
       ),
     );
   }

@@ -15,7 +15,10 @@ class SearchPage extends SearchDelegate<String> {
       Visibility(
         visible: query.isNotEmpty,
         child: IconButton(
-          onPressed: () => query = empty,
+          onPressed: () {
+            query = empty;
+            showSuggestions(context);
+          },
           icon: const Icon(Icons.clear),
         ),
       ),
@@ -44,7 +47,7 @@ class SearchPage extends SearchDelegate<String> {
     return Center(
       child: Text(
         'Tìm kiếm tại đây',
-        style: Theme.of(context).textTheme.titleMedium,
+        style: context.textTheme.titleMedium,
       ),
     );
   }

@@ -21,7 +21,7 @@ class ShortGridTile extends StatelessWidget {
     return InkWell(
       child: CachedNetworkImage(
         fit: BoxFit.cover,
-        width: context.mediaSize.width / 3,
+        width: context.mediaWidth / 3,
         imageUrl: short.getImageUrl(
           YoutubeThumbnail.hqdefault,
         ),

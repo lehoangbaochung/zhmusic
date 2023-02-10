@@ -94,7 +94,7 @@ class _ShortFullscreenTileState extends State<ShortFullscreenTile> with SingleTi
                       children: [
                         Center(
                           child: AspectRatio(
-                            aspectRatio: context.mediaSize.aspectRatio,
+                            aspectRatio: 9 / 16,
                             child: VideoPlayer(
                               videoPlayerController,
                             ),
@@ -152,7 +152,7 @@ class _ShortFullscreenTileState extends State<ShortFullscreenTile> with SingleTi
                                 },
                               );
                             }
-                            return const SizedBox.shrink();
+                            return emptyPlaceholder;
                           },
                         ),
                       ],
@@ -182,7 +182,7 @@ class _ShortFullscreenTileState extends State<ShortFullscreenTile> with SingleTi
                   children: [
                     // action buttons
                     SizedBox(
-                      height: MediaQuery.of(context).size.height / 2,
+                      height: context.mediaHeight / 2,
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.end,
@@ -278,7 +278,7 @@ class _ShortFullscreenTileState extends State<ShortFullscreenTile> with SingleTi
                           ),
                           TextButton(
                             onPressed: () async {
-                              Share.share(
+                              await Share.share(
                                 short.getShareUrl(),
                               );
                             },
@@ -356,16 +356,16 @@ class _ShortFullscreenTileState extends State<ShortFullscreenTile> with SingleTi
                             ),
                           );
                         } else {
+                          final audio = audios.random;
                           return ListTile(
                             selected: true,
                             title: Text(
-                              audios.first.getName(MusicLanguage.vi),
+                              audio.getName(MusicLanguage.vi),
                               textAlign: TextAlign.right,
                               overflow: TextOverflow.ellipsis,
-                              
                             ),
                             subtitle: FutureBuilder(
-                              future: audios.first.getArtists(),
+                              future: audio.getArtists(),
                               builder: (context, snapshot) {
                                 if (snapshot.hasData) {
                                   final artists = snapshot.requireData;
@@ -384,7 +384,7 @@ class _ShortFullscreenTileState extends State<ShortFullscreenTile> with SingleTi
                                 curve: Curves.linear,
                               ),
                               child: CachedNetworkImage(
-                                imageUrl: audios.first.getImageUrl(),
+                                imageUrl: audio.getImageUrl(),
                                 imageBuilder: (_, imageProvider) {
                                   return CircleAvatar(
                                     backgroundImage: imageProvider,
@@ -397,7 +397,7 @@ class _ShortFullscreenTileState extends State<ShortFullscreenTile> with SingleTi
                                 },
                               ),
                             ),
-                            onTap: () => AppPages.push(context, AppPages.audio.path, audios.first),
+                            onTap: () => AppPages.push(context, AppPages.audio.path, audio),
                           );
                         }
                       },

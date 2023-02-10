@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:src/exports/entities.dart';
@@ -19,6 +20,13 @@ void main() async {
       routerConfig: AppPages.routerConfig,
       theme: ThemeData(
         primarySwatch: AppColors.primaryColor.toMaterialColor(),
+      ),
+      scrollBehavior: const ScrollBehavior().copyWith(
+        dragDevices: {
+          PointerDeviceKind.touch,
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.trackpad,
+        },
       ),
     ),
   );

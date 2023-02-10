@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shorts/app/app_colors.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/extensions.dart';
 import 'package:src/exports/widgets.dart';
 
+import '/app/app_colors.dart';
 import '/app/app_pages.dart';
 import '/widgets/short_grid_tile.dart';
 
@@ -34,7 +34,7 @@ class ArtistPage extends StatelessWidget {
                 SliverAppBar(
                   stretch: true,
                   floating: true,
-                  expandedHeight: context.mediaSize.height / 2,
+                  expandedHeight: context.mediaHeight / 2,
                   flexibleSpace: FlexibleSpaceBar(
                     background: ColoredBox(
                       color: AppColors.primaryColor.withOpacity(0.8),
@@ -47,13 +47,13 @@ class ArtistPage extends StatelessWidget {
                             imageBuilder: (_, imageProvider) {
                               return CircleAvatar(
                                 backgroundImage: imageProvider,
-                                radius: context.mediaSize.height / 12,
+                                radius: context.mediaHeight / 12,
                               );
                             },
                             placeholder: (_, __) {
                               return CircleAvatar(
                                 backgroundImage: MusicType.short.image.image,
-                                radius: context.mediaSize.height / 12,
+                                radius: context.mediaHeight / 12,
                               );
                             },
                           ),

@@ -5,7 +5,7 @@ import 'package:src/exports/entities.dart';
 class ShortPage extends StatelessWidget {
   const ShortPage({
     super.key,
-    required this.index,
+    this.index = 0,
     required this.shorts,
   });
 

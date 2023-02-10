@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:src/configs/firebase_options.dart';
 
+import '/configs/firebase_options.dart';
 import 'entities.dart';
 
 final musicCollection = _MusicCollection();

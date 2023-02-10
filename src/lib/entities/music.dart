@@ -40,9 +40,14 @@ enum MusicLanguage {
 enum MusicType {
   audio,
   lyric,
-  short;
+  short,
+  television;
 
-  String get title => 'Zither Harp Music ($name)';
+  String get title {
+    final last = name.substring(1);
+    final first = name.substring(0, 1).toUpperCase();
+    return 'Zither Harp Music (${first + last})';
+  }
 
   Image get image {
     return Image.asset(
@@ -60,6 +65,8 @@ enum MusicType {
         return Colors.blueGrey;
       case MusicType.short:
         return const Color(0xFFfeafc7);
+      case MusicType.television:
+        return Colors.green;
     }
   }
 }
