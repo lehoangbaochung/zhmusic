@@ -36,7 +36,6 @@ class Audio extends YoutubeMusic {
 
   @override
   Future<Iterable<Artist>> getArtists() async {
-    if (_artists is Iterable<Artist>) return _artists;
     final artists = <Artist>[];
     final artistsCollection = await musicCollection.getArtists();
     for (final id in _artists) {
@@ -46,6 +45,6 @@ class Audio extends YoutubeMusic {
         ),
       );
     }
-    return _artists = artists;
+    return artists;
   }
 }

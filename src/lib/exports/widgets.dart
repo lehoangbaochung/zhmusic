@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
 /// A box that will become as small as its parent allows.
+const placeholder = SizedBox.shrink();
+
+/// A box that will become as small as its parent allows.
 const emptyPlaceholder = SizedBox.shrink();
 
 /// A circular progress indicator that centers its parent.
@@ -9,6 +12,9 @@ const centeredLoadingIndicator = Center(
 );
 
 extension BuildContextX on BuildContext {
+  /// The aspect ratio of this media.
+  double get mediaRatio => MediaQuery.of(this).size.aspectRatio;
+
   /// The width of the media in logical pixels.
   double get mediaWidth => MediaQuery.of(this).size.width;
 

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/extensions.dart';
 import 'package:src/exports/repositories.dart';
+import 'package:video_player/video_player.dart';
 
 import '/pages/horizontal/horizontal_page.dart';
 
