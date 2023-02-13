@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:src/exports/widgets.dart';
 
 import '/pages/horizontal/horizontal_widget.dart';
@@ -25,42 +26,22 @@ class HorizontalMenuDialog extends StatelessWidget {
           HorizontalOutlinedButton.large(
             icon: Icons.account_circle,
             label: 'Tài khoản',
-            onPressed: () async {
-              await showModalBottomSheet(
-                context: context,
-                builder: (_) => const HorizontalAccountDialog(),
-              );
-            },
+            onPressed: () => context.read<HorizontalDialogCubit>().push(HorizontalDialogType.account),
           ),
           HorizontalOutlinedButton.large(
             icon: Icons.how_to_vote,
             label: 'Bình chọn',
-            onPressed: () async {
-              await showModalBottomSheet(
-                context: context,
-                builder: (_) => const HorizontalVoteDialog(),
-              );
-            },
+            onPressed: () => context.read<HorizontalDialogCubit>().push(HorizontalDialogType.vote),
           ),
           HorizontalOutlinedButton.large(
             icon: Icons.chat,
             label: 'Trò chuyện',
-            onPressed: () async {
-              await showModalBottomSheet(
-                context: context,
-                builder: (_) => const HorizontalChatDialog(),
-              );
-            },
+            onPressed: () => context.read<HorizontalDialogCubit>().push(HorizontalDialogType.chat),
           ),
           HorizontalOutlinedButton.large(
             icon: Icons.theater_comedy,
             label: 'Nhãn dán',
-            onPressed: () async {
-              await showModalBottomSheet(
-                context: context,
-                builder: (_) => const HorizontalIconDialog(),
-              );
-            },
+            onPressed: () => context.read<HorizontalDialogCubit>().push(HorizontalDialogType.icon),
           ),
           HorizontalOutlinedButton.large(
             icon: Icons.color_lens,
@@ -146,24 +127,19 @@ class HorizontalMenuDialog extends StatelessWidget {
             },
           ),
           HorizontalOutlinedButton.large(
+            icon: Icons.volume_up,
+            label: 'Âm lượng',
+            onPressed: () => context.read<HorizontalDialogCubit>().push(HorizontalDialogType.volume),
+          ),
+          HorizontalOutlinedButton.large(
             icon: Icons.help,
             label: 'Hướng dẫn',
-            onPressed: () async {
-              await showModalBottomSheet(
-                context: context,
-                builder: (_) => const HorizontalHelpDialog(),
-              );
-            },
+            onPressed: () => context.read<HorizontalDialogCubit>().push(HorizontalDialogType.help),
           ),
           HorizontalOutlinedButton.large(
             icon: Icons.info,
             label: 'Giới thiệu',
-            onPressed: () async {
-              await showModalBottomSheet(
-                context: context,
-                builder: (_) => const HorizontalAboutDialog(),
-              );
-            },
+            onPressed: () => context.read<HorizontalDialogCubit>().push(HorizontalDialogType.about),
           ),
         ],
       ),

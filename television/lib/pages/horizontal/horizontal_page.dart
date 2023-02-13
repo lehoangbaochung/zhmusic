@@ -19,6 +19,7 @@ class HorizontalPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final playlist = context.mainState.playlist;
     final playingSong = context.mainState.playingSong;
+    final controller = context.mainState.videoPlayerController;
     return BlocBuilder<HorizontalCubit, HorizontalState>(
       builder: (context, state) {
         return Scaffold(
@@ -30,24 +31,18 @@ class HorizontalPage extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: context.songBarHeight),
                 child: Center(
                   child: FutureBuilder(
-                    future: playingSong.getStreamUrl(audioOnly: false),
+                    future: controller.play(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
-                        final controller = VideoPlayerController.network(snapshot.requireData)
-                          ..initialize()
-                          ..play();
-                        controller.addListener(() {
-                          if (!controller.value.isPlaying && controller.value.isInitialized && controller.value.duration == Duration.zero) {
-                            context.mainCubit.next();
-                            controller.removeListener(() {});
-                          }
-                        });
                         return AspectRatio(
                           aspectRatio: controller.value.aspectRatio,
                           child: VideoPlayer(controller),
                         );
                       }
-                      return centeredLoadingIndicator;
+                      return AspectRatio(
+                        aspectRatio: controller.value.aspectRatio,
+                        child: VideoPlayer(controller),
+                      );
                     },
                   ),
                 ),
@@ -215,7 +210,10 @@ class HorizontalPage extends StatelessWidget {
                             onPressed: () async {
                               await showModalBottomSheet(
                                 context: context,
-                                builder: (_) => const HorizontalMenuDialog(),
+                                builder: (_) => BlocProvider(
+                                  child: const HorizontalDialog(),
+                                  create: (_) => HorizontalDialogCubit(),
+                                ),
                               );
                             },
                           ),
