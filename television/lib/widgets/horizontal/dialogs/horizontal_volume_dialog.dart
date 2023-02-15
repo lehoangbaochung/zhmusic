@@ -5,7 +5,7 @@ class HorizontalVolumeDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final volume = context.mainState.videoPlayerController.value.volume;
+    final volume = 0.3;
     return HorizontalBottomSheet.normal(
       leading: HorizontalElevatedButton(
         icon: Icons.volume_up,
@@ -20,7 +20,7 @@ class HorizontalVolumeDialog extends StatelessWidget {
       child: Slider(
         value: volume,
         label: '${volume * 100}',
-        onChanged: (value) => context.mainState.videoPlayerController.setVolume(value),
+        onChanged: (value) {},
       ),
     );
   }

@@ -14,7 +14,7 @@ class HorizontalAboutDialog extends StatelessWidget {
       trailing: HorizontalElevatedButton(
         icon: Icons.arrow_back,
         label: 'Quay lại',
-        onPressed: () => context.dialogCubit.pop(),
+        onPressed: () => Navigator.pop(context),
       ),
       child: Text(
         'Do Zither Harp Music tự động tạo',

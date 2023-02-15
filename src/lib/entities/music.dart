@@ -40,6 +40,7 @@ enum MusicLanguage {
 enum MusicType {
   audio,
   lyric,
+  music,
   short,
   television;
 
@@ -67,6 +68,8 @@ enum MusicType {
         return const Color(0xFFfeafc7);
       case MusicType.television:
         return Colors.green;
+      case MusicType.music:
+        return Colors.white;
     }
   }
 }

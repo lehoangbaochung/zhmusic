@@ -5,6 +5,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/repositories.dart';
 import 'package:src/exports/widgets.dart';
+import 'package:television/app/app_storage.dart';
 
 import '/app/app_colors.dart';
 import 'pages/main/main_page.dart';
@@ -13,8 +14,9 @@ void main() async {
   FlutterNativeSplash.preserve(
     widgetsBinding: WidgetsFlutterBinding.ensureInitialized(),
   );
+  await appStorage.ensureInitialized();
   await musicCollection.ensureInitialized();
-  final state = await MainState.initialize(audioOnly: true);
+  final state = await MainState.initial(audioOnly: false);
   runApp(
     BlocProvider(
       create: (_) => MainCubit(state),

@@ -4,9 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/extensions.dart';
 import 'package:src/exports/widgets.dart';
-import 'package:video_player/video_player.dart';
 
-import '/widgets/horizontal/dialogs/horizontal_menu_dialog.dart';
 import 'horizontal_widget.dart';
 
 part 'horizontal_cubit.dart';
@@ -17,11 +15,10 @@ class HorizontalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final playlist = context.mainState.playlist;
-    final playingSong = context.mainState.playingSong;
-    final controller = context.mainState.videoPlayerController;
     return BlocBuilder<HorizontalCubit, HorizontalState>(
       builder: (context, state) {
+        final playlist = context.mainState.playlist;
+        final playingSong = context.mainState.playingSong;
         return Scaffold(
           backgroundColor: Colors.black,
           body: Stack(
@@ -30,20 +27,10 @@ class HorizontalPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: context.songBarHeight),
                 child: Center(
-                  child: FutureBuilder(
-                    future: controller.play(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return AspectRatio(
-                          aspectRatio: controller.value.aspectRatio,
-                          child: VideoPlayer(controller),
-                        );
-                      }
-                      return AspectRatio(
-                        aspectRatio: controller.value.aspectRatio,
-                        child: VideoPlayer(controller),
-                      );
-                    },
+                  child: Image.network(
+                    playingSong.getImageUrl(
+                      YoutubeThumbnail.maxresdefault,
+                    ),
                   ),
                 ),
               ),
@@ -58,9 +45,8 @@ class HorizontalPage extends StatelessWidget {
                       children: [
                         SizedBox.square(
                           dimension: context.songBarHeight,
-                          child: MusicType.television.image,
+                          child: MusicType.music.image,
                         ),
-                        const SizedBox(height: 4),
                         const Text(
                           'Trực tiếp',
                           style: TextStyle(
@@ -71,7 +57,6 @@ class HorizontalPage extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(width: 12),
                     const Text(
                       'TV',
                       style: TextStyle(
@@ -89,12 +74,7 @@ class HorizontalPage extends StatelessWidget {
                 children: [
                   // playing song
                   TextButton(
-                    onPressed: () async {
-                      await showModalBottomSheet(
-                        context: context,
-                        builder: (_) => HorizontalSongDialog(playingSong, playlist[playingSong]!),
-                      );
-                    },
+                    onPressed: () async {},
                     child: FutureBuilder(
                       future: Future.sync(() async {
                         final artists = await playingSong.getArtists();
@@ -138,6 +118,8 @@ class HorizontalPage extends StatelessWidget {
                       TextButton(
                         onPressed: () {
                           showModalBottomSheet(
+                            elevation: 0,
+                            backgroundColor: Colors.transparent,
                             context: context,
                             builder: (context) {
                               return HorizontalBottomSheet.normal(
@@ -209,6 +191,8 @@ class HorizontalPage extends StatelessWidget {
                             icon: MusicType.audio.image,
                             onPressed: () async {
                               await showModalBottomSheet(
+                                elevation: 0,
+                                barrierColor: Colors.transparent,
                                 context: context,
                                 builder: (_) => BlocProvider(
                                   child: const HorizontalDialog(),
@@ -235,6 +219,8 @@ class HorizontalPage extends StatelessWidget {
                                           child: TextButton(
                                             onPressed: () async {
                                               await showModalBottomSheet(
+                                                elevation: 0,
+                                                barrierColor: Colors.transparent,
                                                 context: context,
                                                 builder: (_) => HorizontalSongDialog(song as Audio, playlist[song]!),
                                               );
@@ -309,6 +295,8 @@ class HorizontalPage extends StatelessWidget {
                                       text: snapshot.requireData.join('; '),
                                       onPressed: () async {
                                         await showModalBottomSheet(
+                                          elevation: 0,
+                                          barrierColor: Colors.transparent,
                                           context: context,
                                           builder: (_) {
                                             return HorizontalBottomSheet.normal(
@@ -330,6 +318,8 @@ class HorizontalPage extends StatelessWidget {
                                                   return IconButton(
                                                     onPressed: () async {
                                                       await showModalBottomSheet(
+                                                        elevation: 0,
+                                                        barrierColor: Colors.transparent,
                                                         context: context,
                                                         builder: (_) => HorizontalSongDialog(song as Audio, playlist[song]!),
                                                       );

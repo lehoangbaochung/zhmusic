@@ -5,6 +5,7 @@ import 'package:marquee/marquee.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/extensions.dart';
 import 'package:src/exports/widgets.dart';
+import 'package:television/app/app_storage.dart';
 import 'package:television/widgets/horizontal/dialogs/horizontal_menu_dialog.dart';
 
 import '/app/app_colors.dart';
@@ -20,22 +21,29 @@ part '../../widgets/horizontal/dialogs/horizontal_icon_dialog.dart';
 part '../../widgets/horizontal/dialogs/horizontal_song_dialog.dart';
 part '../../widgets/horizontal/dialogs/horizontal_vote_dialog.dart';
 part '../../widgets/horizontal/dialogs/horizontal_volume_dialog.dart';
+part '../../widgets/horizontal/dialogs/horizontal_favorite_dialog.dart';
 part '../../widgets/horizontal/horizontal_bottom_sheet.dart';
 part '../../widgets/horizontal/horizontal_marquee_text.dart';
 
 extension HorizontalWidgetX on BuildContext {
-  MainCubit get mainCubit => read<MainCubit>();
+  MainCubit get mainCubit => watch<MainCubit>();
 
-  MainState get mainState => watch<MainCubit>().state;
-
-  HorizontalDialogCubit get dialogCubit => read<HorizontalDialogCubit>();
-  HorizontalDialogState get dialogState => watch<HorizontalDialogState>();
+  MainState get mainState => mainCubit.state;
 
   double get songBarHeight => mediaHeight * 0.18;
 
   double get songTextHeight => songBarHeight / 3;
 
   double get marqueeTextHeight => songBarHeight / 4.5;
+
+  void showHorizontalDialog(Widget dialog) async {
+    await showModalBottomSheet(
+      context: this,
+      builder: (_) => dialog,
+      elevation: 0,
+      barrierColor: Colors.transparent,
+    );
+  }
 }
 
 const songTextStyle = TextStyle(

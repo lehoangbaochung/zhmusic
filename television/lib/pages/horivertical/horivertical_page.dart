@@ -10,14 +10,14 @@ class HoriverticalState {
 
 }
 
-// class HoriverticalPage extends StatelessWidget {
-//   const HoriverticalPage({super.key});
+class HoriverticalPage extends StatelessWidget {
+  const HoriverticalPage({super.key});
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocProvider(
-//       create: (_) => HorizontalCubit(),
-//       child: const HorizontalPage(),
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => HorizontalCubit(),
+      child: const HorizontalPage(),
+    );
+  }
+}
