@@ -46,48 +46,64 @@ class HorizontalOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return type == HorizontalOutlinedButtonType.small
-        ? OutlinedButton.icon(
-            onPressed: onPressed,
-            style: OutlinedButton.styleFrom(
-              padding: EdgeInsets.zero,
-              shape: const RoundedRectangleBorder(),
-              fixedSize: Size.fromWidth(
-                context.songBarHeight,
-              ),
-            ),
-            icon: SizedBox(
-              height: context.marqueeTextHeight,
-              child: Icon(icon),
-            ),
-            label: Text(label),
-          )
-        : OutlinedButton(
-            onPressed: onPressed,
-            style: ButtonStyle(
-              shape: const MaterialStatePropertyAll(
-                RoundedRectangleBorder(),
-              ),
-              fixedSize: MaterialStatePropertyAll(
-                Size.fromWidth(
+    return Tooltip(
+      message: label,
+      child: type == HorizontalOutlinedButtonType.small
+          ? OutlinedButton.icon(
+              onPressed: onPressed,
+              style: OutlinedButton.styleFrom(
+                padding: EdgeInsets.zero,
+                shape: const RoundedRectangleBorder(),
+                fixedSize: Size.fromWidth(
                   context.songBarHeight,
                 ),
               ),
-            ),
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(icon, size: 36),
-                  Text(
-                    label,
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontSize: 28),
+              icon: SizedBox(
+                height: context.marqueeTextHeight,
+                child: Icon(
+                  icon,
+                  size: context.mediaHeight / 36,
+                ),
+              ),
+              label: Text(
+                label,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.fade,
+                style: context.bodyTextStyle,
+              ),
+            )
+          : OutlinedButton(
+              onPressed: onPressed,
+              style: ButtonStyle(
+                shape: const MaterialStatePropertyAll(
+                  RoundedRectangleBorder(),
+                ),
+                fixedSize: MaterialStatePropertyAll(
+                  Size.fromWidth(
+                    context.songBarHeight,
                   ),
-                ],
+                ),
+              ),
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      icon,
+                      size: context.iconSize,
+                    ),
+                    Text(
+                      label,
+                      textAlign: TextAlign.center,
+                      overflow: TextOverflow.fade,
+                      style: TextStyle(
+                        fontSize: context.mediaHeight / 36,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-          );
+    );
   }
 }

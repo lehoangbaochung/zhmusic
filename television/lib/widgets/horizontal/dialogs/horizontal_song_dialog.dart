@@ -1,4 +1,4 @@
-part of '/pages/horizontal/horizontal_widget.dart';
+part of '/pages/horizontal/horizontal_dialog.dart';
 
 class HorizontalSongDialog extends StatelessWidget {
   const HorizontalSongDialog(
@@ -12,7 +12,7 @@ class HorizontalSongDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HorizontalBottomSheet.expand(
+    return HorizontalDialog.expand(
       expandLeading: HorizontalOutlinedButton.small(
         label: song.id,
         icon: Icons.code,
@@ -33,11 +33,7 @@ class HorizontalSongDialog extends StatelessWidget {
               child: Text(
                 artists.isEmpty ? song.getName(MusicLanguage.vi) : '${song.getName(MusicLanguage.vi)} - ${artists.getName(MusicLanguage.vi)}',
                 textAlign: TextAlign.center,
-                style: const TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
+                style: context.songTextStyle,
               ),
             );
           }
@@ -62,7 +58,7 @@ class HorizontalSongDialog extends StatelessWidget {
               label: 'Bình chọn',
               onPressed: () {
                 Navigator.pop(context);
-                context.mainCubit.vote(song);
+                context.playerCubit.vote(song);
               },
             ),
           ),

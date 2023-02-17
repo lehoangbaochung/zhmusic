@@ -1,5 +1,26 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
-import 'package:television/pages/horizontal/horizontal_widget.dart';
+import 'package:src/exports/entities.dart';
+import 'package:src/exports/extensions.dart';
+import 'package:src/exports/widgets.dart';
+
+import '/app/app_colors.dart';
+import '/app/app_storage.dart';
+import '/pages/horivertical/horivertical_widget.dart';
+import '/pages/horizontal/horizontal_widget.dart';
+
+part '../../widgets/horizontal/dialogs/horizontal_about_dialog.dart';
+part '../../widgets/horizontal/dialogs/horizontal_account_dialog.dart';
+part '../../widgets/horizontal/dialogs/horizontal_chat_dialog.dart';
+part '../../widgets/horizontal/dialogs/horizontal_favorite_dialog.dart';
+part '../../widgets/horizontal/dialogs/horizontal_help_dialog.dart';
+part '../../widgets/horizontal/dialogs/horizontal_icon_dialog.dart';
+part '../../widgets/horizontal/dialogs/horizontal_menu_dialog.dart';
+part '../../widgets/horizontal/dialogs/horizontal_player_dialog.dart';
+part '../../widgets/horizontal/dialogs/horizontal_playlist_dialog.dart';
+part '../../widgets/horizontal/dialogs/horizontal_song_dialog.dart';
+part '../../widgets/horizontal/dialogs/horizontal_volume_dialog.dart';
+part '../../widgets/horizontal/dialogs/horizontal_vote_dialog.dart';
 
 class HorizontalDialog extends StatelessWidget {
   const HorizontalDialog._({

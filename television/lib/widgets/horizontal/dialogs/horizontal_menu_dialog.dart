@@ -1,14 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:src/exports/widgets.dart';
-
-import '/pages/horizontal/horizontal_widget.dart';
+part of '/pages/horizontal/horizontal_dialog.dart';
 
 class HorizontalMenuDialog extends StatelessWidget {
   const HorizontalMenuDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return HorizontalBottomSheet.normal(
+    return HorizontalDialog.normal(
       leading: HorizontalElevatedButton(
         icon: Icons.menu,
         label: 'Menu',
@@ -63,7 +60,7 @@ class HorizontalMenuDialog extends StatelessWidget {
             label: 'Chủ đề',
             onPressed: () async {
               context.showHorizontalDialog(
-                HorizontalBottomSheet.normal(
+                HorizontalDialog.normal(
                   leading: HorizontalElevatedButton(
                     icon: Icons.color_lens,
                     label: 'Chủ đề',
@@ -89,7 +86,6 @@ class HorizontalMenuDialog extends StatelessWidget {
                           label: 'Sáng',
                           onPressed: () {
                             Navigator.pop(context);
-                            context.mainCubit.setThemeMode(true);
                           },
                         ),
                       ),
@@ -99,7 +95,6 @@ class HorizontalMenuDialog extends StatelessWidget {
                           label: 'Tối',
                           onPressed: () {
                             Navigator.pop(context);
-                            context.mainCubit.setThemeMode(false);
                           },
                         ),
                       ),
@@ -114,24 +109,7 @@ class HorizontalMenuDialog extends StatelessWidget {
             label: 'Yêu thích',
             onPressed: () async {
               context.showHorizontalDialog(
-                HorizontalBottomSheet.normal(
-                  leading: HorizontalElevatedButton(
-                    icon: Icons.favorite,
-                    label: 'Yêu thích',
-                    onPressed: () {},
-                  ),
-                  trailing: HorizontalElevatedButton(
-                    icon: Icons.arrow_back,
-                    label: 'Quay lại',
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  child: Text(
-                    'Hiện không có bài hát nào trong danh sách này',
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: context.textTheme.headlineMedium,
-                  ),
-                ),
+                const HorizontalFavoriteDialog(),
               );
             },
           ),

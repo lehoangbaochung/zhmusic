@@ -1,11 +1,11 @@
-part of '/pages/horizontal/horizontal_widget.dart';
+part of '/pages/horizontal/horizontal_dialog.dart';
 
 class HorizontalFavoriteDialog extends StatelessWidget {
   const HorizontalFavoriteDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return HorizontalBottomSheet.normal(
+    return HorizontalDialog.normal(
       leading: HorizontalElevatedButton(
         icon: Icons.favorite,
         label: 'Yêu thích',
@@ -26,7 +26,7 @@ class HorizontalFavoriteDialog extends StatelessWidget {
                     'Hiện không có bài hát nào trong danh sách này',
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
-                    style: context.textTheme.headlineSmall,
+                    style: context.labelTextStyle,
                   )
                 : ListView.builder(
                     scrollDirection: Axis.horizontal,

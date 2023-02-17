@@ -1,4 +1,4 @@
-part of '/pages/horizontal/horizontal_widget.dart';
+part of '/pages/horizontal/horizontal_dialog.dart';
 
 class HorizontalVoteDialog extends StatelessWidget {
   const HorizontalVoteDialog({super.key});
@@ -6,9 +6,9 @@ class HorizontalVoteDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final syntaxEditingController = TextEditingController();
-    final library = context.mainState.library.shuffled;
+    final library = context.playerState.library.shuffled;
     final songs = ValueNotifier(library);
-    return HorizontalBottomSheet.expand(
+    return HorizontalDialog.expand(
       expandLeading: HorizontalOutlinedButton.small(
         label: 'Từ khóa',
         icon: Icons.keyboard,
@@ -28,9 +28,6 @@ class HorizontalVoteDialog extends StatelessWidget {
       ),
       expandChild: TextField(
         controller: syntaxEditingController,
-        style: const TextStyle(
-          fontWeight: FontWeight.bold,
-        ),
         onSubmitted: (_) {
           songs.value = library.where(
             (song) {
@@ -39,23 +36,44 @@ class HorizontalVoteDialog extends StatelessWidget {
             },
           );
         },
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: context.mediaHeight / 48,
+        ),
         decoration: InputDecoration(
           border: const OutlineInputBorder(
             borderRadius: BorderRadius.zero,
           ),
-          contentPadding: const EdgeInsets.symmetric(
-            horizontal: 8,
+          contentPadding: EdgeInsets.symmetric(
+            horizontal: context.mediaWidth / 64,
+          ),
+          prefixIcon: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: context.mediaWidth / 256,
+            ),
+            child: Icon(
+              Icons.edit,
+              size: context.iconSize,
+            ),
+          ),
+          suffixIcon: Padding(
+            padding: EdgeInsets.symmetric(
+              horizontal: context.mediaWidth / 256,
+            ),
+            child: InkWell(
+              onTap: () {
+                songs.value = library;
+                syntaxEditingController.clear();
+              },
+              child: Icon(
+                Icons.clear,
+                size: context.iconSize,
+              ),
+            ),
           ),
           hintMaxLines: 1,
-          prefixIcon: const Icon(Icons.edit),
-          suffixIcon: IconButton(
-            onPressed: () {
-              songs.value = library;
-              syntaxEditingController.clear();
-            },
-            icon: const Icon(Icons.clear),
-          ),
-          hintText: 'Soạn theo cú pháp bình chọn hoặc nhập tên bài hát tại đây... (VD: ZHM Là gió thổi hoặc Là gió thổi)',
+          hintText: songs.value.random.getName(MusicLanguage.vi),
+          hintStyle: context.bodyTextStyle,
         ),
       ),
       leading: HorizontalElevatedButton(
@@ -76,7 +94,7 @@ class HorizontalVoteDialog extends StatelessWidget {
                   'Không tìm thấy bài hát nào phù hợp',
                   textAlign: TextAlign.center,
                   overflow: TextOverflow.ellipsis,
-                  style: context.textTheme.headlineMedium,
+                  style: context.labelTextStyle,
                 )
               : ListView.builder(
                   scrollDirection: Axis.horizontal,
@@ -97,9 +115,8 @@ class HorizontalVoteDialog extends StatelessWidget {
                         ),
                       ),
                       onTap: () async {
-                        await showModalBottomSheet(
-                          context: context,
-                          builder: (_) => HorizontalSongDialog(song, 0),
+                        context.showHorizontalDialog(
+                          HorizontalSongDialog(song, 0),
                         );
                       },
                     );

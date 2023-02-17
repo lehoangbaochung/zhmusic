@@ -1,11 +1,11 @@
-part of '/pages/horizontal/horizontal_widget.dart';
+part of '/pages/horizontal/horizontal_dialog.dart';
 
 class HorizontalAccountDialog extends StatelessWidget {
   const HorizontalAccountDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return HorizontalBottomSheet.normal(
+    return HorizontalDialog.normal(
       leading: HorizontalElevatedButton(
         icon: Icons.account_circle,
         label: 'Tài khoản',

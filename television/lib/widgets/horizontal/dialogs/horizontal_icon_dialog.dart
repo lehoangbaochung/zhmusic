@@ -1,11 +1,11 @@
-part of '/pages/horizontal/horizontal_widget.dart';
+part of '/pages/horizontal/horizontal_dialog.dart';
 
 class HorizontalIconDialog extends StatelessWidget {
   const HorizontalIconDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return HorizontalBottomSheet.normal(
+    return HorizontalDialog.normal(
       leading: HorizontalElevatedButton(
         icon: Icons.theater_comedy,
         label: 'Nhãn dán',

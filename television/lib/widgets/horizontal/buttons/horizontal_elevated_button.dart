@@ -14,30 +14,38 @@ class HorizontalElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ButtonStyle(
-        shape: const MaterialStatePropertyAll(
-          RoundedRectangleBorder(),
-        ),
-        fixedSize: MaterialStatePropertyAll(
-          Size.fromWidth(
-            context.songBarHeight,
+    return Tooltip(
+      message: label,
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ButtonStyle(
+          shape: const MaterialStatePropertyAll(
+            RoundedRectangleBorder(),
+          ),
+          fixedSize: MaterialStatePropertyAll(
+            Size.fromWidth(
+              context.songBarHeight,
+            ),
           ),
         ),
-      ),
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, size: 36),
-            AutoSizeText(
-              label,
-              textAlign: TextAlign.center,
-              overflow: TextOverflow.ellipsis,
-              style: const TextStyle(fontSize: 28),
-            ),
-          ],
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                icon,
+                size: context.iconSize,
+              ),
+              Text(
+                label,
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.fade,
+                style: TextStyle(
+                  fontSize: context.fontSize,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

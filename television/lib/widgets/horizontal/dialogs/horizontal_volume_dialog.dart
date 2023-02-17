@@ -1,12 +1,12 @@
-part of '/pages/horizontal/horizontal_widget.dart';
+part of '/pages/horizontal/horizontal_dialog.dart';
 
 class HorizontalVolumeDialog extends StatelessWidget {
   const HorizontalVolumeDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final volume = 0.3;
-    return HorizontalBottomSheet.normal(
+    const volume = 0.3;
+    return HorizontalDialog.normal(
       leading: HorizontalElevatedButton(
         icon: Icons.volume_up,
         label: 'Âm lượng',

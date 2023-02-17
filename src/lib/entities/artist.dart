@@ -1,6 +1,6 @@
 import 'tencent.dart';
 
-class Artist extends QQMusic {
+class Artist extends TencentMusic {
   static final Map<String, Artist> _shelf = {};
   
   const Artist._(
@@ -8,7 +8,7 @@ class Artist extends QQMusic {
     required super.name,
     required super.description,
     // ignore: unused_element
-    super.type = QQMusicType.artist,
+    super.type = TencentMusicType.artist,
   });
 
   factory Artist.fromJson(String id, Map<String, dynamic> fields) {

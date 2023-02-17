@@ -1,11 +1,11 @@
-part of '/pages/horizontal/horizontal_widget.dart';
+part of '/pages/horizontal/horizontal_dialog.dart';
 
 class HorizontalChatDialog extends StatelessWidget {
   const HorizontalChatDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return HorizontalBottomSheet.normal(
+    return HorizontalDialog.normal(
       leading: HorizontalElevatedButton(
         icon: Icons.chat,
         label: 'Trò chuyện',
@@ -20,7 +20,7 @@ class HorizontalChatDialog extends StatelessWidget {
         'Tính năng đang được phát triển trong thời gian tới',
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
-        style: context.textTheme.headlineMedium,
+        style: context.labelTextStyle,
       ),
     );
   }
