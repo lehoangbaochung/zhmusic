@@ -3,27 +3,31 @@ part of 'horivertical_page.dart';
 class HoriverticalCubit extends Cubit<HoriverticalState> {
   late AudioPlayer player;
 
-  HoriverticalCubit(HoriverticalState initialState) : super(initialState) {
+  HoriverticalCubit(super.initialState) {
     player = AudioPlayer()
       ..onPlayerComplete.listen((_) {
         next();
       });
-    initialState.playingSong
+    state.playingSong
         .getStreamUrl(
-      audioOnly: initialState.audioOnly,
+      audioOnly: state.audioOnly,
     )
         .then((url) {
-      player.play(UrlSource(url));
+      state.copyWith(
+        playingSong: state.playingSong,
+      );
+      player.play(
+        UrlSource(url),
+      );
     });
   }
 
   void _fill() {
     if (state.playlist.length >= 15) return;
     while (state.playlist.length < 15) {
-      final song = state.library.random;
-      if (!state.playlist.keys.any((e) => e.id == song.id)) {
-        state.playlist.addAll({song: 0});
-      }
+      final nextSong = state.library.random;
+      if (state.playlist.keys.contains(nextSong)) continue;
+      state.playlist.addAll({nextSong: 0});
     }
     emit(
       state.copyWith(
@@ -43,7 +47,9 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
     _fill();
     await player.play(
       UrlSource(
-        await nextSong.getStreamUrl(audioOnly: state.audioOnly),
+        await nextSong.getStreamUrl(
+          audioOnly: state.audioOnly,
+        ),
       ),
     );
   }
@@ -54,11 +60,9 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
     } else {
       state.playlist.addAll({song: 1});
     }
-    var sortedKeys = state.playlist.keys.toList()..sort((k1, k2) => state.playlist[k2]!.compareTo(state.playlist[k1]!));
-    var sortedMap = {for (var k in sortedKeys) k: state.playlist[k]!};
     emit(
       state.copyWith(
-        playlist: sortedMap,
+        playlist: state.playlist.sorted,
       ),
     );
     _fill();

@@ -7,7 +7,7 @@ extension AudioX on Audio {
   Future<Iterable<Short>> getShorts() async {
     if (_shorts.containsKey(id)) return Future.value(_shorts[id]);
     final shorts = <Short>[];
-    final shortsCollection = await musicCollection.getShorts();
+    final shortsCollection = await musicStorage.getShorts();
     for (final short in shortsCollection) {
       final audios = await short.getAudios();
       if (audios.any((audio) => audio.id == id)) {

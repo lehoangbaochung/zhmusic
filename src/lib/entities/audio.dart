@@ -37,7 +37,7 @@ class Audio extends YoutubeMusic {
   @override
   Future<Iterable<Artist>> getArtists() async {
     final artists = <Artist>[];
-    final artistsCollection = await musicCollection.getArtists();
+    final artistsCollection = await musicStorage.getArtists();
     for (final id in _artists) {
       artists.addAll(
         artistsCollection.where(

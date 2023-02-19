@@ -19,28 +19,10 @@ class HorizontalPlaylistDialog extends StatelessWidget {
       ),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: playlist.length,
+        itemCount: playlist.keys.length,
         itemBuilder: (context, index) {
-          final song = playlist.keys.elementAt(index);
-          return InkWell(
-            child: Tooltip(
-              message: song.getName(MusicLanguage.vi),
-              child: SizedBox.square(
-                dimension: context.songBarHeight,
-                child: Image.network(
-                  fit: BoxFit.cover,
-                  song.getImageUrl(
-                    YoutubeThumbnail.hqdefault,
-                  ),
-                ),
-              ),
-            ),
-            onTap: () async {
-              await showModalBottomSheet(
-                context: context,
-                builder: (_) => HorizontalSongDialog(song, 0),
-              );
-            },
+          return HorizontalSongTile(
+            playlist.keys.elementAt(index),
           );
         },
       ),

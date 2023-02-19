@@ -40,7 +40,7 @@ class SearchPage extends SearchDelegate<String> {
   @override
   Widget buildResults(BuildContext context) {
     return FutureBuilder(
-      future: musicCollection.getAudios(),
+      future: musicStorage.getAudios(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           final audios = snapshot.requireData.where(

@@ -8,13 +8,13 @@ class HoriverticalState {
 
   const HoriverticalState._({
     required this.audioOnly,
+    required this.playingSong,
     required this.library,
     required this.playlist,
-    required this.playingSong,
   });
 
   static Future<HoriverticalState> initial({required bool audioOnly}) async {
-    final songs = await musicCollection.getAudios();
+    final songs = await musicStorage.getAudios();
     return HoriverticalState._(
       audioOnly: audioOnly,
       library: songs,

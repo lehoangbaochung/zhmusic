@@ -17,7 +17,7 @@ class HorizontalMarqueeText extends StatelessWidget {
       style: TextButton.styleFrom(
         padding: EdgeInsets.zero,
         fixedSize: Size.fromHeight(
-          context.songBarHeight / 5,
+          context.marqueeTextHeight,
         ),
       ),
       child: Marquee(

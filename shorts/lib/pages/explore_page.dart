@@ -7,7 +7,7 @@ class ExplorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: FutureBuilder(
-        future: musicCollection.getArtists(),
+        future: musicStorage.getArtists(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final artists = snapshot.requireData.shuffled;

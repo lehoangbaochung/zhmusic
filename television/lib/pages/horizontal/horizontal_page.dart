@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:src/exports/entities.dart';
@@ -48,13 +50,28 @@ class HorizontalPage extends StatelessWidget {
                           dimension: context.songBarHeight * 0.8,
                           child: MusicType.music.image,
                         ),
-                        Text(
-                          'Ngoại tuyến',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: context.fontSize,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Ngoại tuyến',
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: context.fontSize,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(width: context.mediaWidth / 512),
+                            Container(
+                              width: context.mediaWidth / 128,
+                              height: context.mediaWidth / 128,
+                              decoration: const BoxDecoration(
+                                color: Colors.grey,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -72,9 +89,14 @@ class HorizontalPage extends StatelessWidget {
                 children: [
                   // playing song
                   TextButton(
-                    onPressed: () async {
+                    style: TextButton.styleFrom(
+                      padding: EdgeInsets.all(
+                        context.mediaHeight / 16,
+                      ),
+                    ),
+                    onPressed: () {
                       context.showHorizontalDialog(
-                        const HorizontalPlayerDialog(),
+                        HorizontalSongDialog(playingSong),
                       );
                     },
                     child: FutureBuilder(
@@ -86,16 +108,20 @@ class HorizontalPage extends StatelessWidget {
                       }),
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
-                          return Padding(
-                            padding: EdgeInsets.all(context.mediaHeight / 20),
-                            child: Text(
-                              snapshot.requireData,
-                              textAlign: TextAlign.start,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: context.fontSize,
-                                color: Colors.white,
-                              ),
+                          return Text(
+                            snapshot.requireData,
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: context.fontSize,
+                              background: Paint()
+                                ..strokeWidth = 1
+                                ..color = Colors.black
+                                ..style = PaintingStyle.fill,
+                              foreground: Paint()
+                                ..strokeWidth = 1
+                                ..color = Colors.white
+                                ..style = PaintingStyle.fill,
                             ),
                           );
                         }
@@ -117,39 +143,12 @@ class HorizontalPage extends StatelessWidget {
                         // syntax-line
                         TextButton(
                           style: TextButton.styleFrom(
-                            fixedSize: Size.fromHeight(context.mediaHeight / 16),
+                            fixedSize: Size.fromHeight(context.mediaHeight / 32),
                             padding: EdgeInsets.only(right: context.mediaHeight / 128),
                           ),
                           onPressed: () {
                             context.showHorizontalDialog(
-                              HorizontalDialog.normal(
-                                leading: HorizontalElevatedButton(
-                                  icon: Icons.how_to_vote,
-                                  label: 'Bình chọn',
-                                  onPressed: () => Navigator.pop(context),
-                                ),
-                                trailing: HorizontalElevatedButton(
-                                  icon: Icons.arrow_back,
-                                  label: 'Quay lại',
-                                  onPressed: () => Navigator.pop(context),
-                                ),
-                                child: TextField(
-                                  maxLength: 160,
-                                  maxLines: 5,
-                                  decoration: InputDecoration(
-                                    border: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.zero,
-                                    ),
-                                    contentPadding: EdgeInsets.symmetric(
-                                      vertical: context.songBarHeight,
-                                    ),
-                                  ),
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: context.fontSize,
-                                  ),
-                                ),
-                              ),
+                              const HorizontalVoteDialog(),
                             );
                           },
                           child: RichText(
@@ -195,6 +194,7 @@ class HorizontalPage extends StatelessWidget {
                         SizedBox.square(
                           dimension: context.songBarHeight,
                           child: IconButton(
+                            autofocus: true,
                             padding: EdgeInsets.zero,
                             icon: MusicType.audio.image,
                             onPressed: () async {
@@ -225,7 +225,11 @@ class HorizontalPage extends StatelessWidget {
                                             padding: EdgeInsets.zero,
                                             fixedSize: Size.fromHeight(height),
                                           ),
-                                          onPressed: () async {},
+                                          onPressed: () {
+                                            context.showHorizontalDialog(
+                                              HorizontalSongDialog(song),
+                                            );
+                                          },
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.stretch,
                                             children: [
@@ -239,7 +243,7 @@ class HorizontalPage extends StatelessWidget {
                                               // song name
                                               Padding(
                                                 padding: EdgeInsets.symmetric(
-                                                  vertical: context.mediaHeight / 512,
+                                                  vertical: context.mediaHeight / 256,
                                                 ),
                                                 child: Text(
                                                   song.getName(MusicLanguage.vi),

@@ -16,42 +16,71 @@ class HorizontalFavoriteDialog extends StatelessWidget {
         label: 'Quay lại',
         onPressed: () => Navigator.pop(context),
       ),
-      child: FutureBuilder(
-        future: appStorage.getFavoriteSongs(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final songs = snapshot.requireData;
-            return songs.isEmpty
-                ? Text(
-                    'Hiện không có bài hát nào trong danh sách này',
-                    textAlign: TextAlign.center,
-                    overflow: TextOverflow.ellipsis,
-                    style: context.labelTextStyle,
-                  )
-                : ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: songs.length,
-                    itemBuilder: (context, index) {
-                      final song = songs.elementAt(index);
-                      return IconButton(
-                        padding: EdgeInsets.zero,
-                        iconSize: context.songBarHeight,
-                        tooltip: song.getName(MusicLanguage.vi),
-                        onPressed: () async {},
-                        icon: SizedBox.square(
-                          dimension: context.songBarHeight,
-                          child: Image.network(
-                            fit: BoxFit.cover,
-                            song.getImageUrl(
-                              YoutubeThumbnail.hqdefault,
+      child: StatefulBuilder(
+        builder: (context, setState) {
+          return FutureBuilder(
+            future: appStorage.getFavoriteSongs(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                final songs = snapshot.requireData;
+                return songs.isEmpty
+                    ? Text(
+                        'Hiện không có bài hát nào trong danh sách này',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: context.labelTextStyle,
+                      )
+                    : ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: songs.length,
+                        itemBuilder: (context, index) {
+                          final song = songs.elementAt(index);
+                          final previewing = ValueNotifier(false);
+                          return SizedBox.square(
+                            dimension: context.songBarHeight,
+                            child: ValueListenableBuilder(
+                              valueListenable: previewing,
+                              child: Image.network(
+                                fit: BoxFit.cover,
+                                song.getImageUrl(YoutubeThumbnail.hqdefault),
+                              ),
+                              builder: (context, value, child) {
+                                return InkWell(
+                                  onHover: (value) => previewing.value = value,
+                                  onFocusChange: (value) => previewing.value = value,
+                                  onTap: () => context.showHorizontalDialog(HorizontalSongDialog(song)).then((_) => setState(() {})),
+                                  child: Stack(
+                                    fit: StackFit.expand,
+                                    children: [
+                                      child!,
+                                      Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Visibility(
+                                          visible: previewing.value,
+                                          child: Container(
+                                            color: Colors.green,
+                                            width: context.songBarHeight,
+                                            padding: EdgeInsets.all(context.songBarHeight / 32),
+                                            child: Text(
+                                              song.getName(MusicLanguage.vi),
+                                              overflow: TextOverflow.ellipsis,
+                                              style: context.bodyTextStyle.copyWith(color: Colors.white),
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             ),
-                          ),
-                        ),
+                          );
+                        },
                       );
-                    },
-                  );
-          }
-          return placeholder;
+              }
+              return centeredLoadingIndicator;
+            },
+          );
         },
       ),
     );

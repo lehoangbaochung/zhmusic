@@ -5,9 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/repositories.dart';
-import 'package:src/exports/widgets.dart';
 
-import '/app/app_colors.dart';
 import '/app/app_storage.dart';
 import '/pages/main/main_page.dart';
 
@@ -16,7 +14,17 @@ void main() async {
     widgetsBinding: WidgetsFlutterBinding.ensureInitialized(),
   );
   await appStorage.ensureInitialized();
-  await musicCollection.ensureInitialized();
+  await musicStorage.ensureInitialized();
+  // hide status bar
+  await SystemChrome.setEnabledSystemUIMode(
+    SystemUiMode.manual,
+    overlays: [SystemUiOverlay.bottom],
+  );
+  // rotate landscape screen
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
   runApp(
     BlocProvider(
       create: (_) => MainCubit(),
@@ -31,7 +39,8 @@ void main() async {
               title: MusicType.television.title,
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
-                primarySwatch: AppColors.primaryColor.toMaterialColor(),
+                primarySwatch: Colors.green,
+                visualDensity: VisualDensity.adaptivePlatformDensity,
                 brightness: state.themeMode ? Brightness.light : Brightness.dark,
               ),
               scrollBehavior: const ScrollBehavior().copyWith(

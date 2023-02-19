@@ -4,9 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import '/configs/firebase_options.dart';
 import 'entities.dart';
 
-final musicCollection = _MusicCollection();
+final musicStorage = _MusicStorage();
 
-class _MusicCollection {
+class _MusicStorage {
   late final _shelf = <String, dynamic>{};
   late final _database = FirebaseFirestore.instance;
 

@@ -12,35 +12,19 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: OrientationBuilder(
-          builder: (context, orientation) {
-            if (orientation == Orientation.portrait) {
-              return Center(
-                child: Text(
-                  'Ứng dụng hiện tại chỉ hỗ trợ chạy trên các thiết bị có màn hình tỉ lệ khung hình 16:9',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.titleLarge,
-                ),
-              );
-            } else {
-              return FutureBuilder(
-                future: HoriverticalState.initial(audioOnly: true),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return BlocProvider(
-                      child: const HoriverticalPage(),
-                      create: (_) => HoriverticalCubit(snapshot.requireData),
-                    );
-                  }
-                  return centeredLoadingIndicator;
-                },
+    return Scaffold(
+        body: FutureBuilder(
+          future: HoriverticalState.initial(audioOnly: true),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return BlocProvider(
+                child: const HoriverticalPage(),
+                create: (_) => HoriverticalCubit(snapshot.requireData),
               );
             }
+            return centeredLoadingIndicator;
           },
         ),
-      ),
-    );
+      );
   }
 }

@@ -5,7 +5,6 @@ class HorizontalVolumeDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const volume = 0.3;
     return HorizontalDialog.normal(
       leading: HorizontalElevatedButton(
         icon: Icons.volume_up,
@@ -17,10 +16,49 @@ class HorizontalVolumeDialog extends StatelessWidget {
         label: 'Quay lại',
         onPressed: () => Navigator.pop(context),
       ),
-      child: Slider(
-        value: volume,
-        label: '${volume * 100}',
-        onChanged: (value) {},
+      child: Row(
+        children: [
+          Expanded(
+            child: HorizontalOutlinedButton.large(
+              icon: Icons.volume_off,
+              label: 'Tắt',
+              onPressed: () async {
+                Navigator.pop(context);
+                await context.playerCubit.player.setVolume(0);
+              },
+            ),
+          ),
+          Expanded(
+            child: HorizontalOutlinedButton.large(
+              icon: Icons.volume_mute,
+              label: 'Nhỏ',
+              onPressed: () async {
+                Navigator.pop(context);
+                await context.playerCubit.player.setVolume(1 / 3);
+              },
+            ),
+          ),
+          Expanded(
+            child: HorizontalOutlinedButton.large(
+              icon: Icons.volume_down,
+              label: 'Vừa',
+              onPressed: () async {
+                Navigator.pop(context);
+                await context.playerCubit.player.setVolume(2 / 3);
+              },
+            ),
+          ),
+          Expanded(
+            child: HorizontalOutlinedButton.large(
+              icon: Icons.volume_up,
+              label: 'Lớn',
+              onPressed: () async {
+                Navigator.pop(context);
+                await context.playerCubit.player.setVolume(1);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

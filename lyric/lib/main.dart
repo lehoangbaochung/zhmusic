@@ -8,7 +8,7 @@ void main() async {
   FlutterNativeSplash.preserve(
     widgetsBinding: WidgetsFlutterBinding.ensureInitialized(),
   );
-  await musicCollection.ensureInitialized();
+  await musicStorage.ensureInitialized();
   runApp(
     MaterialApp.router(
       debugShowCheckedModeBanner: false,

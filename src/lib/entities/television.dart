@@ -6,4 +6,10 @@ class Television {
     this.stickers,
     required this.informations,
   });
+
+  factory Television.fromJson(Map<String, dynamic> fields) {
+    return Television(
+      informations: [],
+    );
+  }
 }

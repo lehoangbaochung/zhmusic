@@ -8,6 +8,20 @@ class HorizontalVoteDialog extends StatelessWidget {
     final syntaxEditingController = TextEditingController();
     final library = context.playerState.library.shuffled;
     final songs = ValueNotifier(library);
+    void search() async {
+      final results = <YoutubeMusic>[];
+      final syntax = syntaxEditingController.text.trim().toLowerCase();
+      for (final song in library) {
+        final artists = await song.getArtists();
+        final songName = song.getName(MusicLanguage.vi).toLowerCase();
+        final artistsName = artists.getName(MusicLanguage.vi).toLowerCase();
+        if (songName.contains(syntax) || artistsName.contains(syntax)) {
+          results.add(song);
+        }
+      }
+      songs.value = results;
+    }
+
     return HorizontalDialog.expand(
       expandLeading: HorizontalOutlinedButton.small(
         label: 'Từ khóa',
@@ -17,25 +31,11 @@ class HorizontalVoteDialog extends StatelessWidget {
       expandTrailing: HorizontalOutlinedButton.small(
         label: 'Tìm kiếm',
         icon: Icons.search,
-        onPressed: () {
-          songs.value = library.where(
-            (song) {
-              final syntax = syntaxEditingController.text.toLowerCase();
-              return song.id == syntax || song.getName(MusicLanguage.vi).toLowerCase().contains(syntax);
-            },
-          );
-        },
+        onPressed: () => search,
       ),
       expandChild: TextField(
         controller: syntaxEditingController,
-        onSubmitted: (_) {
-          songs.value = library.where(
-            (song) {
-              final syntax = syntaxEditingController.text.toLowerCase();
-              return song.id == syntax || song.getName(MusicLanguage.vi).toLowerCase().contains(syntax);
-            },
-          );
-        },
+        onSubmitted: (_) => search,
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: context.mediaHeight / 48,
@@ -72,8 +72,8 @@ class HorizontalVoteDialog extends StatelessWidget {
             ),
           ),
           hintMaxLines: 1,
-          hintText: songs.value.random.getName(MusicLanguage.vi),
           hintStyle: context.bodyTextStyle,
+          hintText: songs.value.random.getName(MusicLanguage.vi),
         ),
       ),
       leading: HorizontalElevatedButton(
@@ -88,37 +88,21 @@ class HorizontalVoteDialog extends StatelessWidget {
       ),
       child: ValueListenableBuilder(
         valueListenable: songs,
+        child: Text(
+          'Không tìm thấy bài hát nào phù hợp',
+          textAlign: TextAlign.center,
+          overflow: TextOverflow.ellipsis,
+          style: context.labelTextStyle,
+        ),
         builder: (context, songs, child) {
           return songs.isEmpty
-              ? Text(
-                  'Không tìm thấy bài hát nào phù hợp',
-                  textAlign: TextAlign.center,
-                  overflow: TextOverflow.ellipsis,
-                  style: context.labelTextStyle,
-                )
+              ? child!
               : ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: songs.length,
                   itemBuilder: (context, index) {
-                    final song = songs.elementAt(index);
-                    return InkWell(
-                      child: Tooltip(
-                        message: song.getName(MusicLanguage.vi),
-                        child: SizedBox.square(
-                          dimension: context.songBarHeight,
-                          child: Image.network(
-                            fit: BoxFit.cover,
-                            song.getImageUrl(
-                              YoutubeThumbnail.hqdefault,
-                            ),
-                          ),
-                        ),
-                      ),
-                      onTap: () async {
-                        context.showHorizontalDialog(
-                          HorizontalSongDialog(song, 0),
-                        );
-                      },
+                    return HorizontalSongTile(
+                      songs.elementAt(index),
                     );
                   },
                 );

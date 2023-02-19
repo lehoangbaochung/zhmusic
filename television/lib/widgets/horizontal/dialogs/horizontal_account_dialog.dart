@@ -22,21 +22,21 @@ class HorizontalAccountDialog extends StatelessWidget {
             child: HorizontalOutlinedButton.large(
               icon: Icons.email,
               label: 'Đăng nhập với Email',
-              onPressed: () => Navigator.pop(context),
+              onPressed: null,
             ),
           ),
           Expanded(
             child: HorizontalOutlinedButton.large(
               icon: Icons.android,
               label: 'Đăng nhập với Google',
-              onPressed: () => Navigator.pop(context),
+              onPressed: null,
             ),
           ),
           Expanded(
             child: HorizontalOutlinedButton.large(
               icon: Icons.facebook,
               label: 'Đăng nhập với Facebook',
-              onPressed: () => Navigator.pop(context),
+              onPressed: null,
             ),
           ),
         ],

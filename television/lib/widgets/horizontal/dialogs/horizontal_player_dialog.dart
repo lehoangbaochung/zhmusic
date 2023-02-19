@@ -8,13 +8,13 @@ class HorizontalPlayerDialog extends StatelessWidget {
     final player = context.playerCubit.player;
     return HorizontalDialog.normal(
       leading: HorizontalElevatedButton(
-        icon: Icons.control_camera,
-        label: 'Điều khiển',
+        icon: Icons.play_circle,
+        label: 'Trình phát',
         onPressed: () {},
       ),
       trailing: HorizontalElevatedButton(
-        icon: Icons.close,
-        label: 'Đóng',
+        icon: Icons.arrow_back,
+        label: 'Quay lại',
         onPressed: () => Navigator.pop(context),
       ),
       child: Row(
@@ -24,7 +24,9 @@ class HorizontalPlayerDialog extends StatelessWidget {
               icon: Icons.volume_up,
               label: 'Âm lượng',
               onPressed: () {
-                Navigator.pop(context);
+                context.showHorizontalDialog(
+                  const HorizontalVolumeDialog(),
+                );
               },
             ),
           ),
@@ -36,18 +38,31 @@ class HorizontalPlayerDialog extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: HorizontalOutlinedButton.large(
-              icon: Icons.pause,
-              label: 'Tạm dừng',
-              onPressed: () async {
-                if (player.source != null) {
-                  Navigator.pop(context);
-                  if (player.state != PlayerState.playing) {
-                    await player.play(player.source!);
-                  } else {
-                    await player.pause();
-                  }
-                }
+            child: StatefulBuilder(
+              builder: (context, setState) {
+                final playing = player.state == PlayerState.playing;
+                return HorizontalOutlinedButton.large(
+                  icon: playing ? Icons.pause : Icons.play_arrow,
+                  label: playing ? 'Tạm dừng' : 'Phát',
+                  onPressed: () async {
+                    if (player.source == null) {
+                      await player.play(
+                        UrlSource(
+                          await context.playerState.playingSong.getStreamUrl(
+                            audioOnly: context.playerState.audioOnly,
+                          ),
+                        ),
+                      );
+                    } else {
+                      if (playing) {
+                        await player.pause();
+                      } else {
+                        await player.play(player.source!);
+                      }
+                    }
+                    setState(() {});
+                  },
+                );
               },
             ),
           ),
@@ -55,15 +70,81 @@ class HorizontalPlayerDialog extends StatelessWidget {
             child: HorizontalOutlinedButton.large(
               icon: Icons.skip_next,
               label: 'Bài sau',
-              onPressed: () {},
+              onPressed: () => context.playerCubit.next(),
             ),
           ),
           Expanded(
             child: HorizontalOutlinedButton.large(
-              icon: Icons.repeat,
-              label: 'Lặp lại',
+              icon: Icons.source,
+              label: 'Nguồn phát',
               onPressed: () {
-                Navigator.pop(context);
+                context.showHorizontalDialog(
+                  HorizontalDialog.normal(
+                    leading: HorizontalElevatedButton(
+                      icon: Icons.source,
+                      label: 'Nguồn phát',
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    trailing: HorizontalElevatedButton(
+                      icon: Icons.arrow_back,
+                      label: 'Quay lại',
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: HorizontalOutlinedButton.large(
+                            label: 'Ngoại tuyến',
+                            icon: Icons.reset_tv,
+                            onPressed: () {
+                              context.showHorizontalDialog(
+                                HorizontalDialog.normal(
+                                  leading: HorizontalElevatedButton(
+                                    icon: Icons.reset_tv,
+                                    label: 'Ngoại tuyến',
+                                    onPressed: () => Navigator.pop(context),
+                                  ),
+                                  trailing: HorizontalElevatedButton(
+                                    icon: Icons.arrow_back,
+                                    label: 'Quay lại',
+                                    onPressed: () => Navigator.pop(context),
+                                  ),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        child: HorizontalOutlinedButton.large(
+                                          icon: Icons.audiotrack,
+                                          label: 'Audio',
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: HorizontalOutlinedButton.large(
+                                          icon: Icons.video_library,
+                                          label: 'Video',
+                                          onPressed: null,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                        Expanded(
+                          child: HorizontalOutlinedButton.large(
+                            label: 'Trực tuyến',
+                            icon: Icons.connected_tv,
+                            onPressed: null,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
               },
             ),
           ),

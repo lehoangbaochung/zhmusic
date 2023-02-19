@@ -54,7 +54,7 @@ class HomePage extends StatelessWidget {
               ),
             ),
             FutureBuilder(
-              future: musicCollection.getShorts(),
+              future: musicStorage.getShorts(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final shorts = snapshot.requireData.shuffled;

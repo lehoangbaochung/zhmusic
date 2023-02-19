@@ -41,7 +41,7 @@ class Short extends YoutubeMusic {
   Future<Iterable<Audio>> getAudios() async {
     if (_audios is Iterable<Audio>) return _audios;
     final audios = <Audio>[];
-    final audiosCollection = await musicCollection.getAudios();
+    final audiosCollection = await musicStorage.getAudios();
     for (final id in _audios) {
       audios.addAll(
         audiosCollection.where(
@@ -55,7 +55,7 @@ class Short extends YoutubeMusic {
   @override
   Future<Iterable<Artist>> getArtists() async {
     final artists = <Artist>[];
-    final artistsCollection = await musicCollection.getArtists();
+    final artistsCollection = await musicStorage.getArtists();
     for (final id in _artists) {
       artists.addAll(
         artistsCollection.where(

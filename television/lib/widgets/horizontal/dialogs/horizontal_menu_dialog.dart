@@ -29,6 +29,15 @@ class HorizontalMenuDialog extends StatelessWidget {
             },
           ),
           HorizontalOutlinedButton.large(
+            icon: Icons.play_circle,
+            label: 'Trình phát',
+            onPressed: () {
+              context.showHorizontalDialog(
+                const HorizontalPlayerDialog(),
+              );
+            },
+          ),
+          HorizontalOutlinedButton.large(
             icon: Icons.how_to_vote,
             label: 'Bình chọn',
             onPressed: () {
@@ -38,22 +47,28 @@ class HorizontalMenuDialog extends StatelessWidget {
             },
           ),
           HorizontalOutlinedButton.large(
-            icon: Icons.chat,
-            label: 'Trò chuyện',
-            onPressed: () {
+            icon: Icons.favorite,
+            label: 'Yêu thích',
+            onPressed: () async {
               context.showHorizontalDialog(
-                const HorizontalChatDialog(),
+                const HorizontalFavoriteDialog(),
               );
             },
           ),
           HorizontalOutlinedButton.large(
+            icon: Icons.chat,
+            label: 'Trò chuyện',
+            onPressed: null,
+          ),
+          HorizontalOutlinedButton.large(
             icon: Icons.theater_comedy,
             label: 'Nhãn dán',
-            onPressed: () {
-              context.showHorizontalDialog(
-                const HorizontalIconDialog(),
-              );
-            },
+            onPressed: null,
+          ),
+          HorizontalOutlinedButton.large(
+            icon: Icons.subtitles,
+            label: 'Phụ đề',
+            onPressed: null,
           ),
           HorizontalOutlinedButton.large(
             icon: Icons.color_lens,
@@ -101,24 +116,6 @@ class HorizontalMenuDialog extends StatelessWidget {
                     ],
                   ),
                 ),
-              );
-            },
-          ),
-          HorizontalOutlinedButton.large(
-            icon: Icons.favorite,
-            label: 'Yêu thích',
-            onPressed: () async {
-              context.showHorizontalDialog(
-                const HorizontalFavoriteDialog(),
-              );
-            },
-          ),
-          HorizontalOutlinedButton.large(
-            icon: Icons.volume_up,
-            label: 'Âm lượng',
-            onPressed: () {
-              context.showHorizontalDialog(
-                const HorizontalVolumeDialog(),
               );
             },
           ),

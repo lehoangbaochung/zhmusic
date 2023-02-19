@@ -7,7 +7,7 @@ import 'app/app_pages.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await musicCollection.ensureInitialized();
+  await musicStorage.ensureInitialized();
   runApp(
     BlocProvider(
       create: (_) => AppCubit(),
