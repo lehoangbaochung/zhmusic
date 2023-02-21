@@ -18,6 +18,8 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
       );
       player.play(
         UrlSource(url),
+        mode: PlayerMode.mediaPlayer,
+        volume: appStorage.getPlayerVolume(),
       );
     });
   }

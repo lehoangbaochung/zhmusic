@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:src/exports/entities.dart';
+import 'package:src/exports/widgets.dart';
 
 import '/pages/horizontal/horizontal_dialog.dart';
 import '/pages/horizontal/horizontal_widget.dart';
@@ -30,17 +31,20 @@ class HorizontalSongTile extends StatelessWidget {
               children: [
                 child!,
                 Align(
-                  alignment: Alignment.bottomLeft,
+                  alignment: Alignment.bottomCenter,
                   child: Visibility(
                     visible: previewing.value,
                     child: Container(
-                      color: Colors.white,
+                      color: Colors.green,
                       width: context.songBarHeight,
                       padding: EdgeInsets.all(context.songBarHeight / 32),
                       child: Text(
                         song.getName(MusicLanguage.vi),
                         overflow: TextOverflow.ellipsis,
-                        style: context.bodyTextStyle.copyWith(color: Colors.green),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: context.mediaHeight / 48,
+                        ),
                       ),
                     ),
                   ),

@@ -116,7 +116,7 @@ class HorizontalPage extends StatelessWidget {
                               fontSize: context.fontSize,
                               background: Paint()
                                 ..strokeWidth = 1
-                                ..color = Colors.black
+                                ..color = Colors.black.withOpacity(.6)
                                 ..style = PaintingStyle.fill,
                               foreground: Paint()
                                 ..strokeWidth = 1
@@ -261,7 +261,7 @@ class HorizontalPage extends StatelessWidget {
                                                     return Text(
                                                       artists.getName(MusicLanguage.vi),
                                                       overflow: TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.end,
+                                                      textAlign: TextAlign.right,
                                                       style: context.songTextStyle,
                                                     );
                                                   }

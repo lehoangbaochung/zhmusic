@@ -8,20 +8,6 @@ class HorizontalVoteDialog extends StatelessWidget {
     final syntaxEditingController = TextEditingController();
     final library = context.playerState.library.shuffled;
     final songs = ValueNotifier(library);
-    void search() async {
-      final results = <YoutubeMusic>[];
-      final syntax = syntaxEditingController.text.trim().toLowerCase();
-      for (final song in library) {
-        final artists = await song.getArtists();
-        final songName = song.getName(MusicLanguage.vi).toLowerCase();
-        final artistsName = artists.getName(MusicLanguage.vi).toLowerCase();
-        if (songName.contains(syntax) || artistsName.contains(syntax)) {
-          results.add(song);
-        }
-      }
-      songs.value = results;
-    }
-
     return HorizontalDialog.expand(
       expandLeading: HorizontalOutlinedButton.small(
         label: 'Từ khóa',
@@ -31,11 +17,35 @@ class HorizontalVoteDialog extends StatelessWidget {
       expandTrailing: HorizontalOutlinedButton.small(
         label: 'Tìm kiếm',
         icon: Icons.search,
-        onPressed: () => search,
+        onPressed: () async {
+          final results = <YoutubeMusic>[];
+          final syntax = syntaxEditingController.text.trim().toLowerCase();
+          for (final song in library) {
+            final artists = await song.getArtists();
+            final songName = song.getName(MusicLanguage.vi).toLowerCase();
+            final artistsName = artists.getName(MusicLanguage.vi).toLowerCase();
+            if (songName.contains(syntax) || artistsName.contains(syntax)) {
+              results.add(song);
+            }
+          }
+          songs.value = results;
+        },
       ),
       expandChild: TextField(
         controller: syntaxEditingController,
-        onSubmitted: (_) => search,
+        onSubmitted: (value) async {
+          final results = <YoutubeMusic>[];
+          final syntax = syntaxEditingController.text.trim().toLowerCase();
+          for (final song in library) {
+            final artists = await song.getArtists();
+            final songName = song.getName(MusicLanguage.vi).toLowerCase();
+            final artistsName = artists.getName(MusicLanguage.vi).toLowerCase();
+            if (songName.contains(syntax) || artistsName.contains(syntax)) {
+              results.add(song);
+            }
+          }
+          songs.value = results;
+        },
         style: TextStyle(
           fontWeight: FontWeight.bold,
           fontSize: context.mediaHeight / 48,

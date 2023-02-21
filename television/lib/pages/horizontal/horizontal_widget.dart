@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:marquee/marquee.dart';
 import 'package:src/exports/widgets.dart';
 
 import '/pages/horivertical/horivertical_widget.dart';
 
-part '../../widgets/horizontal/buttons/horizontal_elevated_button.dart';
-part '../../widgets/horizontal/buttons/horizontal_outlined_button.dart';
-part '../../widgets/horizontal/horizontal_marquee_text.dart';
+export '../../widgets/horizontal/buttons/horizontal_elevated_button.dart';
+export '../../widgets/horizontal/buttons/horizontal_outlined_button.dart';
+export '../../widgets/horizontal/horizontal_marquee_text.dart';
 
 extension HorizontalWidgetX on BuildContext {
   double get songBarHeight => mediaHeight / 5;

@@ -5,6 +5,7 @@ class HorizontalVolumeDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final player = context.playerCubit.player;
     return HorizontalDialog.normal(
       leading: HorizontalElevatedButton(
         icon: Icons.volume_up,
@@ -24,7 +25,8 @@ class HorizontalVolumeDialog extends StatelessWidget {
               label: 'Tắt',
               onPressed: () async {
                 Navigator.pop(context);
-                await context.playerCubit.player.setVolume(0);
+                await player.setVolume(0);
+                await appStorage.setPlayerVolume(0);
               },
             ),
           ),
@@ -34,7 +36,8 @@ class HorizontalVolumeDialog extends StatelessWidget {
               label: 'Nhỏ',
               onPressed: () async {
                 Navigator.pop(context);
-                await context.playerCubit.player.setVolume(1 / 3);
+                await player.setVolume(1 / 3);
+                await appStorage.setPlayerVolume(1 / 3);
               },
             ),
           ),
@@ -44,7 +47,8 @@ class HorizontalVolumeDialog extends StatelessWidget {
               label: 'Vừa',
               onPressed: () async {
                 Navigator.pop(context);
-                await context.playerCubit.player.setVolume(2 / 3);
+                await player.setVolume(2 / 3);
+                await appStorage.setPlayerVolume(2 / 3);
               },
             ),
           ),
@@ -54,7 +58,8 @@ class HorizontalVolumeDialog extends StatelessWidget {
               label: 'Lớn',
               onPressed: () async {
                 Navigator.pop(context);
-                await context.playerCubit.player.setVolume(1);
+                await player.setVolume(1);
+                await appStorage.setPlayerVolume(1);
               },
             ),
           ),

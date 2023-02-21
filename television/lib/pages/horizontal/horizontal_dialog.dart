@@ -78,7 +78,11 @@ class HorizontalDialog extends StatelessWidget {
             height: context.songBarHeight,
             child: Row(
               children: [
-                IgnorePointer(child: leading),
+                ExcludeFocus(
+                  child: IgnorePointer(
+                    child: leading,
+                  ),
+                ),
                 Expanded(child: child),
                 trailing,
               ],
@@ -93,7 +97,11 @@ class HorizontalDialog extends StatelessWidget {
                   height: context.marqueeTextHeight,
                   child: Row(
                     children: [
-                      IgnorePointer(child: expandLeading),
+                      ExcludeFocus(
+                        child: IgnorePointer(
+                          child: expandLeading,
+                        ),
+                      ),
                       Expanded(child: expandChild!),
                       expandTrailing!,
                     ],
@@ -103,7 +111,11 @@ class HorizontalDialog extends StatelessWidget {
                   height: context.songBarHeight,
                   child: Row(
                     children: [
-                      IgnorePointer(child: leading),
+                      ExcludeFocus(
+                        child: IgnorePointer(
+                          child: leading,
+                        ),
+                      ),
                       Expanded(child: child),
                       trailing,
                     ],
