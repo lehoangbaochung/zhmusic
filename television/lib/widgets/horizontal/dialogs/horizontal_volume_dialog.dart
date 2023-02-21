@@ -6,7 +6,7 @@ class HorizontalVolumeDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final player = context.playerCubit.player;
-    return HorizontalDialog.normal(
+    return HorizontalDialog(
       leading: HorizontalElevatedButton(
         icon: Icons.volume_up,
         label: 'Âm lượng',

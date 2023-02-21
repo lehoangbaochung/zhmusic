@@ -5,7 +5,7 @@ class HorizontalIconDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HorizontalDialog.normal(
+    return HorizontalDialog(
       leading: HorizontalElevatedButton(
         icon: Icons.theater_comedy,
         label: 'Nhãn dán',

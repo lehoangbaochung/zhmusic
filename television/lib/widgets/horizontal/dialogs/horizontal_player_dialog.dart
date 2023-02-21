@@ -6,7 +6,7 @@ class HorizontalPlayerDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final player = context.playerCubit.player;
-    return HorizontalDialog.normal(
+    return HorizontalDialog(
       leading: HorizontalElevatedButton(
         icon: Icons.play_circle,
         label: 'Trình phát',
@@ -79,7 +79,7 @@ class HorizontalPlayerDialog extends StatelessWidget {
               label: 'Nguồn phát',
               onPressed: () {
                 context.showHorizontalDialog(
-                  HorizontalDialog.normal(
+                  HorizontalDialog(
                     leading: HorizontalElevatedButton(
                       icon: Icons.source,
                       label: 'Nguồn phát',
@@ -98,7 +98,7 @@ class HorizontalPlayerDialog extends StatelessWidget {
                             icon: Icons.reset_tv,
                             onPressed: () {
                               context.showHorizontalDialog(
-                                HorizontalDialog.normal(
+                                HorizontalDialog(
                                   leading: HorizontalElevatedButton(
                                     icon: Icons.reset_tv,
                                     label: 'Ngoại tuyến',

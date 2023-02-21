@@ -37,6 +37,7 @@ class HorizontalElevatedButton extends StatelessWidget {
             ),
             Text(
               label,
+              maxLines: 2,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
               style: TextStyle(

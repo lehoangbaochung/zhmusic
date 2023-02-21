@@ -7,7 +7,7 @@ class HorizontalSongDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HorizontalDialog.normal(
+    return HorizontalDialog(
       leading: HorizontalElevatedButton(
         icon: Icons.music_note,
         label: 'Bài hát',
@@ -64,7 +64,7 @@ class HorizontalSongDialog extends StatelessWidget {
               label: 'Chi tiết',
               onPressed: () {
                 context.showHorizontalDialog(
-                  HorizontalDialog.normal(
+                  HorizontalDialog(
                     leading: HorizontalElevatedButton(
                       icon: Icons.list_alt,
                       label: 'Chi tiết',

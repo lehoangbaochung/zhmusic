@@ -1,14 +1,16 @@
-part of '/pages/horizontal/horizontal_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:television/pages/horizontal/horizontal_dialog.dart';
+import 'package:television/pages/horizontal/horizontal_widget.dart';
 
-class HorizontalChatDialog extends StatelessWidget {
-  const HorizontalChatDialog({super.key});
+class HorizontalThemeDialog extends StatelessWidget {
+  const HorizontalThemeDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
     return HorizontalDialog(
       leading: HorizontalElevatedButton(
-        icon: Icons.chat,
-        label: 'Trò chuyện',
+        icon: Icons.color_lens,
+        label: 'Chủ đề',
         onPressed: () {},
       ),
       trailing: HorizontalElevatedButton(
@@ -17,7 +19,7 @@ class HorizontalChatDialog extends StatelessWidget {
         onPressed: () => Navigator.pop(context),
       ),
       child: Text(
-        'Tính năng đang được phát triển trong thời gian tới',
+        'Hiện không có chủ đề nào khả dụng',
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
         style: context.labelTextStyle,

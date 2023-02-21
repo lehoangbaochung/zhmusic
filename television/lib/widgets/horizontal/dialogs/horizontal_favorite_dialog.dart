@@ -5,7 +5,7 @@ class HorizontalFavoriteDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HorizontalDialog.normal(
+    return HorizontalDialog(
       leading: HorizontalElevatedButton(
         icon: Icons.favorite,
         label: 'Yêu thích',

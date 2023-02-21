@@ -7,7 +7,9 @@ import 'package:src/exports/widgets.dart';
 import '/app/app_storage.dart';
 import '/pages/horivertical/horivertical_widget.dart';
 import '/pages/horizontal/horizontal_widget.dart';
-import '../../widgets/horizontal/horizontal_song_tile.dart';
+import '/widgets/horizontal/dialogs/horizontal_subtitle_dialog.dart';
+import '/widgets/horizontal/dialogs/horizontal_theme_dialog.dart';
+import '/widgets/horizontal/horizontal_song_tile.dart';
 
 part '../../widgets/horizontal/dialogs/horizontal_about_dialog.dart';
 part '../../widgets/horizontal/dialogs/horizontal_account_dialog.dart';
@@ -23,106 +25,32 @@ part '../../widgets/horizontal/dialogs/horizontal_volume_dialog.dart';
 part '../../widgets/horizontal/dialogs/horizontal_vote_dialog.dart';
 
 class HorizontalDialog extends StatelessWidget {
-  const HorizontalDialog._({
+  const HorizontalDialog({
+    super.key,
     required this.leading,
     required this.trailing,
     required this.child,
-    this.expandLeading,
-    this.expandTrailing,
-    this.expandChild,
   });
-
-  factory HorizontalDialog.normal({
-    required Widget leading,
-    required Widget trailing,
-    required Widget child,
-  }) {
-    return HorizontalDialog._(
-      leading: leading,
-      trailing: trailing,
-      child: child,
-    );
-  }
-
-  factory HorizontalDialog.expand({
-    required Widget expandLeading,
-    required Widget expandTrailing,
-    required Widget expandChild,
-    required Widget leading,
-    required Widget trailing,
-    required Widget child,
-  }) {
-    return HorizontalDialog._(
-      expandChild: expandChild,
-      expandLeading: expandLeading,
-      expandTrailing: expandTrailing,
-      leading: leading,
-      trailing: trailing,
-      child: child,
-    );
-  }
 
   final Widget leading;
   final Widget trailing;
   final Widget child;
-  final Widget? expandLeading;
-  final Widget? expandTrailing;
-  final Widget? expandChild;
-
-  bool get normal => expandChild == null || expandLeading == null || expandTrailing == null;
 
   @override
   Widget build(BuildContext context) {
-    return normal
-        ? SizedBox(
-            height: context.songBarHeight,
-            child: Row(
-              children: [
-                ExcludeFocus(
-                  child: IgnorePointer(
-                    child: leading,
-                  ),
-                ),
-                Expanded(child: child),
-                trailing,
-              ],
+    return SizedBox(
+      height: context.songBarHeight,
+      child: Row(
+        children: [
+          ExcludeFocus(
+            child: IgnorePointer(
+              child: leading,
             ),
-          )
-        : SizedBox(
-            height: context.songBarHeight + context.marqueeTextHeight,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: context.marqueeTextHeight,
-                  child: Row(
-                    children: [
-                      ExcludeFocus(
-                        child: IgnorePointer(
-                          child: expandLeading,
-                        ),
-                      ),
-                      Expanded(child: expandChild!),
-                      expandTrailing!,
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: context.songBarHeight,
-                  child: Row(
-                    children: [
-                      ExcludeFocus(
-                        child: IgnorePointer(
-                          child: leading,
-                        ),
-                      ),
-                      Expanded(child: child),
-                      trailing,
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          );
+          ),
+          Expanded(child: child),
+          trailing,
+        ],
+      ),
+    );
   }
 }

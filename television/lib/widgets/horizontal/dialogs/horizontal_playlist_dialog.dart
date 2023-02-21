@@ -6,7 +6,7 @@ class HorizontalPlaylistDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final playlist = context.playerState.playlist;
-    return HorizontalDialog.normal(
+    return HorizontalDialog(
       leading: HorizontalElevatedButton(
         icon: Icons.playlist_play,
         label: 'Playlist',

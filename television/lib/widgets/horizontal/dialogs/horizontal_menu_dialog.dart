@@ -5,7 +5,7 @@ class HorizontalMenuDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HorizontalDialog.normal(
+    return HorizontalDialog(
       leading: HorizontalElevatedButton(
         icon: Icons.menu,
         label: 'Menu',
@@ -68,54 +68,18 @@ class HorizontalMenuDialog extends StatelessWidget {
           HorizontalOutlinedButton.large(
             icon: Icons.subtitles,
             label: 'Phụ đề',
-            onPressed: null,
+            onPressed: () async {
+              context.showHorizontalDialog(
+                const HorizontalSubtitleDialog(),
+              );
+            },
           ),
           HorizontalOutlinedButton.large(
             icon: Icons.color_lens,
             label: 'Chủ đề',
             onPressed: () async {
               context.showHorizontalDialog(
-                HorizontalDialog.normal(
-                  leading: HorizontalElevatedButton(
-                    icon: Icons.color_lens,
-                    label: 'Chủ đề',
-                    onPressed: () {},
-                  ),
-                  trailing: HorizontalElevatedButton(
-                    icon: Icons.arrow_back,
-                    label: 'Quay lại',
-                    onPressed: () => Navigator.pop(context),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: HorizontalOutlinedButton.large(
-                          icon: Icons.home,
-                          label: 'Mặc định',
-                          onPressed: () => Navigator.pop(context),
-                        ),
-                      ),
-                      Expanded(
-                        child: HorizontalOutlinedButton.large(
-                          icon: Icons.light_mode,
-                          label: 'Sáng',
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                      Expanded(
-                        child: HorizontalOutlinedButton.large(
-                          icon: Icons.dark_mode,
-                          label: 'Tối',
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const HorizontalThemeDialog(),
               );
             },
           ),

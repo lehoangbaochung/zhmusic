@@ -24,6 +24,7 @@ class HorizontalPage extends StatelessWidget {
         final playingSong = context.playerState.playingSong;
         return Scaffold(
           backgroundColor: Colors.black,
+          resizeToAvoidBottomInset: false,
           body: Stack(
             children: [
               // song screen
@@ -83,6 +84,7 @@ class HorizontalPage extends StatelessWidget {
                   ],
                 ),
               ),
+              // subtitle              
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,

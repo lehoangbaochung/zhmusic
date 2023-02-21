@@ -25,6 +25,7 @@ class HorizontalSongTile extends StatelessWidget {
           return InkWell(
             onHover: (value) => previewing.value = value,
             onFocusChange: (value) => previewing.value = value,
+            onHighlightChanged: (value) => previewing.value = value,
             onTap: () => context.showHorizontalDialog(HorizontalSongDialog(song)),
             child: Stack(
               fit: StackFit.expand,

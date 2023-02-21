@@ -5,7 +5,7 @@ class HorizontalAboutDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HorizontalDialog.normal(
+    return HorizontalDialog(
       leading: HorizontalElevatedButton(
         icon: Icons.info,
         label: 'Giới thiệu',
