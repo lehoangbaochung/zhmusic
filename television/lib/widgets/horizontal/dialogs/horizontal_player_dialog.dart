@@ -32,9 +32,13 @@ class HorizontalPlayerDialog extends StatelessWidget {
           ),
           Expanded(
             child: HorizontalOutlinedButton.large(
-              icon: Icons.skip_previous,
-              label: 'Bài trước',
-              onPressed: null,
+              icon: Icons.subtitles,
+              label: 'Phụ đề',
+              onPressed: () async {
+                context.showHorizontalDialog(
+                  const HorizontalSubtitleDialog(),
+                );
+              },
             ),
           ),
           Expanded(

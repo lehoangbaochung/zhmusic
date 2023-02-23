@@ -34,9 +34,12 @@ dependencies:
   src:
     path: ../src
   go_router: ^5.1.5
-  just_audio: ^0.9.31
-  flutter_bloc: ^8.1.1
+  audioplayers: ^3.0.1
+  flutter_bloc: ^8.1.2
+  shared_preferences: ^2.0.17
   cached_network_image: ^3.2.3
+  flutter_native_splash: ^2.2.7
+  flutter_launcher_icons: ^0.10.0
 
 dev_dependencies:
   flutter_test:

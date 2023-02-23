@@ -1,10 +1,9 @@
-import 'package:audio/pages/home_page.dart';
-import 'package:audio/pages/player_page.dart';
+import 'package:audio/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 enum AppPages {
-  home,
+  main,
   player;
 
   String get path => '/$name';
@@ -17,16 +16,16 @@ enum AppPages {
 
   static GoRouter get routerConfig {
     return GoRouter(
-      initialLocation: AppPages.home.path,
+      initialLocation: AppPages.main.path,
       routes: [
         GoRoute(
-          path: AppPages.home.path,
-          builder: (_, __) => const HomePage(),
+          path: AppPages.main.path,
+          builder: (_, __) => const MainPage(),
         ),
-        GoRoute(
-          path: AppPages.player.path,
-          builder: (_, state) => const PlayerPage(),
-        ),
+        // GoRoute(
+        //   path: AppPages.player.path,
+        //   builder: (_, state) => const PlayerPage(),
+        // ),
       ],
     );
   }

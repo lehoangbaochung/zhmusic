@@ -84,7 +84,94 @@ class HorizontalPage extends StatelessWidget {
                   ],
                 ),
               ),
-              // subtitle              
+              // subtitle
+              FutureBuilder(
+                future: Future.wait([
+                  playingSong.getSubtitles(MusicLanguage.zh),
+                  playingSong.getSubtitles(MusicLanguage.zhHans),
+                ]),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    final primarySubtitles = snapshot.requireData.first;
+                    final secondarySubtitles = snapshot.requireData.last;
+                    final subtitleTextStyle = TextStyle(
+                      fontSize: context.fontSize,
+                      background: Paint()
+                        ..strokeWidth = 1
+                        ..style = PaintingStyle.fill
+                        ..color = Colors.black.withOpacity(.6),
+                      foreground: Paint()
+                        ..strokeWidth = 1
+                        ..style = PaintingStyle.fill
+                        ..color = Colors.white,
+                    );
+                    return primarySubtitles.isEmpty && secondarySubtitles.isEmpty
+                        ? Align(
+                            alignment: Alignment.topCenter,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: context.mediaHeight / 16,
+                                vertical: context.mediaHeight / 64,
+                              ),
+                              child: Text(
+                                '(Không có phụ đề khả dụng)',
+                                textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
+                                style: subtitleTextStyle,
+                              ),
+                            ),
+                          )
+                        : StreamBuilder(
+                            stream: context.playerCubit.player.onPositionChanged,
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                final subtitle = primarySubtitles.singleWhere(
+                                  orElse: () => Subtitle.empty,
+                                  (subtitle) {
+                                    final duration = snapshot.requireData;
+                                    return duration >= subtitle.start && duration <= subtitle.end;
+                                  },
+                                );
+                                final secondarySubtitle = secondarySubtitles.singleWhere(
+                                  orElse: () => Subtitle.empty,
+                                  (subtitle) {
+                                    final duration = snapshot.requireData;
+                                    return duration >= subtitle.start && duration <= subtitle.end;
+                                  },
+                                );
+                                return Padding(
+                                  padding: EdgeInsets.symmetric(
+                                    horizontal: context.mediaHeight / 16,
+                                    vertical: context.mediaHeight / 64,
+                                  ),
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                                    children: [
+                                      Text(
+                                        subtitle.text,
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: subtitleTextStyle,
+                                      ),
+                                      Text(
+                                        secondarySubtitle.text,
+                                        textAlign: TextAlign.center,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: subtitleTextStyle,
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
+                              return placeholder;
+                            },
+                          );
+                  }
+                  return placeholder;
+                },
+              ),
+              // player
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -118,12 +205,12 @@ class HorizontalPage extends StatelessWidget {
                               fontSize: context.fontSize,
                               background: Paint()
                                 ..strokeWidth = 1
-                                ..color = Colors.black.withOpacity(.6)
-                                ..style = PaintingStyle.fill,
+                                ..style = PaintingStyle.fill
+                                ..color = Colors.black.withOpacity(.6),
                               foreground: Paint()
                                 ..strokeWidth = 1
-                                ..color = Colors.white
-                                ..style = PaintingStyle.fill,
+                                ..style = PaintingStyle.fill
+                                ..color = Colors.white,
                             ),
                           );
                         }
@@ -149,8 +236,34 @@ class HorizontalPage extends StatelessWidget {
                             padding: EdgeInsets.only(right: context.mediaHeight / 128),
                           ),
                           onPressed: () {
-                            context.showHorizontalDialog(
-                              const HorizontalVoteDialog(),
+                            showDialog(
+                              context: context,
+                              builder: (context) {
+                                return AlertDialog(
+                                  actionsAlignment: MainAxisAlignment.center,
+                                  title: const Text('Bình chọn'),
+                                  content: const TextField(
+                                    decoration: InputDecoration(
+                                      prefixIcon: Text('ZHM'),
+                                      hintText: 'Nhập tên bài hát hoặc ca sĩ...',
+                                    ),
+                                  ),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {},
+                                      child: const Text(
+                                        'Hủy',
+                                      ),
+                                    ),
+                                    TextButton(
+                                      onPressed: () {},
+                                      child: const Text(
+                                        'Bình chọn',
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              },
                             );
                           },
                           child: RichText(

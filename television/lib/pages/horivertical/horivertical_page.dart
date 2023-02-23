@@ -39,21 +39,23 @@ class _HoriverticalPageState extends State<HoriverticalPage> {
               context: context,
               builder: (_) {
                 return AlertDialog(
+                  alignment: Alignment.center,
+                  actionsAlignment: MainAxisAlignment.center,
                   title: const Text('Thoát ứng dụng'),
                   content: const Text('Bạn muốn thoát ứng dụng ngay bây giờ?'),
                   actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context, false);
-                      },
-                      child: const Text('Hủy'),
-                    ),
                     TextButton(
                       onPressed: () async {
                         Navigator.pop(context, true);
                         await context.playerCubit.player.dispose();
                       },
                       child: const Text('Thoát'),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context, false);
+                      },
+                      child: const Text('Hủy'),
                     ),
                   ],
                 );

@@ -66,15 +66,6 @@ class HorizontalMenuDialog extends StatelessWidget {
             onPressed: null,
           ),
           HorizontalOutlinedButton.large(
-            icon: Icons.subtitles,
-            label: 'Phụ đề',
-            onPressed: () async {
-              context.showHorizontalDialog(
-                const HorizontalSubtitleDialog(),
-              );
-            },
-          ),
-          HorizontalOutlinedButton.large(
             icon: Icons.color_lens,
             label: 'Chủ đề',
             onPressed: () async {

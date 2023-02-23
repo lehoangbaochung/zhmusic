@@ -1,8 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:src/exports/entities.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
-
-import 'artist.dart';
-import 'music.dart';
 
 abstract class YoutubeMusic extends Music {
   YoutubeMusic(
@@ -12,7 +10,8 @@ abstract class YoutubeMusic extends Music {
   });
 
   Video? _video;
-  StreamManifest? _manifest;
+  StreamManifest? _streamManifest;
+  ClosedCaptionManifest? _subtitleManifest;
 
   @protected
   static final yt = YoutubeExplode();
@@ -27,6 +26,12 @@ abstract class YoutubeMusic extends Music {
     return 'https://img.youtube.com/vi/$id/${thumbnail?.name ?? 'default'}.jpg';
   }
 
+  /// Returns an url of [YoutubeMusic] stream with [audioOnly] option.
+  Future<String> getStreamUrl({required bool audioOnly}) async {
+    final manifest = _streamManifest ??= await yt.videos.streams.getManifest(id);
+    return !audioOnly ? manifest.muxed.withHighestBitrate().url.toString() : manifest.audioOnly.withHighestBitrate().url.toString();
+  }
+
   /// Returns the metadata containing in [YoutubeMusic] object.
   Future<YoutubeMetadata> getMetadata() async {
     return YoutubeMetadata.fromVideo(
@@ -34,10 +39,13 @@ abstract class YoutubeMusic extends Music {
     );
   }
 
-  /// Returns an url of [YoutubeMusic] stream with [audioOnly] option.
-  Future<String> getStreamUrl({required bool audioOnly}) async {
-    final manifest = _manifest ??= await yt.videos.streams.getManifest(id);
-    return !audioOnly ? manifest.muxed.withHighestBitrate().url.toString() : manifest.audioOnly.withHighestBitrate().url.toString();
+  /// Gets all [Subtitle] which is identified by the specified metadata.
+  Future<Iterable<Subtitle>> getSubtitles(MusicLanguage language) async {
+    final manifest = _subtitleManifest ??= await yt.videos.closedCaptions.getManifest(id);
+    final trackInfos = manifest.getByLanguage(language.name);
+    if (trackInfos.isEmpty) return [];
+    final track = await yt.videos.closedCaptions.get(trackInfos.first);
+    return track.captions.map((caption) => Subtitle.fromCaption(caption));
   }
 }
 
@@ -59,18 +67,18 @@ enum YoutubeThumbnail {
 class YoutubeMetadata {
   final String title;
   final String description;
-  final Duration? duration;
   final int viewCount;
   final int? likeCount;
+  final Duration? duration;
   final DateTime? uploadDate;
   final DateTime? publishDate;
 
   const YoutubeMetadata._(
     this.title,
     this.description,
-    this.duration,
     this.viewCount,
     this.likeCount,
+    this.duration,
     this.uploadDate,
     this.publishDate,
   );
@@ -80,9 +88,9 @@ class YoutubeMetadata {
     return YoutubeMetadata._(
       video.title,
       video.description,
-      video.duration,
       engagement.viewCount,
       engagement.likeCount,
+      video.duration,
       video.uploadDate,
       video.publishDate,
     );

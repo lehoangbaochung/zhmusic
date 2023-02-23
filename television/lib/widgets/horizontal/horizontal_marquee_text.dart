@@ -7,10 +7,12 @@ class HorizontalMarqueeText extends StatelessWidget {
   const HorizontalMarqueeText({
     super.key,
     required this.text,
-    required this.onPressed,
+    this.onDone,
+    this.onPressed,
   });
 
   final String text;
+  final void Function()? onDone;
   final void Function()? onPressed;
 
   @override
@@ -25,6 +27,7 @@ class HorizontalMarqueeText extends StatelessWidget {
       ),
       child: Marquee(
         text: text,
+        onDone: onDone,
         velocity: context.mediaWidth / 12,
         blankSpace: context.mediaWidth,
         style: context.marqueeTextStyle,

@@ -14,6 +14,7 @@ void main() async {
       child: BlocBuilder<AppCubit, AppState>(
         builder: (context, state) {
           return MaterialApp.router(
+            theme: ThemeData.dark(useMaterial3: true),
             debugShowCheckedModeBanner: false,
             routerConfig: AppPages.routerConfig,
           );
