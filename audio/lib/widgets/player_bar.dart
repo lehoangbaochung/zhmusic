@@ -1,9 +1,8 @@
-import 'package:audio/app/app_cubit.dart';
-import 'package:audio/app/app_pages.dart';
+import 'package:audio/widgets/app_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:src/exports/entities.dart';
-import 'package:src/extensions/music.dart';
+import 'package:src/exports/extensions.dart';
+import 'package:src/exports/widgets.dart';
 
 class PlayerBar extends StatefulWidget {
   const PlayerBar({super.key});
@@ -12,39 +11,54 @@ class PlayerBar extends StatefulWidget {
   State<PlayerBar> createState() => _PlayerBarState();
 }
 
-class _PlayerBarState extends State<PlayerBar> {
+class _PlayerBarState extends State<PlayerBar> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    final appState = context.read<AppCubit>().state;
-    final audio = appState.currentSong;
-    return ListTile(
-      tileColor: Colors.blue.withOpacity(0.6),
-      title: Text(
-        audio.getName(MusicLanguage.vi),
-        overflow: TextOverflow.ellipsis,
-      ),
-      subtitle: FutureBuilder(
-        future: audio.getArtists(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final artists = snapshot.requireData;
-            return Text(
-              artists.getName(MusicLanguage.vi),
-            );
-          }
-          return const SizedBox.shrink();
-        },
-      ),
-      leading: CircleAvatar(
-        backgroundImage: NetworkImage(
-          audio.getImageUrl(),
+    final playlist = context.appState.playlist;
+    if (playlist.isEmpty) {
+      return placeholder;
+    } else {
+      final playingSong = playlist.first;
+      return ListTile(
+        contentPadding: EdgeInsets.symmetric(
+          horizontal: context.getWidth(8),
         ),
-      ),
-      trailing: IconButton(
-        onPressed: () => context.read<AppCubit>().toggle(),
-        icon: Icon(!appState.isPlaying ? Icons.play_arrow : Icons.pause),
-      ),
-      onTap: () => AppPages.push(context, AppPages.player.path, audio),
-    );
+        title: Text(
+          playingSong.getName(MusicLanguage.vi),
+          overflow: TextOverflow.ellipsis,
+        ),
+        subtitle: FutureBuilder(
+          future: playingSong.getArtists(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final artists = snapshot.requireData;
+              return Text(
+                artists.getName(MusicLanguage.vi),
+                overflow: TextOverflow.ellipsis,
+              );
+            }
+            return placeholder;
+          },
+        ),
+        leading: const CircleAvatar(
+          child: Center(
+            child: Icon(Icons.play_circle),
+          ),
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.play_arrow),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.playlist_play),
+            ),
+          ],
+        ),
+      );
+    }
   }
 }

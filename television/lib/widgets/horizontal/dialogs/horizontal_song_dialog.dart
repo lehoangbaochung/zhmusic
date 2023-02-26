@@ -38,7 +38,7 @@ class HorizontalSongDialog extends StatelessWidget {
           leading: HorizontalElevatedButton(
             icon: Icons.music_note,
             label: 'Bài hát',
-            onPressed: () => Navigator.pop(context),
+            onPressed: () {},
           ),
           trailing: HorizontalElevatedButton(
             icon: Icons.arrow_back,

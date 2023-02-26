@@ -8,7 +8,7 @@ class _AppStorage {
   late final SharedPreferences _preferences;
 
   static const playerVolume = 'player_volume';
-  static const favoriteSongs = 'favorite_songs';
+  static const recentSongs = 'recent_songs';
   static const primarySubtitle = 'primary_subtitle';
 
   Future<void> ensureInitialized() async {
@@ -19,16 +19,16 @@ class _AppStorage {
 
   Future<bool> setPlayerVolume(double volume) => _preferences.setDouble(playerVolume, volume);
 
-  Future<Iterable<YoutubeMusic>> getFavoriteSongs() async {
-    final songIds = _preferences.getStringList(favoriteSongs) ?? [];
+  Future<Iterable<YoutubeMusic>> getRecentSongs() async {
+    final songIds = _preferences.getStringList(recentSongs) ?? [];
     if (songIds.isEmpty) return [];
     final songs = await musicStorage.getAudios();
     return songIds.map((id) => songs.singleWhere((song) => song.id == id));
   }
 
-  Future<bool> setFavoriteSongs(Iterable<YoutubeMusic> songs) {
+  Future<bool> setRecentSongs(Iterable<YoutubeMusic> songs) {
     final songIds = songs.map((song) => song.id).toList();
-    return _preferences.setStringList(favoriteSongs, songIds);
+    return _preferences.setStringList(recentSongs, songIds);
   }
 
   MusicLanguage? getSubtitleLanguage() {

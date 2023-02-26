@@ -1,10 +1,14 @@
-import 'package:audio/pages/main_page.dart';
+import 'package:audio/pages/artist/artist_page.dart';
+import 'package:audio/pages/main/main_page.dart';
+import 'package:audio/widgets/app_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:src/exports/entities.dart';
 
 enum AppPages {
   main,
-  player;
+  artist;
 
   String get path => '/$name';
 
@@ -20,12 +24,19 @@ enum AppPages {
       routes: [
         GoRoute(
           path: AppPages.main.path,
-          builder: (_, __) => const MainPage(),
+          builder: (_, __) {
+            return BlocProvider(
+              create: (_) => MainCubit(),
+              child: const MainPage(),
+            );
+          },
         ),
-        // GoRoute(
-        //   path: AppPages.player.path,
-        //   builder: (_, state) => const PlayerPage(),
-        // ),
+        GoRoute(
+          path: AppPages.artist.path,
+          builder: (context, state) {
+            return ArtistPage(state.extra as Artist);
+          },
+        ),
       ],
     );
   }

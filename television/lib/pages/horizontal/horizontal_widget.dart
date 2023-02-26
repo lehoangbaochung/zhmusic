@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:src/exports/widgets.dart';
+import 'package:television/pages/horivertical/horivertical_widget.dart';
 
-import '/pages/horivertical/horivertical_widget.dart';
+import 'horizontal_page.dart';
 
 export '../../widgets/horizontal/buttons/horizontal_elevated_button.dart';
 export '../../widgets/horizontal/buttons/horizontal_outlined_button.dart';
 export '../../widgets/horizontal/horizontal_marquee_text.dart';
 
 extension HorizontalWidgetX on BuildContext {
+  HorizontalCubit get horizontalCubit => read<HorizontalCubit>();
+
+  HorizontalState get horizontalState => watch<HorizontalCubit>().state;
+
   double get songBarHeight => mediaHeight / 5;
 
   double get songTextHeight => songBarHeight / 3;
@@ -60,7 +65,13 @@ extension HorizontalWidgetX on BuildContext {
       elevation: 0,
       context: this,
       barrierColor: Colors.transparent,
-      builder: (_) => BlocProvider.value(value: playerCubit, child: dialog),
+      builder: (_) => MultiBlocProvider(
+        providers: [
+          BlocProvider.value(value: playerCubit),
+          BlocProvider.value(value: horizontalCubit),
+        ],
+        child: dialog,
+      ),
     );
   }
 }

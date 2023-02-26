@@ -13,6 +13,7 @@ class _MusicStorage {
   static const audio = 'audio';
   static const artist = 'artist';
   static const short = 'short';
+  static const genre = 'genre';
 
   Future<void> ensureInitialized() async {
     await Firebase.initializeApp(
@@ -42,6 +43,18 @@ class _MusicStorage {
         )
         .get();
     return _shelf[audio] = query.docs.map((doc) => doc.data());
+  }
+
+  Future<Iterable<Genre>> getGenres() async {
+    if (_shelf.containsKey(genre)) return _shelf[genre];
+    final query = await _database
+        .collection(genre)
+        .withConverter(
+          toFirestore: (obj, _) => obj.toJson(),
+          fromFirestore: (doc, _) => Genre.fromJson(doc.id, doc.data()!),
+        )
+        .get();
+    return _shelf[genre] = query.docs.map((doc) => doc.data());
   }
 
   Future<Iterable<Short>> getShorts() async {

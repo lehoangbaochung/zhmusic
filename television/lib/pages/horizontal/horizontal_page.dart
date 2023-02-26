@@ -5,8 +5,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/extensions.dart';
 import 'package:src/exports/widgets.dart';
+import 'package:television/app/app_storage.dart';
 
 import '/pages/horivertical/horivertical_widget.dart';
+import '/widgets/horizontal/horizontal_subtitle_text.dart';
 import 'horizontal_dialog.dart';
 import 'horizontal_widget.dart';
 
@@ -85,92 +87,7 @@ class HorizontalPage extends StatelessWidget {
                 ),
               ),
               // subtitle
-              FutureBuilder(
-                future: Future.wait([
-                  playingSong.getSubtitles(MusicLanguage.zh),
-                  playingSong.getSubtitles(MusicLanguage.zhHans),
-                ]),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final primarySubtitles = snapshot.requireData.first;
-                    final secondarySubtitles = snapshot.requireData.last;
-                    final subtitleTextStyle = TextStyle(
-                      fontSize: context.fontSize,
-                      background: Paint()
-                        ..strokeWidth = 1
-                        ..style = PaintingStyle.fill
-                        ..color = Colors.black.withOpacity(.6),
-                      foreground: Paint()
-                        ..strokeWidth = 1
-                        ..style = PaintingStyle.fill
-                        ..color = Colors.white,
-                    );
-                    return primarySubtitles.isEmpty && secondarySubtitles.isEmpty
-                        ? Align(
-                            alignment: Alignment.topCenter,
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: context.mediaHeight / 16,
-                                vertical: context.mediaHeight / 64,
-                              ),
-                              child: Text(
-                                '(Không có phụ đề khả dụng)',
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                style: subtitleTextStyle,
-                              ),
-                            ),
-                          )
-                        : StreamBuilder(
-                            stream: context.playerCubit.player.onPositionChanged,
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                final subtitle = primarySubtitles.singleWhere(
-                                  orElse: () => Subtitle.empty,
-                                  (subtitle) {
-                                    final duration = snapshot.requireData;
-                                    return duration >= subtitle.start && duration <= subtitle.end;
-                                  },
-                                );
-                                final secondarySubtitle = secondarySubtitles.singleWhere(
-                                  orElse: () => Subtitle.empty,
-                                  (subtitle) {
-                                    final duration = snapshot.requireData;
-                                    return duration >= subtitle.start && duration <= subtitle.end;
-                                  },
-                                );
-                                return Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: context.mediaHeight / 16,
-                                    vertical: context.mediaHeight / 64,
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                                    children: [
-                                      Text(
-                                        subtitle.text,
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: subtitleTextStyle,
-                                      ),
-                                      Text(
-                                        secondarySubtitle.text,
-                                        textAlign: TextAlign.center,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: subtitleTextStyle,
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              }
-                              return placeholder;
-                            },
-                          );
-                  }
-                  return placeholder;
-                },
-              ),
+              const HorizontalSubtitleText(),
               // player
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -236,35 +153,7 @@ class HorizontalPage extends StatelessWidget {
                             padding: EdgeInsets.only(right: context.mediaHeight / 128),
                           ),
                           onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  actionsAlignment: MainAxisAlignment.center,
-                                  title: const Text('Bình chọn'),
-                                  content: const TextField(
-                                    decoration: InputDecoration(
-                                      prefixIcon: Text('ZHM'),
-                                      hintText: 'Nhập tên bài hát hoặc ca sĩ...',
-                                    ),
-                                  ),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {},
-                                      child: const Text(
-                                        'Hủy',
-                                      ),
-                                    ),
-                                    TextButton(
-                                      onPressed: () {},
-                                      child: const Text(
-                                        'Bình chọn',
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
+                            
                           },
                           child: RichText(
                             text: TextSpan(
@@ -296,12 +185,10 @@ class HorizontalPage extends StatelessWidget {
                   // song bar
                   Container(
                     height: context.songBarHeight,
-                    decoration: const BoxDecoration(
+                    decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.fitWidth,
-                        image: NetworkImage(
-                          'https://static.vecteezy.com/system/resources/previews/002/058/477/original/floral-nature-spring-background-free-vector.jpg',
-                        ),
+                        image: NetworkImage(state.backgroundUrl),
                       ),
                     ),
                     child: Row(
@@ -397,10 +284,7 @@ class HorizontalPage extends StatelessWidget {
                                   playlist.keys.map((song) async {
                                     final artists = await song.getArtists();
                                     final name = song.getName(MusicLanguage.vi);
-                                    final artistsName = artists.getName(
-                                      MusicLanguage.vi,
-                                      separator: ' & ',
-                                    );
+                                    final artistsName = artists.getName(MusicLanguage.vi, separator: ' & ');
                                     return artists.isNotEmpty ? '$name - $artistsName' : name;
                                   }),
                                 ),

@@ -1,4 +1,4 @@
-package com.example.audio
+package com.zitherharp.music.audio
 
 import io.flutter.embedding.android.FlutterActivity
 

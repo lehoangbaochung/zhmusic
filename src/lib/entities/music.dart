@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+@immutable
 abstract class Music {
   const Music(
     this.id, {
@@ -20,6 +21,8 @@ abstract class Music {
 
   String getDescription(MusicLanguage language) => description[language.name] ?? language.name;
 
+  Map<String, dynamic> toJson();
+
   @override
   String toString() => '$runtimeType ($id)';
 
@@ -35,6 +38,19 @@ enum MusicLanguage {
   zh,
   zhHans,
   zhHant;
+
+  String get name {
+    switch (this) {
+      case MusicLanguage.vi:
+        return 'vi';
+      case MusicLanguage.zh:
+        return 'zh';
+      case MusicLanguage.zhHans:
+        return 'zh-Hans';
+      case MusicLanguage.zhHant:
+        return 'zh-Hant';
+    }
+  }
 }
 
 enum MusicType {

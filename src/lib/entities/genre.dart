@@ -1,20 +1,17 @@
-import 'tencent.dart';
+import 'package:src/exports/entities.dart';
 
-class Artist extends TencentMusic {
-  static final Map<String, Artist> _shelf = {};
-  static const empty = Artist._('', name: {}, description: {});
+class Genre extends Music {
+  static final Map<String, Genre> _shelf = {};
 
-  const Artist._(
+  const Genre._(
     super.id, {
     required super.name,
     required super.description,
-    // ignore: unused_element
-    super.type = TencentMusicType.artist,
   });
 
-  factory Artist.fromJson(String id, Map<String, dynamic> fields) {
+  factory Genre.fromJson(String id, Map<String, dynamic> fields) {
     return _shelf.putIfAbsent(id, () {
-      return Artist._(
+      return Genre._(
         id,
         name: Map.castFrom(fields['name']),
         description: Map.castFrom(fields['desc'] ?? {}),

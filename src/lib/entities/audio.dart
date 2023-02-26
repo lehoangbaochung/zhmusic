@@ -1,6 +1,7 @@
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/repositories.dart';
 
+// ignore: must_be_immutable
 class Audio extends YoutubeMusic {
   static final Map<String, Audio> _shelf = {};
 
@@ -17,13 +18,14 @@ class Audio extends YoutubeMusic {
     return _shelf.putIfAbsent(id, () {
       return Audio._(
         id,
-        List.castFrom(fields['artists']),
+        List.from(fields['artists']),
         name: Map.castFrom(fields['name']),
         description: Map.castFrom(fields['desc'] ?? {}),
       );
     });
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return {
       id: {
@@ -36,15 +38,13 @@ class Audio extends YoutubeMusic {
 
   @override
   Future<Iterable<Artist>> getArtists() async {
-    final artists = <Artist>[];
+    final artistsId = List<String>.from(_artists);
     final artistsCollection = await musicStorage.getArtists();
-    for (final id in _artists) {
-      artists.addAll(
-        artistsCollection.where(
-          (artist) => artist.id == id,
-        ),
-      );
-    }
-    return artists;
+    return artistsId.map(
+      (id) => artistsCollection.singleWhere(
+        orElse: () => Artist.empty,
+        (artist) => artist.id == id,
+      ),
+    );
   }
 }

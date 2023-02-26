@@ -26,7 +26,7 @@ class Short extends YoutubeMusic {
       );
     });
   }
-
+  @override
   Map<String, dynamic> toJson() {
     return {
       id: {
@@ -51,7 +51,7 @@ class Short extends YoutubeMusic {
     }
     return _audios = audios;
   }
- 
+
   @override
   Future<Iterable<Artist>> getArtists() async {
     final artists = <Artist>[];

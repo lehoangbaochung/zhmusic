@@ -39,6 +39,7 @@ void main() async {
               title: MusicType.television.title,
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
+                useMaterial3: true,
                 primarySwatch: Colors.green,
                 visualDensity: VisualDensity.adaptivePlatformDensity,
                 brightness: state.themeMode ? Brightness.light : Brightness.dark,

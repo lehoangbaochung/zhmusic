@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:src/exports/entities.dart';
+import 'package:television/app/app_storage.dart';
 import 'package:television/pages/horizontal/horizontal_dialog.dart';
 import 'package:television/pages/horizontal/horizontal_widget.dart';
 
@@ -7,6 +9,7 @@ class HorizontalSubtitleDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.horizontalCubit;
     return HorizontalDialog(
       leading: HorizontalElevatedButton(
         icon: Icons.subtitles,
@@ -26,6 +29,8 @@ class HorizontalSubtitleDialog extends StatelessWidget {
               label: 'Tắt',
               onPressed: () async {
                 Navigator.pop(context);
+                cubit.changeSubtitleLanguage(null);
+                await appStorage.setSubtitleLanguage(null);
               },
             ),
           ),
@@ -35,6 +40,8 @@ class HorizontalSubtitleDialog extends StatelessWidget {
               label: 'Tiếng Việt',
               onPressed: () async {
                 Navigator.pop(context);
+                cubit.changeSubtitleLanguage(MusicLanguage.vi);
+                await appStorage.setSubtitleLanguage(MusicLanguage.vi);
               },
             ),
           ),
@@ -44,6 +51,8 @@ class HorizontalSubtitleDialog extends StatelessWidget {
               label: 'Bính âm',
               onPressed: () async {
                 Navigator.pop(context);
+                cubit.changeSubtitleLanguage(MusicLanguage.zh);
+                await appStorage.setSubtitleLanguage(MusicLanguage.zh);
               },
             ),
           ),
@@ -53,6 +62,8 @@ class HorizontalSubtitleDialog extends StatelessWidget {
               label: 'Tiếng Trung (Giản thể)',
               onPressed: () async {
                 Navigator.pop(context);
+                cubit.changeSubtitleLanguage(MusicLanguage.zhHans);
+                await appStorage.setSubtitleLanguage(MusicLanguage.zhHans);
               },
             ),
           ),
@@ -62,6 +73,8 @@ class HorizontalSubtitleDialog extends StatelessWidget {
               label: 'Tiếng Trung (Phồn thể)',
               onPressed: () async {
                 Navigator.pop(context);
+                cubit.changeSubtitleLanguage(MusicLanguage.zhHant);
+                await appStorage.setSubtitleLanguage(MusicLanguage.zhHant);
               },
             ),
           ),
