@@ -7,7 +7,9 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
     final firstSong = state.playingSong;
     final cubit = HoriverticalCubit._(state);
     final artists = await firstSong.getArtists();
-    final streamUrl = await firstSong.getStreamUrl(audioOnly: state.audioOnly);
+    final streamUrl = await firstSong.getStreamUrl(
+      audioOnly: state.source == HoriverticalSource.audio,
+    );
     player = AudioPlayer()
       ..playerStateStream.listen(
         (playerState) {
@@ -23,7 +25,7 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
             id: firstSong.id,
             artist: artists.getName(MusicLanguage.vi),
             title: firstSong.getName(MusicLanguage.vi),
-            artUri: Uri.parse(firstSong.getImageUrl()),
+            artUri: Uri.parse(firstSong.getImageUrl(YoutubeThumbnail.hqdefault)),
           ),
         ),
       )
@@ -58,7 +60,9 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
     );
     _fill();
     final artists = await nextSong.getArtists();
-    final streamUrl = await nextSong.getStreamUrl(audioOnly: state.audioOnly);
+    final streamUrl = await nextSong.getStreamUrl(
+      audioOnly: state.source == HoriverticalSource.audio,
+    );
     await player.setAudioSource(
       AudioSource.uri(
         Uri.parse(streamUrl),

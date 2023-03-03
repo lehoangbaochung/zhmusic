@@ -103,7 +103,7 @@ class HorizontalSongDialog extends StatelessWidget {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               final metadata = snapshot.requireData;
-                              return IgnorePointer(
+                              return AbsorbPointer(
                                 child: Row(
                                   children: [
                                     // view

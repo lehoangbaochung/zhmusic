@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/extensions.dart';
-import 'package:src/exports/widgets.dart';
 import 'package:television/pages/horivertical/horivertical_page.dart';
 
 import '/app/app_storage.dart';

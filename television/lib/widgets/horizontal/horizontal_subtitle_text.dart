@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:src/exports/entities.dart';
-import 'package:src/exports/widgets.dart';
 import 'package:television/pages/horivertical/horivertical_page.dart';
 import 'package:television/pages/horivertical/horivertical_widget.dart';
 import 'package:television/pages/horizontal/horizontal_widget.dart';
@@ -38,20 +37,11 @@ class HorizontalSubtitleText extends StatelessWidget {
                     ..color = Colors.white,
                 );
                 return primarySubtitles.isEmpty && secondarySubtitles.isEmpty
-                    ? Align(
-                        alignment: Alignment.topCenter,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: context.mediaHeight / 16,
-                            vertical: context.mediaHeight / 64,
-                          ),
-                          child: Text(
-                            '(Phụ đề hiện không khả dụng)',
-                            textAlign: TextAlign.center,
-                            overflow: TextOverflow.ellipsis,
-                            style: subtitleTextStyle,
-                          ),
-                        ),
+                    ? Text(
+                        '(Phụ đề hiện không khả dụng)',
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: subtitleTextStyle,
                       )
                     : StreamBuilder(
                         stream: player.positionStream,
@@ -66,13 +56,7 @@ class HorizontalSubtitleText extends StatelessWidget {
                               orElse: () => Subtitle.empty,
                               (subtitle) => position > subtitle.start && position < subtitle.end,
                             );
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: context.mediaHeight / 16,
-                                vertical: context.mediaHeight / 32,
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            return Column(
                                 crossAxisAlignment: CrossAxisAlignment.stretch,
                                 children: [
                                   Text(
@@ -88,8 +72,7 @@ class HorizontalSubtitleText extends StatelessWidget {
                                     style: subtitleTextStyle,
                                   ),
                                 ],
-                              ),
-                            );
+                              );
                           }
                           return placeholder;
                         },

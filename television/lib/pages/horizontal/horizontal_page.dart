@@ -1,17 +1,14 @@
-import 'dart:async';
-
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:src/exports/entities.dart';
-import 'package:src/exports/extensions.dart';
-import 'package:src/exports/widgets.dart';
 
 import '/app/app_storage.dart';
-import '/pages/horivertical/horivertical_widget.dart';
+import '/widgets/horizontal/horizontal_channel_logo.dart';
+import '/widgets/horizontal/horizontal_information_text.dart';
+import '/widgets/horizontal/horizontal_playing_song.dart';
+import '/widgets/horizontal/horizontal_song_bar.dart';
+import '/widgets/horizontal/horizontal_song_screen.dart';
 import '/widgets/horizontal/horizontal_subtitle_text.dart';
-import '/widgets/horizontal/dialogs/horizontal_information_dialog.dart';
-import 'horizontal_dialog.dart';
 import 'horizontal_widget.dart';
 
 part 'horizontal_cubit.dart';
@@ -24,304 +21,33 @@ class HorizontalPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HorizontalCubit, HorizontalState>(
       builder: (context, state) {
-        final television = appStorage.instance;
-        final playlist = context.horiverticalState.playlist;
-        final playingSong = context.horiverticalState.playingSong;
-        final informations = television.informations.toList()..shuffle();
         return Scaffold(
           backgroundColor: Colors.black,
-          resizeToAvoidBottomInset: false,
           body: Stack(
             children: [
-              // song screen
-              Padding(
-                padding: EdgeInsets.only(bottom: context.songBarHeight),
-                child: Center(
-                  child: CachedNetworkImage(
-                    imageUrl: playingSong.getImageUrl(
-                      YoutubeThumbnail.maxresdefault,
-                    ),
-                    fit: BoxFit.fill,
-                    placeholder: (_, __) => placeholder,
-                  ),
-                ),
-              ),
-              // channel logo
+              const HorizontalSongScreen(),
               Positioned(
-                top: context.mediaHeight / 20,
-                right: context.mediaWidth / 20,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Column(
-                      children: [
-                        SizedBox.square(
-                          dimension: context.songBarHeight * 0.8,
-                          child: MusicType.music.image,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Ngoại tuyến',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: context.fontSize,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(width: context.mediaWidth / 512),
-                            Container(
-                              width: context.mediaWidth / 128,
-                              height: context.mediaWidth / 128,
-                              decoration: const BoxDecoration(
-                                color: Colors.grey,
-                                shape: BoxShape.circle,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                    //SizedBox(width: context.mediaWidth / 256),
-                    Text(
-                      'TV',
-                      style: context.headlineTextStyle,
-                    ),
-                  ],
+                top: context.mediaHeight / 16,
+                right: context.mediaWidth / 16,
+                child: const HorizontalChannelLogo(),
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(
+                    vertical: context.mediaHeight / 32,
+                    horizontal: context.mediaHeight / 16,
+                  ),
+                  child: const HorizontalSubtitleText(),
                 ),
               ),
-              // subtitle
-              const HorizontalSubtitleText(),
-              // player
               Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // playing song
-                  TextButton(
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.all(
-                        context.mediaHeight / 16,
-                      ),
-                    ),
-                    onPressed: () {
-                      context.showHorizontalDialog(
-                        HorizontalSongDialog(playingSong),
-                      );
-                    },
-                    child: FutureBuilder(
-                      future: Future.sync(() async {
-                        final artists = await playingSong.getArtists();
-                        final name = playingSong.getName(MusicLanguage.vi);
-                        final artistsName = artists.getName(MusicLanguage.vi, separator: ' & ');
-                        return artists.isNotEmpty ? 'Đang phát: $name\nThể hiện: $artistsName' : 'Đang phát: $name';
-                      }),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return Text(
-                            snapshot.requireData,
-                            textAlign: TextAlign.start,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(
-                              fontSize: context.fontSize,
-                              background: Paint()
-                                ..strokeWidth = 1
-                                ..style = PaintingStyle.fill
-                                ..color = Colors.black.withOpacity(.6),
-                              foreground: Paint()
-                                ..strokeWidth = 1
-                                ..style = PaintingStyle.fill
-                                ..color = Colors.white,
-                            ),
-                          );
-                        }
-                        return placeholder;
-                      },
-                    ),
-                  ),
-                  // info-line
-                  SizedBox(
-                    height: context.marqueeTextHeight,
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: HorizontalMarqueeText(
-                            text: informations.first,
-                            onPressed: () async {
-                              await context.showHorizontalDialog(
-                                const HorizontalInformationDialog(),
-                              );
-                            },
-                          ),
-                        ),
-                        // syntax-line
-                        TextButton(
-                          style: TextButton.styleFrom(
-                            fixedSize: Size.fromHeight(context.mediaHeight / 32),
-                            padding: EdgeInsets.only(right: context.mediaWidth / 128),
-                          ),
-                          onPressed: () async {
-                            await context.showHorizontalDialog(
-                              const HorizontalVoteDialog(),
-                            );
-                          },
-                          child: RichText(
-                            text: TextSpan(
-                              text: 'Soạn tin: ',
-                              style: context.marqueeTextStyle,
-                              children: [
-                                TextSpan(
-                                  text: 'ZHM tên_bài_hát (tên_ca_sĩ)',
-                                  style: TextStyle(
-                                    color: Colors.yellow,
-                                    fontSize: context.fontSize,
-                                  ),
-                                ),
-                                const TextSpan(text: ' gửi '),
-                                TextSpan(
-                                  text: 'ZHTV',
-                                  style: TextStyle(
-                                    color: Colors.yellow,
-                                    fontSize: context.fontSize,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  // song bar
-                  Container(
-                    height: context.songBarHeight,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        fit: BoxFit.fitWidth,
-                        image: CachedNetworkImageProvider(state.backgroundUrl),
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox.square(
-                          dimension: context.songBarHeight,
-                          child: IconButton(
-                            autofocus: true,
-                            padding: EdgeInsets.zero,
-                            icon: MusicType.audio.image,
-                            onPressed: () async {
-                              context.showHorizontalDialog(
-                                const HorizontalMenuDialog(),
-                              );
-                            },
-                          ),
-                        ),
-                        Expanded(
-                          child: Column(
-                            children: [
-                              // songs
-                              Row(
-                                children: playlist.keys.take(3).map(
-                                  (song) {
-                                    final height = context.songBarHeight * 2 / 3;
-                                    final index = playlist.keys.toList().indexOf(song);
-                                    return Flexible(
-                                      child: Container(
-                                        height: height,
-                                        padding: EdgeInsets.symmetric(
-                                          horizontal: context.mediaWidth / 128,
-                                          vertical: context.mediaHeight / 128,
-                                        ),
-                                        child: TextButton(
-                                          style: TextButton.styleFrom(
-                                            padding: EdgeInsets.zero,
-                                            fixedSize: Size.fromHeight(height),
-                                          ),
-                                          onPressed: () {
-                                            context.showHorizontalDialog(
-                                              HorizontalSongDialog(song),
-                                            );
-                                          },
-                                          child: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                                            children: [
-                                              // song vote
-                                              LinearProgressIndicator(
-                                                value: (playlist.values.elementAt(index) + 1) / playlist.values.length,
-                                                minHeight: height / 6,
-                                                color: Colors.red,
-                                                backgroundColor: Colors.transparent,
-                                              ),
-                                              // song name
-                                              Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                  vertical: context.mediaHeight / 256,
-                                                ),
-                                                child: Text(
-                                                  song.getName(MusicLanguage.vi),
-                                                  overflow: TextOverflow.ellipsis,
-                                                  textAlign: TextAlign.left,
-                                                  style: context.songTextStyle,
-                                                ),
-                                              ),
-                                              // artist name
-                                              FutureBuilder(
-                                                future: song.getArtists(),
-                                                builder: (context, snapshot) {
-                                                  if (snapshot.hasData) {
-                                                    final artists = snapshot.requireData;
-                                                    return Text(
-                                                      artists.getName(MusicLanguage.vi),
-                                                      overflow: TextOverflow.ellipsis,
-                                                      textAlign: TextAlign.right,
-                                                      style: context.songTextStyle,
-                                                    );
-                                                  }
-                                                  return placeholder;
-                                                },
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ).toList(),
-                              ),
-                              // playlist
-                              FutureBuilder(
-                                future: Future.wait(
-                                  playlist.keys.map((song) async {
-                                    final artists = await song.getArtists();
-                                    final name = song.getName(MusicLanguage.vi);
-                                    final artistsName = artists.getName(MusicLanguage.vi, separator: ' & ');
-                                    return artists.isNotEmpty ? '$name - $artistsName' : name;
-                                  }),
-                                ),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return Expanded(
-                                      child: HorizontalMarqueeText(
-                                        text: snapshot.requireData.join('; '),
-                                        onPressed: () async {
-                                          context.showHorizontalDialog(
-                                            const HorizontalPlaylistDialog(),
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  }
-                                  return placeholder;
-                                },
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                children: const [
+                  HorizontalPlayingSong(),
+                  HorizontalInformationText(),
+                  HorizontalSongBar(),
                 ],
               ),
             ],

@@ -11,7 +11,6 @@ class _AppStorage {
   late final SharedPreferences _preferences;
 
   static const _playerVolume = 'player_volume';
-  static const _playerBalance = 'player_balance';
   static const _favoriteSongs = 'favorite_songs';
   static const _primarySubtitle = 'primary_subtitle';
 
@@ -23,10 +22,6 @@ class _AppStorage {
   double getPlayerVolume() => _preferences.getDouble(_playerVolume) ?? 1;
 
   Future<bool> setPlayerVolume(double volume) => _preferences.setDouble(_playerVolume, volume);
-
-  double getPlayerBalance() => _preferences.getDouble(_playerBalance) ?? 1;
-
-  Future<bool> setPlayerBalance(double balance) => _preferences.setDouble(_playerBalance, balance);
 
   Future<Iterable<YoutubeMusic>> getFavoriteSongs() async {
     final songIds = _preferences.getStringList(_favoriteSongs) ?? [];

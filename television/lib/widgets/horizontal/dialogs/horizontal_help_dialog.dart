@@ -24,7 +24,9 @@ class HorizontalHelpDialog extends StatelessWidget {
         child: Text(
           appStorage.instance.help,
           textAlign: TextAlign.justify,
-          style: context.textTheme.bodyMedium,
+          style: TextStyle(
+            fontSize: context.fontSize,
+          ),
         ),
       ),
     );

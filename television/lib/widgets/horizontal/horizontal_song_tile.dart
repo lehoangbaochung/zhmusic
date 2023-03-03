@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:src/exports/entities.dart';
-import 'package:src/exports/widgets.dart';
 
 import '/pages/horizontal/horizontal_dialog.dart';
 import '/pages/horizontal/horizontal_widget.dart';

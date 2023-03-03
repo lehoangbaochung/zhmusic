@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:src/exports/repositories.dart';
 import 'package:src/exports/widgets.dart';
+import 'package:television/pages/horivertical/horivertical_widget.dart';
 
 import '/pages/horivertical/horivertical_page.dart';
 
@@ -21,7 +22,11 @@ class MainPage extends StatelessWidget {
             final connected = snapshot.requireData;
             if (connected) {
               return FutureBuilder(
-                future: HoriverticalState.initial(audioOnly: true),
+                future: HoriverticalState.initial(
+                  mode: HoriverticalMode.offline,
+                  type: HoriverticalType.horizontal,
+                  source: HoriverticalSource.audio,
+                ),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final state = snapshot.requireData;

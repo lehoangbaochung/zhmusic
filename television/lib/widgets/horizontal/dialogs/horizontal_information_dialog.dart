@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:src/exports/widgets.dart';
 
 import '/app/app_storage.dart';
 import '/pages/horizontal/horizontal_dialog.dart';
@@ -22,14 +21,21 @@ class HorizontalInformationDialog extends StatelessWidget {
         label: 'Quay lại',
         onPressed: () => Navigator.pop(context),
       ),
-      child: ListView.builder(
+      child: PageView.builder(
         itemCount: informations.length,
         itemBuilder: (context, index) {
           final information = informations.elementAt(index);
-          return ListTile(
-            title: Text(
+          return Container(
+            width: context.songBarWidth,
+            height: context.songBarHeight,
+            padding: EdgeInsets.symmetric(
+              vertical: context.mediaHeight / 8,
+              horizontal: context.mediaWidth / 128,
+            ),
+            child: Text(
               information,
-              style: context.textTheme.bodyMedium,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(fontSize: context.fontSize),
             ),
           );
         },

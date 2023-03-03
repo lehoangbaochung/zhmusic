@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
-import 'package:src/exports/widgets.dart';
 
 import '/pages/horizontal/horizontal_widget.dart';
 

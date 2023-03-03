@@ -8,3 +8,18 @@ extension HoriverticalWidgetX on BuildContext {
 
   HoriverticalState get horiverticalState => watch<HoriverticalCubit>().state;
 }
+
+enum HoriverticalSource {
+  audio,
+  video;
+}
+
+enum HoriverticalMode {
+  online,
+  offline;
+}
+
+enum HoriverticalType {
+  horizontal,
+  vertical;
+}

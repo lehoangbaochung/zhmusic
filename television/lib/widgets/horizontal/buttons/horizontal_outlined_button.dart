@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:src/exports/widgets.dart';
 import 'package:television/pages/horizontal/horizontal_widget.dart';
 
 enum HorizontalOutlinedButtonType {
@@ -70,7 +69,9 @@ class HorizontalOutlinedButton extends StatelessWidget {
               maxLines: 2,
               textAlign: TextAlign.center,
               overflow: TextOverflow.ellipsis,
-              style: context.bodyTextStyle,
+              style: TextStyle(
+                fontSize: context.fontSize,
+              ),
             ),
           )
         : OutlinedButton(
@@ -99,7 +100,7 @@ class HorizontalOutlinedButton extends StatelessWidget {
                     textAlign: TextAlign.center,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      fontSize: context.mediaHeight / 36,
+                      fontSize: context.fontSize,
                     ),
                   ),
                 ],

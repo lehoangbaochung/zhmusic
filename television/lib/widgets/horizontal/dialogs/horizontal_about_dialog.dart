@@ -24,7 +24,9 @@ class HorizontalAboutDialog extends StatelessWidget {
         child: Text(
           appStorage.instance.about,
           textAlign: TextAlign.justify,
-          style: context.textTheme.bodyMedium,
+          style: TextStyle(
+            fontSize: context.fontSize,
+          ),
         ),
       ),
     );

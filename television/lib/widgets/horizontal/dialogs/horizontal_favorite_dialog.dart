@@ -66,7 +66,10 @@ class HorizontalFavoriteDialog extends StatelessWidget {
                                             child: Text(
                                               song.getName(MusicLanguage.vi),
                                               overflow: TextOverflow.ellipsis,
-                                              style: context.bodyTextStyle.copyWith(color: Colors.white),
+                                              style: TextStyle(
+                                                fontSize: context.fontSize,
+                                                color: context.backgroundColor,
+                                              ),
                                             ),
                                           ),
                                         ),
