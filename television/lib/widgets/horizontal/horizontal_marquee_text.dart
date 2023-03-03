@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
 import 'package:src/exports/widgets.dart';
-import 'package:television/pages/horizontal/horizontal_widget.dart';
+
+import '/pages/horizontal/horizontal_widget.dart';
 
 class HorizontalMarqueeText extends StatelessWidget {
   const HorizontalMarqueeText({

@@ -1,14 +1,16 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/extensions.dart';
 import 'package:src/exports/widgets.dart';
-import 'package:television/app/app_storage.dart';
 
+import '/app/app_storage.dart';
 import '/pages/horivertical/horivertical_widget.dart';
 import '/widgets/horizontal/horizontal_subtitle_text.dart';
+import '/widgets/horizontal/dialogs/horizontal_information_dialog.dart';
 import 'horizontal_dialog.dart';
 import 'horizontal_widget.dart';
 
@@ -22,8 +24,10 @@ class HorizontalPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HorizontalCubit, HorizontalState>(
       builder: (context, state) {
-        final playlist = context.playerState.playlist;
-        final playingSong = context.playerState.playingSong;
+        final television = appStorage.instance;
+        final playlist = context.horiverticalState.playlist;
+        final playingSong = context.horiverticalState.playingSong;
+        final informations = television.informations.toList()..shuffle();
         return Scaffold(
           backgroundColor: Colors.black,
           resizeToAvoidBottomInset: false,
@@ -33,10 +37,12 @@ class HorizontalPage extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.only(bottom: context.songBarHeight),
                 child: Center(
-                  child: Image.network(
-                    playingSong.getImageUrl(
+                  child: CachedNetworkImage(
+                    imageUrl: playingSong.getImageUrl(
                       YoutubeThumbnail.maxresdefault,
                     ),
+                    fit: BoxFit.fill,
+                    placeholder: (_, __) => placeholder,
                   ),
                 ),
               ),
@@ -142,18 +148,24 @@ class HorizontalPage extends StatelessWidget {
                       children: [
                         Expanded(
                           child: HorizontalMarqueeText(
-                            text: 'Kênh truyền hình âm nhạc tương tác trực tiếp dành cho giới trẻ ZHTV phát sóng đều đặn vào tối các ngày thứ bảy và chủ nhật hàng tuần. Kính mong các quý khán giả chú ý đón xem!',
-                            onPressed: () {},
+                            text: informations.first,
+                            onPressed: () async {
+                              await context.showHorizontalDialog(
+                                const HorizontalInformationDialog(),
+                              );
+                            },
                           ),
                         ),
                         // syntax-line
                         TextButton(
                           style: TextButton.styleFrom(
                             fixedSize: Size.fromHeight(context.mediaHeight / 32),
-                            padding: EdgeInsets.only(right: context.mediaHeight / 128),
+                            padding: EdgeInsets.only(right: context.mediaWidth / 128),
                           ),
-                          onPressed: () {
-                            
+                          onPressed: () async {
+                            await context.showHorizontalDialog(
+                              const HorizontalVoteDialog(),
+                            );
                           },
                           child: RichText(
                             text: TextSpan(
@@ -188,7 +200,7 @@ class HorizontalPage extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         fit: BoxFit.fitWidth,
-                        image: NetworkImage(state.backgroundUrl),
+                        image: CachedNetworkImageProvider(state.backgroundUrl),
                       ),
                     ),
                     child: Row(

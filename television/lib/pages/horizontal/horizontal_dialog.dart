@@ -1,8 +1,8 @@
-import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/extensions.dart';
 import 'package:src/exports/widgets.dart';
+import 'package:television/pages/horivertical/horivertical_page.dart';
 
 import '/app/app_storage.dart';
 import '/pages/horivertical/horivertical_widget.dart';
@@ -42,11 +42,7 @@ class HorizontalDialog extends StatelessWidget {
       height: context.songBarHeight,
       child: Row(
         children: [
-          ExcludeFocus(
-            child: IgnorePointer(
-              child: leading,
-            ),
-          ),
+          AbsorbPointer(child: leading),
           Expanded(child: child),
           trailing,
         ],

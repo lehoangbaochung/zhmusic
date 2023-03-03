@@ -5,13 +5,13 @@ class HoriverticalTheme {
   final String backgroundUrl;
   final Color songVoteColor;
   final Color songTextColor;
-  final Color playlistTextColor;
+  final Color marqueeTextColor;
 
   HoriverticalTheme({
     required this.name,
     required this.backgroundUrl,
     this.songVoteColor = Colors.red,
-    this.songTextColor = Colors.green,
-    this.playlistTextColor = Colors.green,
+    this.songTextColor = Colors.black,
+    this.marqueeTextColor = Colors.white,
   });
 }

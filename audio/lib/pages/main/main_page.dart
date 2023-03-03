@@ -1,5 +1,4 @@
 import 'package:audio/pages/home_page.dart';
-import 'package:audio/widgets/app_widget.dart';
 import 'package:audio/widgets/player_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -21,8 +21,6 @@ abstract class Music {
 
   String getDescription(MusicLanguage language) => description[language.name] ?? language.name;
 
-  Map<String, dynamic> toJson();
-
   @override
   String toString() => '$runtimeType ($id)';
 
@@ -66,13 +64,9 @@ enum MusicType {
     return 'Zither Harp Music (${first + last})';
   }
 
-  Image get image {
-    return Image.asset(
-      'assets/images/$name.png',
-      package: 'src',
-      fit: BoxFit.cover,
-    );
-  }
+  String get packageName => 'com.zitherharp.music.$name';
+
+  Image get image => Image.asset('assets/images/$name.png', package: 'src');
 
   Color get color {
     switch (this) {
@@ -81,7 +75,7 @@ enum MusicType {
       case MusicType.lyric:
         return Colors.blueGrey;
       case MusicType.short:
-        return const Color(0xFFfeafc7);
+        return const Color(0xfffeafc7);
       case MusicType.television:
         return Colors.green;
       case MusicType.music:

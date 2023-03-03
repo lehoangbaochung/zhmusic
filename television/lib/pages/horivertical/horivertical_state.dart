@@ -36,3 +36,13 @@ class HoriverticalState {
     );
   }
 }
+
+enum HoriverticalSource {
+  audio,
+  video;
+}
+
+enum HoriverticalMode {
+  online,
+  offline;
+}

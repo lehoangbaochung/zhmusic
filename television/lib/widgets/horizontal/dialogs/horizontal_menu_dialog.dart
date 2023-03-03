@@ -58,12 +58,16 @@ class HorizontalMenuDialog extends StatelessWidget {
           HorizontalOutlinedButton.large(
             icon: Icons.chat,
             label: 'Trò chuyện',
-            onPressed: null,
+            onPressed: () async {
+              context.showHorizontalDialog(
+                const HorizontalChatDialog(),
+              );
+            },
           ),
           HorizontalOutlinedButton.large(
             icon: Icons.theater_comedy,
             label: 'Nhãn dán',
-            onPressed: null,
+            onPressed: () async {},
           ),
           HorizontalOutlinedButton.large(
             icon: Icons.color_lens,

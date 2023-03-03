@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:src/exports/entities.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 
+// ignore: must_be_immutable
 abstract class YoutubeMusic extends Music {
   YoutubeMusic(
     super.id, {

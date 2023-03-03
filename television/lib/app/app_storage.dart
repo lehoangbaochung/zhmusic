@@ -5,22 +5,31 @@ import 'package:src/exports/repositories.dart';
 final appStorage = _AppStorage();
 
 class _AppStorage {
+  Television get instance => _instance;
+
+  late final Television _instance;
   late final SharedPreferences _preferences;
 
-  static const playerVolume = 'player_volume';
-  static const favoriteSongs = 'favorite_songs';
-  static const primarySubtitle = 'primary_subtitle';
+  static const _playerVolume = 'player_volume';
+  static const _playerBalance = 'player_balance';
+  static const _favoriteSongs = 'favorite_songs';
+  static const _primarySubtitle = 'primary_subtitle';
 
   Future<void> ensureInitialized() async {
+    _instance = await musicStorage.getTelevision();
     _preferences = await SharedPreferences.getInstance();
   }
 
-  double getPlayerVolume() => _preferences.getDouble(playerVolume) ?? 1;
+  double getPlayerVolume() => _preferences.getDouble(_playerVolume) ?? 1;
 
-  Future<bool> setPlayerVolume(double volume) => _preferences.setDouble(playerVolume, volume);
+  Future<bool> setPlayerVolume(double volume) => _preferences.setDouble(_playerVolume, volume);
+
+  double getPlayerBalance() => _preferences.getDouble(_playerBalance) ?? 1;
+
+  Future<bool> setPlayerBalance(double balance) => _preferences.setDouble(_playerBalance, balance);
 
   Future<Iterable<YoutubeMusic>> getFavoriteSongs() async {
-    final songIds = _preferences.getStringList(favoriteSongs) ?? [];
+    final songIds = _preferences.getStringList(_favoriteSongs) ?? [];
     if (songIds.isEmpty) return [];
     final songs = await musicStorage.getAudios();
     return songIds.map((id) => songs.singleWhere((song) => song.id == id));
@@ -28,16 +37,16 @@ class _AppStorage {
 
   Future<bool> setFavoriteSongs(Iterable<YoutubeMusic> songs) {
     final songIds = songs.map((song) => song.id).toList();
-    return _preferences.setStringList(favoriteSongs, songIds);
+    return _preferences.setStringList(_favoriteSongs, songIds);
   }
 
   MusicLanguage? getSubtitleLanguage() {
-    final languageCode = _preferences.getString(primarySubtitle) ?? empty;
+    final languageCode = _preferences.getString(_primarySubtitle) ?? empty;
     if (languageCode == empty) return null;
     return MusicLanguage.values.byName(languageCode);
   }
 
   Future<bool> setSubtitleLanguage(MusicLanguage? language) {
-    return _preferences.setString(primarySubtitle, language?.name ?? empty);
+    return _preferences.setString(_primarySubtitle, language?.name ?? empty);
   }
 }

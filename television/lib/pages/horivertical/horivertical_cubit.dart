@@ -1,27 +1,37 @@
 part of 'horivertical_page.dart';
 
 class HoriverticalCubit extends Cubit<HoriverticalState> {
-  late AudioPlayer player;
+  HoriverticalCubit._(super.initialState);
 
-  HoriverticalCubit(super.initialState) {
+  static Future<HoriverticalCubit> initial(HoriverticalState state) async {
+    final firstSong = state.playingSong;
+    final cubit = HoriverticalCubit._(state);
+    final artists = await firstSong.getArtists();
+    final streamUrl = await firstSong.getStreamUrl(audioOnly: state.audioOnly);
     player = AudioPlayer()
-      ..onPlayerComplete.listen((_) {
-        next();
-      });
-    state.playingSong
-        .getStreamUrl(
-      audioOnly: state.audioOnly,
-    )
-        .then((url) {
-      state.copyWith(
-        playingSong: state.playingSong,
-      );
-      player.play(
-        UrlSource(url),
-        mode: PlayerMode.mediaPlayer,
-        volume: appStorage.getPlayerVolume(),
-      );
-    });
+      ..playerStateStream.listen(
+        (playerState) {
+          if (playerState.processingState == ProcessingState.completed) {
+            cubit.next();
+          }
+        },
+      )
+      ..setAudioSource(
+        AudioSource.uri(
+          Uri.parse(streamUrl),
+          tag: MediaItem(
+            id: firstSong.id,
+            artist: artists.getName(MusicLanguage.vi),
+            title: firstSong.getName(MusicLanguage.vi),
+            artUri: Uri.parse(firstSong.getImageUrl()),
+          ),
+        ),
+      )
+      ..setVolume(
+        appStorage.getPlayerVolume(),
+      )
+      ..play();
+    return Future.value(cubit);
   }
 
   void _fill() {
@@ -47,13 +57,20 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
       ),
     );
     _fill();
-    await player.play(
-      UrlSource(
-        await nextSong.getStreamUrl(
-          audioOnly: state.audioOnly,
+    final artists = await nextSong.getArtists();
+    final streamUrl = await nextSong.getStreamUrl(audioOnly: state.audioOnly);
+    await player.setAudioSource(
+      AudioSource.uri(
+        Uri.parse(streamUrl),
+        tag: MediaItem(
+          id: nextSong.id,
+          title: nextSong.getName(MusicLanguage.vi),
+          artist: artists.getName(MusicLanguage.vi),
+          artUri: Uri.parse(nextSong.getImageUrl(YoutubeThumbnail.hqdefault)),
         ),
       ),
     );
+    await player.play();
   }
 
   void vote(YoutubeMusic song) {

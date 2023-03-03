@@ -22,7 +22,9 @@ class HorizontalThemeDialog extends StatelessWidget {
         'Hiện không có chủ đề nào khả dụng',
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
-        style: context.labelTextStyle,
+        style: TextStyle(
+          fontSize: context.fontSize,
+        ),
       ),
     );
   }

@@ -16,11 +16,16 @@ class HorizontalAboutDialog extends StatelessWidget {
         label: 'Quay lại',
         onPressed: () => Navigator.pop(context),
       ),
-      child: Text(
-        'Do Zither Harp Music tự động tạo',
-        textAlign: TextAlign.center,
-        overflow: TextOverflow.ellipsis,
-        style: context.labelTextStyle,
+      child: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(
+          vertical: context.mediaHeight / 32,
+          horizontal: context.mediaWidth / 128,
+        ),
+        child: Text(
+          appStorage.instance.about,
+          textAlign: TextAlign.justify,
+          style: context.textTheme.bodyMedium,
+        ),
       ),
     );
   }

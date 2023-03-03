@@ -1,5 +1,5 @@
 import 'package:src/exports/entities.dart';
-import 'package:src/exports/repositories.dart';
+import 'package:src/repositories/storage.dart';
 
 extension ArtistX on Artist {
   static final _audios = <String, Iterable<Audio>>{};

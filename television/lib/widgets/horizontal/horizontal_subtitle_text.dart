@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/widgets.dart';
+import 'package:television/pages/horivertical/horivertical_page.dart';
 import 'package:television/pages/horivertical/horivertical_widget.dart';
 import 'package:television/pages/horizontal/horizontal_widget.dart';
 
@@ -15,8 +16,7 @@ class HorizontalSubtitleText extends StatelessWidget {
         if (subtitleLanguage == null) {
           return placeholder;
         } else {
-          final player = context.playerCubit.player;
-          final playingSong = context.playerState.playingSong;
+          final playingSong = context.horiverticalState.playingSong;
           return FutureBuilder(
             future: Future.wait([
               playingSong.getSubtitles(subtitleLanguage),
@@ -46,7 +46,7 @@ class HorizontalSubtitleText extends StatelessWidget {
                             vertical: context.mediaHeight / 64,
                           ),
                           child: Text(
-                            '(Không có phụ đề khả dụng)',
+                            '(Phụ đề hiện không khả dụng)',
                             textAlign: TextAlign.center,
                             overflow: TextOverflow.ellipsis,
                             style: subtitleTextStyle,
@@ -54,7 +54,7 @@ class HorizontalSubtitleText extends StatelessWidget {
                         ),
                       )
                     : StreamBuilder(
-                        stream: player.onPositionChanged,
+                        stream: player.positionStream,
                         builder: (context, snapshot) {
                           if (snapshot.hasData) {
                             final position = snapshot.requireData;

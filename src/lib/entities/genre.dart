@@ -1,6 +1,6 @@
 import 'package:src/exports/entities.dart';
 
-class Genre extends Music {
+class Genre extends Music implements Entities {
   static final Map<String, Genre> _shelf = {};
 
   const Genre._(

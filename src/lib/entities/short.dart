@@ -1,7 +1,8 @@
 import 'package:src/exports/entities.dart';
-import 'package:src/exports/repositories.dart';
+import 'package:src/repositories/storage.dart';
 
-class Short extends YoutubeMusic {
+// ignore: must_be_immutable
+class Short extends YoutubeMusic implements Entities {
   static final Map<String, Short> _shelf = {};
 
   Short._(

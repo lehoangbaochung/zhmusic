@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:just_audio_background/just_audio_background.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/repositories.dart';
 
@@ -13,18 +14,16 @@ void main() async {
   FlutterNativeSplash.preserve(
     widgetsBinding: WidgetsFlutterBinding.ensureInitialized(),
   );
-  await appStorage.ensureInitialized();
+  // init local storage
   await musicStorage.ensureInitialized();
-  // hide status bar
-  await SystemChrome.setEnabledSystemUIMode(
-    SystemUiMode.manual,
-    overlays: [SystemUiOverlay.bottom],
+  await appStorage.ensureInitialized();
+  await musicService.rotateScreen();
+  // allow play background
+  await JustAudioBackground.init(
+    androidNotificationOngoing: true,
+    androidNotificationChannelId: MusicType.television.packageName,
+    androidNotificationChannelName: MusicType.television.title,
   );
-  // rotate landscape screen
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
-  ]);
   runApp(
     BlocProvider(
       create: (_) => MainCubit(),
@@ -39,7 +38,6 @@ void main() async {
               title: MusicType.television.title,
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
-                useMaterial3: true,
                 primarySwatch: Colors.green,
                 visualDensity: VisualDensity.adaptivePlatformDensity,
                 brightness: state.themeMode ? Brightness.light : Brightness.dark,

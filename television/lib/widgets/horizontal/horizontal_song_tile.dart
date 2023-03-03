@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/widgets.dart';
@@ -17,9 +18,9 @@ class HorizontalSongTile extends StatelessWidget {
       dimension: context.songBarHeight,
       child: ValueListenableBuilder(
         valueListenable: previewing,
-        child: Image.network(
+        child: CachedNetworkImage(
           fit: BoxFit.cover,
-          song.getImageUrl(YoutubeThumbnail.hqdefault),
+          imageUrl: song.getImageUrl(YoutubeThumbnail.hqdefault),
         ),
         builder: (context, value, child) {
           return InkWell(

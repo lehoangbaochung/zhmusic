@@ -28,7 +28,9 @@ class HorizontalFavoriteDialog extends StatelessWidget {
                         'Hiện không có bài hát nào trong danh sách này',
                         textAlign: TextAlign.center,
                         overflow: TextOverflow.ellipsis,
-                        style: context.labelTextStyle,
+                        style: TextStyle(
+                          fontSize: context.fontSize,
+                        ),
                       )
                     : ListView.builder(
                         scrollDirection: Axis.horizontal,

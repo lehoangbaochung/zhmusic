@@ -9,7 +9,6 @@ class HorizontalSongDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         FutureBuilder(
           future: song.getArtists(),
@@ -18,16 +17,13 @@ class HorizontalSongDialog extends StatelessWidget {
               final artists = snapshot.requireData;
               final songName = song.getName(MusicLanguage.vi);
               final artistsName = artists.getName(MusicLanguage.vi);
-              return ColoredBox(
-                color: Colors.transparent,
-                child: Text(
-                  '$songName - $artistsName',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: Colors.green,
-                    fontSize: context.fontSize,
-                    fontWeight: FontWeight.bold,
-                  ),
+              return Text(
+                '$songName - $artistsName',
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: Colors.green,
+                  fontSize: context.fontSize,
+                  fontWeight: FontWeight.bold,
                 ),
               );
             }
@@ -53,7 +49,7 @@ class HorizontalSongDialog extends StatelessWidget {
                   label: 'Bình chọn',
                   onPressed: () {
                     Navigator.pop(context);
-                    context.playerCubit.vote(song);
+                    context.horiverticalCubit.vote(song);
                   },
                 ),
               ),

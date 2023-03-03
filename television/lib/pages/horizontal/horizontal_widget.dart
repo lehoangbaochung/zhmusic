@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:src/exports/widgets.dart';
-import 'package:television/pages/horivertical/horivertical_widget.dart';
 
+import '/pages/horivertical/horivertical_widget.dart';
 import 'horizontal_page.dart';
 
-export '../../widgets/horizontal/buttons/horizontal_elevated_button.dart';
-export '../../widgets/horizontal/buttons/horizontal_outlined_button.dart';
-export '../../widgets/horizontal/horizontal_marquee_text.dart';
+export '/widgets/horizontal/buttons/horizontal_elevated_button.dart';
+export '/widgets/horizontal/buttons/horizontal_outlined_button.dart';
+export '/widgets/horizontal/horizontal_marquee_text.dart';
 
 extension HorizontalWidgetX on BuildContext {
   HorizontalCubit get horizontalCubit => read<HorizontalCubit>();
@@ -28,14 +28,6 @@ extension HorizontalWidgetX on BuildContext {
     return TextStyle(
       color: Colors.white,
       fontSize: mediaHeight / 36,
-    );
-  }
-
-  TextStyle get labelTextStyle {
-    return TextStyle(
-      color: Colors.grey,
-      fontSize: mediaHeight / 36,
-      fontWeight: FontWeight.bold,
     );
   }
 
@@ -67,7 +59,7 @@ extension HorizontalWidgetX on BuildContext {
       barrierColor: Colors.transparent,
       builder: (_) => MultiBlocProvider(
         providers: [
-          BlocProvider.value(value: playerCubit),
+          BlocProvider.value(value: horiverticalCubit),
           BlocProvider.value(value: horizontalCubit),
         ],
         child: dialog,

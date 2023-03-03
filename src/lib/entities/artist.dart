@@ -1,6 +1,6 @@
-import 'tencent.dart';
+import 'package:src/exports/entities.dart';
 
-class Artist extends TencentMusic {
+class Artist extends TencentMusic implements Entities {
   static final Map<String, Artist> _shelf = {};
   static const empty = Artist._('', name: {}, description: {});
 
@@ -11,7 +11,7 @@ class Artist extends TencentMusic {
     // ignore: unused_element
     super.type = TencentMusicType.artist,
   });
-
+  
   factory Artist.fromJson(String id, Map<String, dynamic> fields) {
     return _shelf.putIfAbsent(id, () {
       return Artist._(

@@ -20,7 +20,9 @@ class HorizontalChatDialog extends StatelessWidget {
         'Tính năng đang được phát triển trong thời gian tới',
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
-        style: context.labelTextStyle,
+        style: TextStyle(
+          fontSize: context.fontSize,
+        ),
       ),
     );
   }

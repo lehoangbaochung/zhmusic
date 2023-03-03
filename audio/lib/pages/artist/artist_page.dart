@@ -5,8 +5,6 @@ import 'package:src/exports/entities.dart';
 import 'package:src/exports/extensions.dart';
 import 'package:src/exports/widgets.dart';
 
-import '../search_page.dart';
-
 part 'audio_page.dart';
 
 class ArtistPage extends StatelessWidget {
@@ -43,12 +41,8 @@ class ArtistPage extends StatelessWidget {
                 actions: [
                   IconButton(
                     onPressed: () {
-                      showSearch(
-                        context: context,
-                        delegate: SearchPage(),
-                      );
                     },
-                    icon: const Icon(Icons.search),
+                    icon: const Icon(Icons.more_vert),
                   ),
                 ],
                 bottom: PreferredSize(
@@ -56,7 +50,7 @@ class ArtistPage extends StatelessWidget {
                   child: ListTile(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
-                        top: Radius.circular(8),
+                        top: Radius.circular(16),
                       ),
                     ),
                     tileColor: context.primaryColor.withOpacity(.8),
@@ -68,47 +62,34 @@ class ArtistPage extends StatelessWidget {
                       artist.getName(MusicLanguage.zhHans),
                       style: const TextStyle(color: Colors.black),
                     ),
-                    trailing: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.favorite,
-                            color: Colors.black,
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.share,
-                            color: Colors.black,
-                          ),
-                        ),
-                      ],
+                    trailing: OutlinedButton.icon(
+                      onPressed: () {},
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: Colors.black,
+                      ),
+                      icon: const Icon(Icons.add),
+                      label: const Text('Theo dõi'),
                     ),
                   ),
                 ),
               ),
             ];
           },
-          body: Column(
-            children: [
-              TabBar(
-                isScrollable: true,
-                tabs: tabs.map((e) => Tab(text: e)).toList(),
-              ),
-              Expanded(
-                child: TabBarView(
-                  children: tabs.map((String name) {
-                    return ArtistProvider(
-                      artist: artist,
-                      child: const AudioFragment(),
-                    );
-                  }).toList(),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: TabBarView(
+                    children: tabs.map((String name) {
+                      return ArtistProvider(
+                        artist: artist,
+                        child: const AudioFragment(),
+                      );
+                    }).toList(),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

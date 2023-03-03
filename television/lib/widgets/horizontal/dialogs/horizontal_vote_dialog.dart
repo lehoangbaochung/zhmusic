@@ -5,7 +5,7 @@ class HorizontalVoteDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final songs = context.playerState.library.shuffled;
+    final songs = context.horiverticalState.library.shuffled;
     return HorizontalDialog(
       leading: HorizontalElevatedButton(
         icon: Icons.how_to_vote,

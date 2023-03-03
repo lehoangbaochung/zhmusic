@@ -1,6 +1,5 @@
 import 'package:audio/pages/artist/artist_page.dart';
 import 'package:audio/pages/main/main_page.dart';
-import 'package:audio/widgets/app_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
