@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>560285959775-l3e74j3t00udp9bp09am96l73i7s8vh7.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.560285959775-l3e74j3t00udp9bp09am96l73i7s8vh7</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>560285959775-e4pa298rhaclbmicb543jkgquuv4lj8g.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyDOyqaPCoh06g_lJbT8rQ49e9gcNvin6ow</string>
+	<key>GCM_SENDER_ID</key>
+	<string>560285959775</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.television</string>
+	<key>PROJECT_ID</key>
+	<string>zh-music-1617505883522</string>
+	<key>STORAGE_BUCKET</key>
+	<string>zh-music-1617505883522.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:560285959775:ios:6c6a30b1a05309bf9dbdea</string>
+	<key>DATABASE_URL</key>
+	<string>https://zh-music-1617505883522-default-rtdb.firebaseio.com</string>
+</dict>
+</plist>

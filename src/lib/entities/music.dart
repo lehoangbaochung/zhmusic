@@ -37,7 +37,7 @@ enum MusicLanguage {
   zhHans,
   zhHant;
 
-  String get name {
+  String get code {
     switch (this) {
       case MusicLanguage.vi:
         return 'vi';

@@ -31,3 +31,11 @@ class Television implements Entities {
     };
   }
 }
+
+class Message {
+  final String id;
+  final String content;
+  final DateTime publishTime;
+
+  Message(this.id, this.content, this.publishTime);
+}

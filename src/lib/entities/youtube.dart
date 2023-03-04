@@ -43,7 +43,7 @@ abstract class YoutubeMusic extends Music {
   /// Gets all [Subtitle] which is identified by the specified metadata.
   Future<Iterable<Subtitle>> getSubtitles(MusicLanguage language) async {
     final manifest = _subtitleManifest ??= await yt.videos.closedCaptions.getManifest(id);
-    final trackInfos = manifest.getByLanguage(language.name);
+    final trackInfos = manifest.getByLanguage(language.code);
     if (trackInfos.isEmpty) return [];
     final track = await yt.videos.closedCaptions.get(trackInfos.first);
     return track.captions.map((caption) => Subtitle.fromCaption(caption));

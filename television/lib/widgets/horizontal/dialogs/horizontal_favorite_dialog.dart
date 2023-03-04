@@ -56,7 +56,7 @@ class HorizontalFavoriteDialog extends StatelessWidget {
                                     children: [
                                       child!,
                                       Align(
-                                        alignment: Alignment.bottomLeft,
+                                        alignment: Alignment.bottomCenter,
                                         child: Visibility(
                                           visible: previewing.value,
                                           child: Container(
@@ -67,8 +67,8 @@ class HorizontalFavoriteDialog extends StatelessWidget {
                                               song.getName(MusicLanguage.vi),
                                               overflow: TextOverflow.ellipsis,
                                               style: TextStyle(
-                                                fontSize: context.fontSize,
-                                                color: context.backgroundColor,
+                                                color: Colors.white,
+                                                fontSize: context.mediaHeight / 48,
                                               ),
                                             ),
                                           ),

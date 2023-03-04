@@ -6,8 +6,8 @@ import '/pages/horivertical/horivertical_widget.dart';
 import 'horizontal_page.dart';
 
 export 'package:src/exports/widgets.dart';
-export '/widgets/horizontal/buttons/horizontal_elevated_button.dart';
-export '/widgets/horizontal/buttons/horizontal_outlined_button.dart';
+export '/widgets/horizontal/horizontal_elevated_button.dart';
+export '/widgets/horizontal/horizontal_outlined_button.dart';
 export '/widgets/horizontal/horizontal_marquee_text.dart';
 
 extension HorizontalWidgetX on BuildContext {
@@ -26,20 +26,6 @@ extension HorizontalWidgetX on BuildContext {
   double get fontSize => mediaHeight / 36;
 
   double get iconSize => mediaHeight / 28;
-
-  TextStyle get songTextStyle {
-    return TextStyle(
-      color: Colors.white,
-      fontSize: mediaHeight / 36,
-    );
-  }
-
-  TextStyle get marqueeTextStyle {
-    return TextStyle(
-      color: Colors.white,
-      fontSize: mediaHeight / 36,
-    );
-  }
 
   Future<T?> showHorizontalDialog<T>(Widget dialog) {
     return showModalBottomSheet<T>(

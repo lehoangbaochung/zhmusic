@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:marquee/marquee.dart';
+import 'package:television/pages/horivertical/horivertical_widget.dart';
 
 import '/pages/horizontal/horizontal_widget.dart';
 
@@ -17,6 +18,7 @@ class HorizontalMarqueeText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.horiverticalState.theme;
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
@@ -30,7 +32,10 @@ class HorizontalMarqueeText extends StatelessWidget {
         onDone: onDone,
         velocity: context.mediaWidth / 12,
         blankSpace: context.mediaWidth,
-        style: context.marqueeTextStyle,
+        style: TextStyle(
+          fontSize: context.fontSize,
+          color: theme.playlistTextColor,
+        ),
         pauseAfterRound: const Duration(seconds: 1),
       ),
     );

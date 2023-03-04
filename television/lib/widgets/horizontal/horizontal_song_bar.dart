@@ -13,14 +13,14 @@ class HorizontalSongBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final state = context.horizontalState;
+    final theme = context.horiverticalState.theme;
     final playlist = context.horiverticalState.playlist;
     return Container(
       height: context.songBarHeight,
       decoration: BoxDecoration(
         image: DecorationImage(
           fit: BoxFit.fitWidth,
-          image: CachedNetworkImageProvider(state.backgroundUrl),
+          image: CachedNetworkImageProvider(theme.backgroundUrl),
         ),
       ),
       child: Row(
@@ -48,8 +48,8 @@ class HorizontalSongBar extends StatelessWidget {
                     (song) {
                       final height = context.songBarHeight * .6;
                       final index = playlist.keys.toList().indexOf(song);
-                      final songVote = playlist.values.elementAt(index) + 1;
-                      final voteCount = playlist.values.reduce((value, element) => value + element + 1);
+                      final songVote = playlist.values.elementAt(index).length + 1;
+                      final voteCount = playlist.values.map((account) => account.length).reduce((value, element) => value + element + 1);
                       return Expanded(
                         child: TextButton(
                           style: TextButton.styleFrom(
@@ -71,7 +71,7 @@ class HorizontalSongBar extends StatelessWidget {
                               LinearProgressIndicator(
                                 value: songVote / voteCount,
                                 minHeight: height / 6,
-                                color: Colors.red,
+                                color: theme.songVoteColor,
                                 backgroundColor: Colors.transparent,
                               ),
                               // song name
@@ -83,7 +83,10 @@ class HorizontalSongBar extends StatelessWidget {
                                   song.getName(MusicLanguage.vi),
                                   overflow: TextOverflow.ellipsis,
                                   textAlign: TextAlign.left,
-                                  style: context.songTextStyle,
+                                  style: TextStyle(
+                                    color: theme.songTextColor,
+                                    fontSize: context.fontSize,
+                                  ),
                                 ),
                               ),
                               // artist name
@@ -96,7 +99,10 @@ class HorizontalSongBar extends StatelessWidget {
                                       artists.getName(MusicLanguage.vi),
                                       overflow: TextOverflow.ellipsis,
                                       textAlign: TextAlign.right,
-                                      style: context.songTextStyle,
+                                      style: TextStyle(
+                                        color: theme.songTextColor,
+                                        fontSize: context.fontSize,
+                                      ),
                                     );
                                   }
                                   return placeholder;

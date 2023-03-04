@@ -5,6 +5,7 @@ class HorizontalMenuDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final signedIn = Account.instance == null;
     return HorizontalDialog(
       leading: HorizontalElevatedButton(
         icon: Icons.menu,
@@ -58,22 +59,30 @@ class HorizontalMenuDialog extends StatelessWidget {
           HorizontalOutlinedButton.large(
             icon: Icons.chat,
             label: 'Trò chuyện',
-            onPressed: () async {
-              context.showHorizontalDialog(
-                const HorizontalChatDialog(),
-              );
-            },
+            onPressed: signedIn
+                ? null
+                : () async {
+                    await context.showHorizontalDialog(
+                      const HorizontalChatDialog(),
+                    );
+                  },
           ),
           HorizontalOutlinedButton.large(
             icon: Icons.theater_comedy,
             label: 'Nhãn dán',
-            onPressed: () async {},
+            onPressed: signedIn
+                ? null
+                : () async {
+                    await context.showHorizontalDialog(
+                      const HorizontalIconDialog(),
+                    );
+                  },
           ),
           HorizontalOutlinedButton.large(
             icon: Icons.color_lens,
             label: 'Chủ đề',
             onPressed: () async {
-              context.showHorizontalDialog(
+              await context.showHorizontalDialog(
                 const HorizontalThemeDialog(),
               );
             },

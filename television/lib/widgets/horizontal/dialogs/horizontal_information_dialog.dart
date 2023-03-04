@@ -35,7 +35,10 @@ class HorizontalInformationDialog extends StatelessWidget {
             child: Text(
               information,
               overflow: TextOverflow.ellipsis,
-              style: TextStyle(fontSize: context.fontSize),
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: context.fontSize,
+              ),
             ),
           );
         },

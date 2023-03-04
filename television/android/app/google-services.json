@@ -1,0 +1,135 @@
+{
+  "project_info": {
+    "project_number": "560285959775",
+    "firebase_url": "https://zh-music-1617505883522-default-rtdb.firebaseio.com",
+    "project_id": "zh-music-1617505883522",
+    "storage_bucket": "zh-music-1617505883522.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560285959775:android:df03c0b786e55edd9dbdea",
+        "android_client_info": {
+          "package_name": "com.zitherharp.music"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "560285959775-e4pa298rhaclbmicb543jkgquuv4lj8g.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zitherharp.music",
+            "certificate_hash": "e1b6f302cb057d2e19cd79d2ec43e9dbec736b00"
+          }
+        },
+        {
+          "client_id": "560285959775-6luktfphomcgq7gtu4j6ad0r4s18gs59.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLjnTkCrqma3x_VFe-oN6sH6sJ1rkDSzg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "560285959775-6luktfphomcgq7gtu4j6ad0r4s18gs59.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "560285959775-6ieooru0agkiat4h2tgn25bopfnrujh3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shorts"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560285959775:android:a1601891800d88d29dbdea",
+        "android_client_info": {
+          "package_name": "com.zitherharp.music.shorts"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "560285959775-opqil32l8u50tsodq36kkbau5ot43305.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zitherharp.music.shorts",
+            "certificate_hash": "f9ba8d23ba99c94b2dbc5e44aeeb957043e889b7"
+          }
+        },
+        {
+          "client_id": "560285959775-6luktfphomcgq7gtu4j6ad0r4s18gs59.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLjnTkCrqma3x_VFe-oN6sH6sJ1rkDSzg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "560285959775-6luktfphomcgq7gtu4j6ad0r4s18gs59.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "560285959775-6ieooru0agkiat4h2tgn25bopfnrujh3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shorts"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560285959775:android:a796c458872ba0279dbdea",
+        "android_client_info": {
+          "package_name": "com.zitherharp.music.television"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "560285959775-6luktfphomcgq7gtu4j6ad0r4s18gs59.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDLjnTkCrqma3x_VFe-oN6sH6sJ1rkDSzg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "560285959775-6luktfphomcgq7gtu4j6ad0r4s18gs59.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "560285959775-6ieooru0agkiat4h2tgn25bopfnrujh3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.shorts"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

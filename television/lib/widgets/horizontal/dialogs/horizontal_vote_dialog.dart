@@ -20,11 +20,7 @@ class HorizontalVoteDialog extends StatelessWidget {
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: songs.length,
-        itemBuilder: (context, index) {
-          return HorizontalSongTile(
-            songs.elementAt(index),
-          );
-        },
+        itemBuilder: (context, index) => HorizontalSongTile(songs.elementAt(index)),
       ),
     );
   }

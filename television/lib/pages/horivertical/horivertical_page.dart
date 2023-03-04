@@ -7,10 +7,11 @@ import 'package:just_audio_background/just_audio_background.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/extensions.dart';
 import 'package:src/exports/repositories.dart';
-import 'package:television/pages/horivertical/horivertical_widget.dart';
 
 import '/app/app_storage.dart';
-import '/extensions/entities.dart';
+import '/extensions/playlist.dart';
+import '/pages/horivertical/horivertical_theme.dart';
+import '/pages/horivertical/horivertical_widget.dart';
 import '/pages/horizontal/horizontal_page.dart';
 
 part 'horivertical_cubit.dart';

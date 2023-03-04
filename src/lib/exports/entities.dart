@@ -1,12 +1,13 @@
-export 'package:src/entities/music.dart';
-export 'package:src/entities/tencent.dart';
-export 'package:src/entities/youtube.dart';
-export 'package:src/entities/audio.dart';
-export 'package:src/entities/artist.dart';
-export 'package:src/entities/genre.dart';
-export 'package:src/entities/short.dart';
-export 'package:src/entities/subtitle.dart';
-export 'package:src/entities/television.dart';
+export '/entities/account.dart';
+export '/entities/artist.dart';
+export '/entities/audio.dart';
+export '/entities/genre.dart';
+export '/entities/music.dart';
+export '/entities/short.dart';
+export '/entities/subtitle.dart';
+export '/entities/television.dart';
+export '/entities/tencent.dart';
+export '/entities/youtube.dart';
 
 const empty = '';
 const separator = '/';

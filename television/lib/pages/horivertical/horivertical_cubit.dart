@@ -25,7 +25,11 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
             id: firstSong.id,
             artist: artists.getName(MusicLanguage.vi),
             title: firstSong.getName(MusicLanguage.vi),
-            artUri: Uri.parse(firstSong.getImageUrl(YoutubeThumbnail.hqdefault)),
+            artUri: Uri.parse(
+              firstSong.getImageUrl(
+                YoutubeThumbnail.hqdefault,
+              ),
+            ),
           ),
         ),
       )
@@ -41,7 +45,7 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
     while (state.playlist.length < 15) {
       final nextSong = state.library.random;
       if (state.playlist.keys.contains(nextSong)) continue;
-      state.playlist.addAll({nextSong: 0});
+      state.playlist.addAll({nextSong: []});
     }
     emit(
       state.copyWith(
@@ -70,7 +74,11 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
           id: nextSong.id,
           title: nextSong.getName(MusicLanguage.vi),
           artist: artists.getName(MusicLanguage.vi),
-          artUri: Uri.parse(nextSong.getImageUrl(YoutubeThumbnail.hqdefault)),
+          artUri: Uri.parse(
+            nextSong.getImageUrl(
+              YoutubeThumbnail.hqdefault,
+            ),
+          ),
         ),
       ),
     );
@@ -78,16 +86,15 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
   }
 
   void vote(YoutubeMusic song) {
-    if (state.playlist.containsKey(song)) {
-      state.playlist.update(song, (value) => value += 1);
-    } else {
-      state.playlist.addAll({song: 1});
-    }
+    state.playlist.update(
+      ifAbsent: () => [],
+      song,
+      (value) => value.toList()..add(Account.empty),
+    );
     emit(
       state.copyWith(
         playlist: state.playlist.sorted,
       ),
     );
-    _fill();
   }
 }

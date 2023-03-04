@@ -14,6 +14,7 @@ class Audio extends YoutubeMusic implements Entities {
 
   dynamic _artists;
 
+  @override
   factory Audio.fromJson(String id, Map<String, dynamic> fields) {
     return _shelf.putIfAbsent(id, () {
       return Audio._(

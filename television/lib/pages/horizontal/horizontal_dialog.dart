@@ -1,13 +1,15 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:src/exports/entities.dart';
 import 'package:src/exports/extensions.dart';
-import 'package:television/pages/horivertical/horivertical_page.dart';
 
 import '/app/app_storage.dart';
+import '/pages/horivertical/horivertical_page.dart';
 import '/pages/horivertical/horivertical_widget.dart';
 import '/pages/horizontal/horizontal_widget.dart';
 import '/widgets/horizontal/dialogs/horizontal_subtitle_dialog.dart';
 import '/widgets/horizontal/dialogs/horizontal_theme_dialog.dart';
+import '/widgets/horizontal/horizontal_outlined_tile.dart';
 import '/widgets/horizontal/horizontal_song_tile.dart';
 
 part '../../widgets/horizontal/dialogs/horizontal_about_dialog.dart';
@@ -41,7 +43,9 @@ class HorizontalDialog extends StatelessWidget {
       height: context.songBarHeight,
       child: Row(
         children: [
-          AbsorbPointer(child: leading),
+          ExcludeFocus(
+            child: AbsorbPointer(child: leading),
+          ),
           Expanded(child: child),
           trailing,
         ],

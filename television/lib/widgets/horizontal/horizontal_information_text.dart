@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:television/app/app_storage.dart';
+import 'package:television/pages/horivertical/horivertical_widget.dart';
 import 'package:television/pages/horizontal/horizontal_dialog.dart';
 import 'package:television/pages/horizontal/horizontal_widget.dart';
 
@@ -10,6 +11,7 @@ class HorizontalInformationText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = context.horiverticalState.theme;
     final informations = appStorage.instance.informations.toList()..shuffle();
     return SizedBox(
       height: context.marqueeTextHeight,
@@ -40,7 +42,10 @@ class HorizontalInformationText extends StatelessWidget {
             child: RichText(
               text: TextSpan(
                 text: 'Soạn tin: ',
-                style: context.marqueeTextStyle,
+                style: TextStyle(
+                  color: theme.infoTextColor,
+                  fontSize: context.fontSize,
+                ),
                 children: [
                   TextSpan(
                     text: 'ZHM tên_bài_hát (tên_ca_sĩ)',

@@ -46,7 +46,10 @@ void main() async {
                 dragDevices: {
                   PointerDeviceKind.touch,
                   PointerDeviceKind.mouse,
-                  PointerDeviceKind.trackpad,
+                  PointerDeviceKind.stylus,
+                  PointerDeviceKind.trackpad, 
+                  PointerDeviceKind.invertedStylus,
+                  PointerDeviceKind.unknown,
                 },
               ),
             ),

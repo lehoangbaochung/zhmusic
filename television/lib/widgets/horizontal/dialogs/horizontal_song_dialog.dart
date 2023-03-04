@@ -31,10 +31,12 @@ class HorizontalSongDialog extends StatelessWidget {
           },
         ),
         HorizontalDialog(
-          leading: HorizontalElevatedButton(
-            icon: Icons.music_note,
-            label: 'Bài hát',
-            onPressed: () {},
+          leading: SizedBox.square(
+            dimension: context.songBarHeight,
+            child: CachedNetworkImage(
+              fit: BoxFit.cover,
+              imageUrl: song.getImageUrl(YoutubeThumbnail.hqdefault),
+            ),
           ),
           trailing: HorizontalElevatedButton(
             icon: Icons.arrow_back,
@@ -103,196 +105,39 @@ class HorizontalSongDialog extends StatelessWidget {
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               final metadata = snapshot.requireData;
-                              return AbsorbPointer(
-                                child: Row(
-                                  children: [
-                                    // view
-                                    Expanded(
-                                      child: OutlinedButton(
-                                        onPressed: () {},
-                                        style: ButtonStyle(
-                                          shape: const MaterialStatePropertyAll(
-                                            RoundedRectangleBorder(),
-                                          ),
-                                          fixedSize: MaterialStatePropertyAll(
-                                            Size.fromWidth(context.songBarHeight),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '${metadata.viewCount}',
-                                                textAlign: TextAlign.center,
-                                                overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  fontSize: context.mediaHeight / 36,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Lượt nghe',
-                                                textAlign: TextAlign.center,
-                                                overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  fontSize: context.mediaHeight / 36,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                              return Row(
+                                children: [
+                                  Expanded(
+                                    child: HorizontalOutlinedTile(
+                                      title: '${metadata.viewCount}',
+                                      subtitle: 'Lượt nghe',
                                     ),
-                                    // like
-                                    Expanded(
-                                      child: OutlinedButton(
-                                        onPressed: () {},
-                                        style: ButtonStyle(
-                                          shape: const MaterialStatePropertyAll(
-                                            RoundedRectangleBorder(),
-                                          ),
-                                          fixedSize: MaterialStatePropertyAll(
-                                            Size.fromWidth(context.songBarHeight),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '${metadata.likeCount}',
-                                                textAlign: TextAlign.center,
-                                                overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  fontSize: context.mediaHeight / 36,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Lượt thích',
-                                                textAlign: TextAlign.center,
-                                                overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  fontSize: context.mediaHeight / 36,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                  ),
+                                  Expanded(
+                                    child: HorizontalOutlinedTile(
+                                      title: '${metadata.likeCount}',
+                                      subtitle: 'Lượt thích',
                                     ),
-                                    // duration
-                                    Expanded(
-                                      child: OutlinedButton(
-                                        onPressed: () {},
-                                        style: ButtonStyle(
-                                          shape: const MaterialStatePropertyAll(
-                                            RoundedRectangleBorder(),
-                                          ),
-                                          fixedSize: MaterialStatePropertyAll(
-                                            Size.fromWidth(context.songBarHeight),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '${metadata.duration?.format()}',
-                                                textAlign: TextAlign.center,
-                                                overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  fontSize: context.mediaHeight / 36,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Thời lượng',
-                                                textAlign: TextAlign.center,
-                                                overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  fontSize: context.mediaHeight / 36,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                  ),
+                                  Expanded(
+                                    child: HorizontalOutlinedTile(
+                                      title: '${metadata.duration?.format()}',
+                                      subtitle: 'Thời lượng',
                                     ),
-                                    // upload
-                                    Expanded(
-                                      child: OutlinedButton(
-                                        onPressed: () {},
-                                        style: ButtonStyle(
-                                          shape: const MaterialStatePropertyAll(
-                                            RoundedRectangleBorder(),
-                                          ),
-                                          fixedSize: MaterialStatePropertyAll(
-                                            Size.fromWidth(context.songBarHeight),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '${metadata.uploadDate?.format()}',
-                                                textAlign: TextAlign.center,
-                                                overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  fontSize: context.mediaHeight / 36,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Ngày tải lên',
-                                                textAlign: TextAlign.center,
-                                                overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  fontSize: context.mediaHeight / 36,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                  ),
+                                  Expanded(
+                                    child: HorizontalOutlinedTile(
+                                      title: '${metadata.uploadDate?.format()}',
+                                      subtitle: 'Ngày tải lên',
                                     ),
-                                    // publish
-                                    Expanded(
-                                      child: OutlinedButton(
-                                        onPressed: () {},
-                                        style: ButtonStyle(
-                                          shape: const MaterialStatePropertyAll(
-                                            RoundedRectangleBorder(),
-                                          ),
-                                          fixedSize: MaterialStatePropertyAll(
-                                            Size.fromWidth(context.songBarHeight),
-                                          ),
-                                        ),
-                                        child: Center(
-                                          child: Column(
-                                            mainAxisAlignment: MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '${metadata.uploadDate?.format()}',
-                                                textAlign: TextAlign.center,
-                                                overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  fontSize: context.mediaHeight / 36,
-                                                ),
-                                              ),
-                                              Text(
-                                                'Ngày đăng tải',
-                                                textAlign: TextAlign.center,
-                                                overflow: TextOverflow.fade,
-                                                style: TextStyle(
-                                                  fontSize: context.mediaHeight / 36,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
+                                  ),
+                                  Expanded(
+                                    child: HorizontalOutlinedTile(
+                                      title: '${metadata.publishDate?.format()}',
+                                      subtitle: 'Ngày đăng tải',
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               );
                             }
                             return centeredLoadingIndicator;
