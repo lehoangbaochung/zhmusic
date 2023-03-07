@@ -9,6 +9,7 @@ class HoriverticalState {
   final YoutubeMusic playingSong;
   final Iterable<YoutubeMusic> library;
   final Map<YoutubeMusic, Iterable<Account>> playlist;
+  final MusicLanguage? subtitleLanguage;
 
   const HoriverticalState._({
     required this.mode,
@@ -18,6 +19,7 @@ class HoriverticalState {
     required this.playingSong,
     required this.library,
     required this.playlist,
+    this.subtitleLanguage,
   });
 
   static Future<HoriverticalState> initial({
@@ -35,6 +37,7 @@ class HoriverticalState {
       library: songs,
       playingSong: songs.random,
       playlist: {for (var song in songs.shuffled.take(15)) song: []},
+      subtitleLanguage: appStorage.getSubtitleLanguage(),
     );
   }
 
@@ -42,6 +45,7 @@ class HoriverticalState {
     YoutubeMusic? playingSong,
     Iterable<YoutubeMusic>? library,
     Map<YoutubeMusic, Iterable<Account>>? playlist,
+    MusicLanguage? subtitleLanguage,
   }) {
     return HoriverticalState._(
       mode: mode,
@@ -51,6 +55,7 @@ class HoriverticalState {
       library: library ?? this.library,
       playlist: playlist ?? this.playlist,
       playingSong: playingSong ?? this.playingSong,
+      subtitleLanguage: subtitleLanguage,
     );
   }
 }

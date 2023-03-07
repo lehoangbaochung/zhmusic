@@ -1,4 +1,8 @@
-part of '/pages/horizontal/horizontal_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:src/exports/entities.dart';
+import 'package:television/app/app_storage.dart';
+import 'package:television/pages/horizontal/horizontal_dialog.dart';
+import 'package:television/pages/horizontal/horizontal_widget.dart';
 
 class HorizontalFavoriteDialog extends StatelessWidget {
   const HorizontalFavoriteDialog({super.key});
@@ -6,12 +10,12 @@ class HorizontalFavoriteDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HorizontalDialog(
-      leading: HorizontalElevatedButton(
+      leading: HorizontalPrimaryTile.icon(
         icon: Icons.favorite,
         label: 'Yêu thích',
         onPressed: () {},
       ),
-      trailing: HorizontalElevatedButton(
+      trailing: HorizontalPrimaryTile.icon(
         icon: Icons.arrow_back,
         label: 'Quay lại',
         onPressed: () => Navigator.pop(context),

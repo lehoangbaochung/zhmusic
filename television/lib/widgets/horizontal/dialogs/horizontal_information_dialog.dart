@@ -11,12 +11,12 @@ class HorizontalInformationDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final informations = appStorage.instance.informations;
     return HorizontalDialog(
-      leading: HorizontalElevatedButton(
+      leading: HorizontalPrimaryTile.icon(
         icon: Icons.view_headline,
         label: 'Thông tin',
         onPressed: () {},
       ),
-      trailing: HorizontalElevatedButton(
+      trailing: HorizontalPrimaryTile.icon(
         icon: Icons.arrow_back,
         label: 'Quay lại',
         onPressed: () => Navigator.pop(context),
@@ -29,15 +29,16 @@ class HorizontalInformationDialog extends StatelessWidget {
             width: context.songBarWidth,
             height: context.songBarHeight,
             padding: EdgeInsets.symmetric(
-              vertical: context.mediaHeight / 8,
               horizontal: context.mediaWidth / 128,
             ),
-            child: Text(
-              information,
-              overflow: TextOverflow.ellipsis,
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: context.fontSize,
+            child: Center(
+              child: Text(
+                information,
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: context.fontSize,
+                ),
               ),
             ),
           );

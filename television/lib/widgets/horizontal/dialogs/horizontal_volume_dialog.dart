@@ -1,4 +1,10 @@
-part of '/pages/horizontal/horizontal_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:television/app/app_storage.dart';
+import 'package:television/pages/horivertical/horivertical_page.dart';
+import 'package:television/pages/horizontal/horizontal_dialog.dart';
+import 'package:television/pages/horizontal/horizontal_widget.dart';
+
+import '../horizontal_secondary_tile.dart';
 
 class HorizontalVolumeDialog extends StatelessWidget {
   const HorizontalVolumeDialog({super.key});
@@ -6,12 +12,12 @@ class HorizontalVolumeDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HorizontalDialog(
-      leading: HorizontalElevatedButton(
+      leading: HorizontalPrimaryTile.icon(
         icon: Icons.volume_up,
         label: 'Âm lượng',
         onPressed: () {},
       ),
-      trailing: HorizontalElevatedButton(
+      trailing: HorizontalPrimaryTile.icon(
         icon: Icons.arrow_back,
         label: 'Quay lại',
         onPressed: () => Navigator.pop(context),
@@ -19,7 +25,7 @@ class HorizontalVolumeDialog extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: HorizontalOutlinedButton.large(
+            child: HorizontalSecondaryTile.icon(
               icon: Icons.volume_off,
               label: 'Tắt',
               onPressed: () async {
@@ -30,7 +36,7 @@ class HorizontalVolumeDialog extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: HorizontalOutlinedButton.large(
+            child: HorizontalSecondaryTile.icon(
               icon: Icons.volume_mute,
               label: 'Nhỏ',
               onPressed: () async {
@@ -41,7 +47,7 @@ class HorizontalVolumeDialog extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: HorizontalOutlinedButton.large(
+            child: HorizontalSecondaryTile.icon(
               icon: Icons.volume_down,
               label: 'Vừa',
               onPressed: () async {
@@ -52,7 +58,7 @@ class HorizontalVolumeDialog extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: HorizontalOutlinedButton.large(
+            child: HorizontalSecondaryTile.icon(
               icon: Icons.volume_up,
               label: 'Lớn',
               onPressed: () async {

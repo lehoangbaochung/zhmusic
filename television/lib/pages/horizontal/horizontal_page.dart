@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:src/exports/entities.dart';
+import 'package:src/exports/repositories.dart';
 
 import '/app/app_storage.dart';
 import '/widgets/horizontal/horizontal_channel_logo.dart';
@@ -19,6 +20,7 @@ class HorizontalPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    musicService.rotateScreen();
     return BlocBuilder<HorizontalCubit, HorizontalState>(
       builder: (context, state) {
         return Scaffold(

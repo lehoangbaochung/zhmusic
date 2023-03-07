@@ -50,6 +50,7 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
     emit(
       state.copyWith(
         playlist: state.playlist,
+        subtitleLanguage: state.subtitleLanguage,
       ),
     );
   }
@@ -60,6 +61,7 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
       state.copyWith(
         playingSong: nextSong,
         playlist: state.playlist..remove(nextSong),
+        subtitleLanguage: state.subtitleLanguage,
       ),
     );
     _fill();
@@ -89,11 +91,20 @@ class HoriverticalCubit extends Cubit<HoriverticalState> {
     state.playlist.update(
       ifAbsent: () => [],
       song,
-      (value) => value.toList()..add(Account.empty),
+      (value) => value.toList()..add(Account.anonymous),
     );
     emit(
       state.copyWith(
         playlist: state.playlist.sorted,
+        subtitleLanguage: state.subtitleLanguage,
+      ),
+    );
+  }
+
+  void changeSubtitleLanguage(MusicLanguage? language) {
+    emit(
+      state.copyWith(
+        subtitleLanguage: language,
       ),
     );
   }

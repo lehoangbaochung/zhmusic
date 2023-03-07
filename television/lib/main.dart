@@ -21,7 +21,7 @@ void main() async {
   // allow play background
   await JustAudioBackground.init(
     androidNotificationOngoing: true,
-    androidNotificationChannelId: MusicType.television.packageName,
+    androidNotificationChannelId: MusicType.television.id,
     androidNotificationChannelName: MusicType.television.title,
   );
   runApp(
@@ -47,7 +47,7 @@ void main() async {
                   PointerDeviceKind.touch,
                   PointerDeviceKind.mouse,
                   PointerDeviceKind.stylus,
-                  PointerDeviceKind.trackpad, 
+                  PointerDeviceKind.trackpad,
                   PointerDeviceKind.invertedStylus,
                   PointerDeviceKind.unknown,
                 },

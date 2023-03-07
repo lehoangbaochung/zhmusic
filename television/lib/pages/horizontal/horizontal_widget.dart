@@ -6,7 +6,7 @@ import '/pages/horivertical/horivertical_widget.dart';
 import 'horizontal_page.dart';
 
 export 'package:src/exports/widgets.dart';
-export '/widgets/horizontal/horizontal_elevated_button.dart';
+export '../../widgets/horizontal/horizontal_primary_tile.dart';
 export '/widgets/horizontal/horizontal_outlined_button.dart';
 export '/widgets/horizontal/horizontal_marquee_text.dart';
 
@@ -31,14 +31,17 @@ extension HorizontalWidgetX on BuildContext {
     return showModalBottomSheet<T>(
       elevation: 0,
       context: this,
+      isDismissible: false,
       barrierColor: Colors.transparent,
-      builder: (_) => MultiBlocProvider(
-        providers: [
-          BlocProvider.value(value: horizontalCubit),
-          BlocProvider.value(value: horiverticalCubit),
-        ],
-        child: dialog,
-      ),
+      builder: (context) {
+        return MultiBlocProvider(
+          providers: [
+            BlocProvider.value(value: horizontalCubit),
+            BlocProvider.value(value: horiverticalCubit),
+          ],
+          child: dialog,
+        );
+      },
     );
   }
 }

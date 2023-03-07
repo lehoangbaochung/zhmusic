@@ -11,6 +11,7 @@ class _MusicStorage {
   late final _database = FirebaseFirestore.instance;
 
   static const music = 'music';
+  static const account = 'account';
   static const audio = 'audio';
   static const artist = 'artist';
   static const short = 'short';
@@ -21,6 +22,18 @@ class _MusicStorage {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+  }
+
+  Future<Iterable<Account>> getAccounts() async {
+    if (_shelf.containsKey(account)) return _shelf[account];
+    final query = await _database
+        .collection(account)
+        .withConverter(
+          toFirestore: (obj, _) => obj.toJson(),
+          fromFirestore: (doc, _) => Account.fromJson(doc.id, doc.data()!),
+        )
+        .get();
+    return _shelf[account] = query.docs.map((doc) => doc.data());
   }
 
   Future<Iterable<Artist>> getArtists() async {

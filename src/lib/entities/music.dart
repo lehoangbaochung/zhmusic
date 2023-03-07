@@ -17,9 +17,9 @@ abstract class Music {
   @protected
   final Map<String, String> description;
 
-  String getName(MusicLanguage language) => name[language.name] ?? language.name;
+  String getName(MusicLanguage language) => name[language.code] ?? language.code;
 
-  String getDescription(MusicLanguage language) => description[language.name] ?? language.name;
+  String getDescription(MusicLanguage language) => description[language.code] ?? language.code;
 
   @override
   String toString() => '$runtimeType ($id)';
@@ -64,7 +64,7 @@ enum MusicType {
     return 'Zither Harp Music (${first + last})';
   }
 
-  String get packageName => 'com.zitherharp.music.$name';
+  String get id => 'com.zitherharp.music.$name';
 
   Image get image => Image.asset('assets/images/$name.png', package: 'src');
 

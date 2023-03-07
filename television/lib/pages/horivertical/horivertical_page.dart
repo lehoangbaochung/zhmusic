@@ -37,8 +37,6 @@ class _HoriverticalPageState extends State<HoriverticalPage> {
               context: context,
               builder: (_) {
                 return AlertDialog(
-                  alignment: Alignment.center,
-                  actionsAlignment: MainAxisAlignment.center,
                   title: const Text(
                     'Thoát ứng dụng',
                   ),
@@ -46,7 +44,8 @@ class _HoriverticalPageState extends State<HoriverticalPage> {
                     'Bạn muốn thoát ứng dụng ngay bây giờ?',
                   ),
                   actions: [
-                    TextButton(
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(elevation: 0),
                       child: const Text('Thoát'),
                       onPressed: () => Navigator.pop(context, true),
                     ),

@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:television/app/app_storage.dart';
-import 'package:television/pages/horivertical/horivertical_widget.dart';
-import 'package:television/pages/horizontal/horizontal_dialog.dart';
-import 'package:television/pages/horizontal/horizontal_widget.dart';
+import 'package:src/exports/entities.dart';
 
+import '/app/app_storage.dart';
+import '/pages/horivertical/horivertical_widget.dart';
+import '/pages/horizontal/horizontal_dialog.dart';
+import '/pages/horizontal/horizontal_widget.dart';
 import 'dialogs/horizontal_information_dialog.dart';
 
 class HorizontalInformationText extends StatelessWidget {
@@ -35,8 +36,49 @@ class HorizontalInformationText extends StatelessWidget {
               padding: EdgeInsets.only(right: context.mediaWidth / 128),
             ),
             onPressed: () async {
-              await context.showHorizontalDialog(
-                const HorizontalVoteDialog(),
+              await showDialog(
+                context: context,
+                builder: (_) {
+                  final voteTextController = TextEditingController();
+                  return AlertDialog(
+                    actionsAlignment: MainAxisAlignment.center,
+                    title: const Text('Bình chọn'),
+                    content: TextField(
+                      controller: voteTextController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(),
+                      ),
+                      onSubmitted: (value) async {
+                        Navigator.pop(context);
+                        await context.showHorizontalDialog(
+                          HorizontalVoteDialog(
+                            songs: context.horiverticalState.library.where((song) {
+                              final songName = song.getName(MusicLanguage.vi).toLowerCase();
+                              return songName.contains(voteTextController.text.toLowerCase());
+                            }),
+                          ),
+                        );
+                      },
+                    ),
+                    actions: [
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(elevation: 0),
+                        onPressed: () async {
+                          Navigator.pop(context);
+                          await context.showHorizontalDialog(
+                            HorizontalVoteDialog(
+                              songs: context.horiverticalState.library.where((song) {
+                                final songName = song.getName(MusicLanguage.vi).toLowerCase();
+                                return songName.contains(voteTextController.text.toLowerCase());
+                              }),
+                            ),
+                          );
+                        },
+                        child: const Text('Gửi'),
+                      ),
+                    ],
+                  );
+                },
               );
             },
             child: RichText(

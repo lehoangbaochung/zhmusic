@@ -1,4 +1,7 @@
-part of '/pages/horizontal/horizontal_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:television/app/app_storage.dart';
+import 'package:television/pages/horizontal/horizontal_dialog.dart';
+import 'package:television/pages/horizontal/horizontal_widget.dart';
 
 class HorizontalAboutDialog extends StatelessWidget {
   const HorizontalAboutDialog({super.key});
@@ -6,12 +9,12 @@ class HorizontalAboutDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HorizontalDialog(
-      leading: HorizontalElevatedButton(
+      leading: HorizontalPrimaryTile.icon(
         icon: Icons.info,
         label: 'Giới thiệu',
         onPressed: () {},
       ),
-      trailing: HorizontalElevatedButton(
+      trailing: HorizontalPrimaryTile.icon(
         icon: Icons.arrow_back,
         label: 'Quay lại',
         onPressed: () => Navigator.pop(context),
@@ -24,9 +27,7 @@ class HorizontalAboutDialog extends StatelessWidget {
         child: Text(
           appStorage.instance.about,
           textAlign: TextAlign.justify,
-          style: TextStyle(
-            fontSize: context.fontSize,
-          ),
+          style: TextStyle(fontSize: context.fontSize),
         ),
       ),
     );

@@ -8,12 +8,12 @@ class HorizontalThemeDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HorizontalDialog(
-      leading: HorizontalElevatedButton(
+      leading: HorizontalPrimaryTile.icon(
         icon: Icons.color_lens,
         label: 'Chủ đề',
         onPressed: () {},
       ),
-      trailing: HorizontalElevatedButton(
+      trailing: HorizontalPrimaryTile.icon(
         icon: Icons.arrow_back,
         label: 'Quay lại',
         onPressed: () => Navigator.pop(context),
@@ -22,9 +22,7 @@ class HorizontalThemeDialog extends StatelessWidget {
         'Hiện không có chủ đề nào khả dụng',
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
-        style: TextStyle(
-          fontSize: context.fontSize,
-        ),
+        style: TextStyle(fontSize: context.fontSize),
       ),
     );
   }

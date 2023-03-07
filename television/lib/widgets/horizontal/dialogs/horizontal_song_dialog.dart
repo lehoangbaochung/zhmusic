@@ -1,4 +1,13 @@
-part of '/pages/horizontal/horizontal_dialog.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
+import 'package:src/exports/entities.dart';
+import 'package:src/exports/extensions.dart';
+import 'package:television/app/app_storage.dart';
+import 'package:television/pages/horivertical/horivertical_widget.dart';
+import 'package:television/pages/horizontal/horizontal_dialog.dart';
+import 'package:television/pages/horizontal/horizontal_widget.dart';
+
+import '../horizontal_secondary_tile.dart';
 
 class HorizontalSongDialog extends StatelessWidget {
   const HorizontalSongDialog(this.song, {super.key});
@@ -17,13 +26,26 @@ class HorizontalSongDialog extends StatelessWidget {
               final artists = snapshot.requireData;
               final songName = song.getName(MusicLanguage.vi);
               final artistsName = artists.getName(MusicLanguage.vi);
-              return Text(
-                '$songName - $artistsName',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.green,
-                  fontSize: context.fontSize,
-                  fontWeight: FontWeight.bold,
+              return Container(
+                width: context.mediaWidth,
+                decoration: const BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: [
+                      Colors.white,
+                      Colors.lightGreen,
+                      Colors.green,
+                      Colors.lightGreen,
+                      Colors.white,
+                    ],
+                  ),
+                ),
+                child: Text(
+                  '$songName - $artistsName',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: context.fontSize,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               );
             }
@@ -35,10 +57,12 @@ class HorizontalSongDialog extends StatelessWidget {
             dimension: context.songBarHeight,
             child: CachedNetworkImage(
               fit: BoxFit.cover,
-              imageUrl: song.getImageUrl(YoutubeThumbnail.hqdefault),
+              imageUrl: song.getImageUrl(
+                YoutubeThumbnail.hqdefault,
+              ),
             ),
           ),
-          trailing: HorizontalElevatedButton(
+          trailing: HorizontalPrimaryTile.icon(
             icon: Icons.arrow_back,
             label: 'Quay lại',
             onPressed: () => Navigator.pop(context),
@@ -46,7 +70,7 @@ class HorizontalSongDialog extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: HorizontalOutlinedButton.large(
+                child: HorizontalSecondaryTile.icon(
                   icon: Icons.how_to_vote,
                   label: 'Bình chọn',
                   onPressed: () {
@@ -64,7 +88,7 @@ class HorizontalSongDialog extends StatelessWidget {
                         if (snapshot.hasData) {
                           final songs = snapshot.requireData.toList();
                           final unsaved = !songs.contains(song);
-                          return HorizontalOutlinedButton.large(
+                          return HorizontalSecondaryTile.icon(
                             icon: unsaved ? Icons.favorite_border : Icons.favorite,
                             label: unsaved ? 'Yêu thích' : 'Đã lưu',
                             onPressed: () async {
@@ -84,18 +108,18 @@ class HorizontalSongDialog extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: HorizontalOutlinedButton.large(
+                child: HorizontalSecondaryTile.icon(
                   icon: Icons.list_alt,
                   label: 'Chi tiết',
                   onPressed: () {
                     context.showHorizontalDialog(
                       HorizontalDialog(
-                        leading: HorizontalElevatedButton(
+                        leading: HorizontalPrimaryTile.icon(
                           icon: Icons.list_alt,
                           label: 'Chi tiết',
                           onPressed: () {},
                         ),
-                        trailing: HorizontalElevatedButton(
+                        trailing: HorizontalPrimaryTile.icon(
                           icon: Icons.arrow_back,
                           label: 'Quay lại',
                           onPressed: () => Navigator.pop(context),
@@ -108,31 +132,31 @@ class HorizontalSongDialog extends StatelessWidget {
                               return Row(
                                 children: [
                                   Expanded(
-                                    child: HorizontalOutlinedTile(
+                                    child: HorizontalSecondaryTile.text(
                                       title: '${metadata.viewCount}',
                                       subtitle: 'Lượt nghe',
                                     ),
                                   ),
                                   Expanded(
-                                    child: HorizontalOutlinedTile(
+                                    child: HorizontalSecondaryTile.text(
                                       title: '${metadata.likeCount}',
                                       subtitle: 'Lượt thích',
                                     ),
                                   ),
                                   Expanded(
-                                    child: HorizontalOutlinedTile(
+                                    child: HorizontalSecondaryTile.text(
                                       title: '${metadata.duration?.format()}',
                                       subtitle: 'Thời lượng',
                                     ),
                                   ),
                                   Expanded(
-                                    child: HorizontalOutlinedTile(
+                                    child: HorizontalSecondaryTile.text(
                                       title: '${metadata.uploadDate?.format()}',
                                       subtitle: 'Ngày tải lên',
                                     ),
                                   ),
                                   Expanded(
-                                    child: HorizontalOutlinedTile(
+                                    child: HorizontalSecondaryTile.text(
                                       title: '${metadata.publishDate?.format()}',
                                       subtitle: 'Ngày đăng tải',
                                     ),

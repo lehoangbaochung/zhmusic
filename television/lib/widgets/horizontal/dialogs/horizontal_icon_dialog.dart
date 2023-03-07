@@ -1,4 +1,6 @@
-part of '/pages/horizontal/horizontal_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:television/pages/horizontal/horizontal_dialog.dart';
+import 'package:television/pages/horizontal/horizontal_widget.dart';
 
 class HorizontalIconDialog extends StatelessWidget {
   const HorizontalIconDialog({super.key});
@@ -6,12 +8,12 @@ class HorizontalIconDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HorizontalDialog(
-      leading: HorizontalElevatedButton(
+      leading: HorizontalPrimaryTile.icon(
         icon: Icons.theater_comedy,
         label: 'Nhãn dán',
         onPressed: () {},
       ),
-      trailing: HorizontalElevatedButton(
+      trailing: HorizontalPrimaryTile.icon(
         icon: Icons.arrow_back,
         label: 'Quay lại',
         onPressed: () => Navigator.pop(context),
@@ -20,7 +22,9 @@ class HorizontalIconDialog extends StatelessWidget {
         'Tính năng đang được phát triển trong thời gian tới',
         textAlign: TextAlign.center,
         overflow: TextOverflow.ellipsis,
-        style: context.textTheme.headlineMedium,
+        style: TextStyle(
+          fontSize: context.fontSize,
+        ),
       ),
     );
   }

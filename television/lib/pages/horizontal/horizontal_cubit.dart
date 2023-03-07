@@ -1,13 +1,7 @@
 part of 'horizontal_page.dart';
 
 class HorizontalCubit extends Cubit<HorizontalState> {
-  HorizontalCubit() : super(HorizontalState.initial());
+  HorizontalCubit() : super(HorizontalState());
 
-  void changeSubtitleLanguage(MusicLanguage? language) {
-    emit(
-      state.copyWith(
-        subtitleLanguage: language,
-      ),
-    );
-  }
+
 }

@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:src/exports/entities.dart';
 import 'package:television/app/app_storage.dart';
+import 'package:television/pages/horivertical/horivertical_widget.dart';
 import 'package:television/pages/horizontal/horizontal_dialog.dart';
 import 'package:television/pages/horizontal/horizontal_widget.dart';
+import 'package:television/widgets/horizontal/horizontal_secondary_tile.dart';
 
 class HorizontalSubtitleDialog extends StatelessWidget {
   const HorizontalSubtitleDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.horizontalCubit;
+    final cubit = context.horiverticalCubit;
     return HorizontalDialog(
-      leading: HorizontalElevatedButton(
+      leading: HorizontalPrimaryTile.icon(
         icon: Icons.subtitles,
         label: 'Phụ đề',
         onPressed: () {},
       ),
-      trailing: HorizontalElevatedButton(
+      trailing: HorizontalPrimaryTile.icon(
         icon: Icons.arrow_back,
         label: 'Quay lại',
         onPressed: () => Navigator.pop(context),
@@ -24,7 +26,7 @@ class HorizontalSubtitleDialog extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: HorizontalOutlinedButton.large(
+            child: HorizontalSecondaryTile.icon(
               icon: Icons.subtitles_off,
               label: 'Tắt',
               onPressed: () async {
@@ -35,7 +37,7 @@ class HorizontalSubtitleDialog extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: HorizontalOutlinedButton.large(
+            child: HorizontalSecondaryTile.icon(
               icon: Icons.language,
               label: 'Tiếng Việt',
               onPressed: () async {
@@ -46,7 +48,7 @@ class HorizontalSubtitleDialog extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: HorizontalOutlinedButton.large(
+            child: HorizontalSecondaryTile.icon(
               icon: Icons.language,
               label: 'Bính âm',
               onPressed: () async {
@@ -57,7 +59,7 @@ class HorizontalSubtitleDialog extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: HorizontalOutlinedButton.large(
+            child: HorizontalSecondaryTile.icon(
               icon: Icons.language,
               label: 'Tiếng Trung (Giản thể)',
               onPressed: () async {
@@ -68,7 +70,7 @@ class HorizontalSubtitleDialog extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: HorizontalOutlinedButton.large(
+            child: HorizontalSecondaryTile.icon(
               icon: Icons.language,
               label: 'Tiếng Trung (Phồn thể)',
               onPressed: () async {

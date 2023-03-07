@@ -1,4 +1,8 @@
-part of '/pages/horizontal/horizontal_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:television/pages/horivertical/horivertical_widget.dart';
+import 'package:television/pages/horizontal/horizontal_dialog.dart';
+import 'package:television/pages/horizontal/horizontal_widget.dart';
+import 'package:television/widgets/horizontal/horizontal_song_tile.dart';
 
 class HorizontalPlaylistDialog extends StatelessWidget {
   const HorizontalPlaylistDialog({super.key});
@@ -7,12 +11,12 @@ class HorizontalPlaylistDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     final playlist = context.horiverticalState.playlist;
     return HorizontalDialog(
-      leading: HorizontalElevatedButton(
+      leading: HorizontalPrimaryTile.icon(
         icon: Icons.playlist_play,
         label: 'Playlist',
         onPressed: () {},
       ),
-      trailing: HorizontalElevatedButton(
+      trailing: HorizontalPrimaryTile.icon(
         icon: Icons.close,
         label: 'Đóng',
         onPressed: () => Navigator.pop(context),

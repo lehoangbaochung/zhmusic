@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:src/exports/repositories.dart';
@@ -16,8 +18,10 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: FutureBuilder(
-        future: musicService.checkNetwork(),
+      body: StreamBuilder(
+        stream: Stream.fromFuture(
+          musicService.checkNetwork(),
+        ).asBroadcastStream(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final connected = snapshot.requireData;
@@ -59,14 +63,15 @@ class MainPage extends StatelessWidget {
                   'Kiểm tra lại kết nối của bạn và thử lại',
                 ),
                 actions: [
-                  TextButton(
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(elevation: 0),
                     onPressed: () async {
                       await musicService.checkNetwork();
                     },
                     child: const Text('Thử lại'),
                   ),
                   TextButton(
-                    onPressed: () => Navigator.pop(context),
+                    onPressed: () => exit(0),
                     child: const Text('Thoát'),
                   ),
                 ],

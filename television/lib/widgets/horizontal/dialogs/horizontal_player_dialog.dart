@@ -1,17 +1,25 @@
-part of '/pages/horizontal/horizontal_dialog.dart';
+import 'package:flutter/material.dart';
+import 'package:television/pages/horivertical/horivertical_page.dart';
+import 'package:television/pages/horivertical/horivertical_widget.dart';
+import 'package:television/pages/horizontal/horizontal_dialog.dart';
+import 'package:television/pages/horizontal/horizontal_widget.dart';
+
+import '../horizontal_secondary_tile.dart';
+import 'horizontal_subtitle_dialog.dart';
 
 class HorizontalPlayerDialog extends StatelessWidget {
   const HorizontalPlayerDialog({super.key});
 
   @override
   Widget build(BuildContext context) {
+    
     return HorizontalDialog(
-      leading: HorizontalElevatedButton(
+      leading: HorizontalPrimaryTile.icon(
         icon: Icons.play_circle,
         label: 'Trình phát',
         onPressed: () {},
       ),
-      trailing: HorizontalElevatedButton(
+      trailing: HorizontalPrimaryTile.icon(
         icon: Icons.arrow_back,
         label: 'Quay lại',
         onPressed: () => Navigator.pop(context),
@@ -19,7 +27,7 @@ class HorizontalPlayerDialog extends StatelessWidget {
       child: Row(
         children: [
           Expanded(
-            child: HorizontalOutlinedButton.large(
+            child: HorizontalSecondaryTile.icon(
               icon: Icons.volume_up,
               label: 'Âm lượng',
               onPressed: () {
@@ -30,7 +38,7 @@ class HorizontalPlayerDialog extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: HorizontalOutlinedButton.large(
+            child: HorizontalSecondaryTile.icon(
               icon: Icons.skip_previous,
               label: 'Bài trước',
               onPressed: null,
@@ -42,7 +50,7 @@ class HorizontalPlayerDialog extends StatelessWidget {
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   final playing = snapshot.requireData;
-                  return HorizontalOutlinedButton.large(
+                  return HorizontalSecondaryTile.icon(
                     icon: playing ? Icons.pause : Icons.play_arrow,
                     label: playing ? 'Tạm dừng' : 'Phát',
                     onPressed: () async {
@@ -59,14 +67,14 @@ class HorizontalPlayerDialog extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: HorizontalOutlinedButton.large(
+            child: HorizontalSecondaryTile.icon(
               icon: Icons.skip_next,
               label: 'Bài sau',
               onPressed: () => context.horiverticalCubit.next(),
             ),
           ),
           Expanded(
-            child: HorizontalOutlinedButton.large(
+            child: HorizontalSecondaryTile.icon(
               icon: Icons.subtitles,
               label: 'Phụ đề',
               onPressed: () async {

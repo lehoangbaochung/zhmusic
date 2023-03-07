@@ -9,7 +9,7 @@ class HorizontalSubtitleText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final subtitleLanguage = context.horizontalState.subtitleLanguage;
+    final subtitleLanguage = context.horiverticalState.subtitleLanguage;
     return Builder(
       builder: (_) {
         if (subtitleLanguage == null) {
